@@ -8,7 +8,7 @@ Welcome to Github page for the [Environmental Studies program](https://as.tufts.
 
 - ENV 170: Environmental Data Analysis and Visualization
 
-The current manager of the site is [Ben Davies](https://bdavies.github.io), and can be reached via email at bendavies.envs AT gmail.com.
+The current manager of the site is [Ben Davies](https://b-davies.github.io), and can be reached via email at bendavies.envs AT gmail.com.
 
 
 
