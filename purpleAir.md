@@ -1,7 +1,7 @@
 ---
 layout: page
-title: PM2.5 AQI @ Bromfield Pearson
-permalink: /purpleair/
+title: Air Quality Data
+permalink: /tuftsAQ/
 tags: aq
 ---
 
