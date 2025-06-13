@@ -1,15 +1,13 @@
 # Site settings
-title:       Ben Davies
+title:       Tufts ENVS
 email:       
 author:      Ben Davies
 description: ""
 baseurl:     ""
-url:         "http://b-davies.github.io"
+url:         "http://tuftsenvs.github.io"
 date_format: "%b %-d, %Y"
 header_pages:
  - about.md
- - publications.md
- - teaching.md
 
 # Google services
 google_verification:
