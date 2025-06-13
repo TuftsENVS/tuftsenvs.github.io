@@ -1,0 +1,19 @@
+<footer>
+  <div align="center" class="measure">
+  
+      <a href="http://b-davies.github.io">Web</a> &nbsp; <a href="https://twitter.com/ba_davies">Twitter</a> &nbsp; <a href="https://simulatingcomplexity.wordpress.com/">Blog</a> &nbsp; <a href="https://orcid.org/0000-0002-9066-098X">ORCiD</a> <br>
+      <br>
+    
+  </div>
+  <div align="center" class="measure">
+    <small>
+  <a href="https://github.com/johnotander/pixyll">Pixyll</a> web theme by <a href="http://johnotander.com">John Otander</a>.
+   </small>
+  </div>
+</footer>
+{% if site.enable_anchorjs %}<!-- AnchorJS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/3.0.0/anchor.min.js"></script>
+<script>
+    anchors.options.visible = 'always';
+    anchors.add('article h2, article h3, article h4, article h5, article h6');
+</script>{% endif %}
