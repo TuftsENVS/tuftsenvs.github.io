@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Working with data – Working with Data and File Systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04_ExportingData.html" rel="next">
+<link href="./02_ImportData.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fdf964b8551a4c1da979a829183e41b0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_WorkingWithData.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Working with data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Working with Data and File Systems</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_FileSystems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">File systems in R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_ImportData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_WorkingWithData.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Working with data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_ExportingData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exporting data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_WrappingUp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wrapping up</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#changing-the-raw-data" id="toc-changing-the-raw-data" class="nav-link active" data-scroll-target="#changing-the-raw-data">Changing the raw data</a></li>
+  <li><a href="#getting-and-changing-column-names" id="toc-getting-and-changing-column-names" class="nav-link" data-scroll-target="#getting-and-changing-column-names">Getting and changing column names</a></li>
+  <li><a href="#getting-and-changing-values" id="toc-getting-and-changing-values" class="nav-link" data-scroll-target="#getting-and-changing-values">Getting and changing values</a></li>
+  <li><a href="#adding-rows" id="toc-adding-rows" class="nav-link" data-scroll-target="#adding-rows">Adding rows</a></li>
+  <li><a href="#adding-columns" id="toc-adding-columns" class="nav-link" data-scroll-target="#adding-columns">Adding columns</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Working with data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>In this section we’ll look at ways to modify data stored in a table. This will give us the foundation to start dealing with cleaning, tidying, and transforming data.</p>
+<section id="changing-the-raw-data" class="level3">
+<h3 class="anchored" data-anchor-id="changing-the-raw-data">Changing the raw data</h3>
+<p>As we move on through this lab, we’re going to be making changes to the original dataset. Whenever we’re going to be changing the original data, it is <u>often a good idea</u> to work a copy so we don’t mangle it and not have a way to return to it without starting over.</p>
+<p>Luckily, this is a pretty painless process. To make a copy of a dataset in R, all we do is assign the same dataset to a new variable name, like so:</p>
+<p><code style="color: blue">raro2022mod&lt;-raro2022</code></p>
+<p>Now we can feel free to make changes to the Rarotonga weather data stored in <strong>raro2022mod</strong>, knowing that if we needed to reference the original data it is still stored in <strong>raro2022.</strong></p>
+</section>
+<section id="getting-and-changing-column-names" class="level3">
+<h3 class="anchored" data-anchor-id="getting-and-changing-column-names">Getting and changing column names</h3>
+<p>Both dataframes and tibbles store a set of names associated which each column in the dataset. These can be accessed using the <code>names</code> function:</p>
+<p><code style="color: blue">names(raro2022mod)</code></p>
+<p><code>[1] "STATION" "NAME"    "DATE"    "PRCP"    "TAVG"    "TMAX"    "TMIN"</code></p>
+<p>This returns a vector of character strings corresponding to the column headers. In some cases it can be useful to know how to access these names directly. Let’s say that we weren’t especially fond of these names and wanted to change them. We can do this by first creating a vector of names we do like. For example:</p>
+<p><code style="color: blue">newNames&lt;-c("SITE_NUM","LOCATION","DATE","PRECIP_IN","AV_TEMP","MAX_TEMP","MIN_TEMP")</code></p>
+<p>Next, we assign the new names by once again using the <code>names</code> function:</p>
+<p><code style="color: blue">names(raro2022mod)&lt;-newNames</code></p>
+<p>This is a little different than anything we’ve seen so far, assigning a value to something that is inside of a function. This code is effectively saying “take the column names in the <code>raro2022mod</code> dataset and replace them with this <code>newNames</code> vector.” Now when we call for the names again…</p>
+<p><code style="color: blue">names(raro2022mod)</code></p>
+<p>…we get the new values we’ve inserted:</p>
+<p><code>[1] "SITE_NUM"  "LOCATION"  "DATE"      "PRECIP_IN" "AV_TEMP"   "MAX_TEMP"</code></p>
+<p><code>[7] "MIN_TEMP"</code></p>
+</section>
+<section id="getting-and-changing-values" class="level3">
+<h3 class="anchored" data-anchor-id="getting-and-changing-values">Getting and changing values</h3>
+<p>As we saw last week, we can look at individual values in a dataset by giving the row and column numbers in square brackets (<code>[]</code>). For example, if we wanted the value on the 4th row in the 5th column, we’d do this:</p>
+<p><code style="color: blue">raro2022mod[4,5]</code></p>
+<p><code># A tibble: 1 × 1</code></p>
+<p><code>AV_TEMP</code></p>
+<p><code>&lt;dbl&gt;</code></p>
+<p><code>1      80</code></p>
+<p>Whoa! That’s a lot of info just to get the number 80. What is happening here is that R is taking the individual value from your tibble and returning them to you as a 1 column, 1 row tibble, complete with column header.</p>
+<p>Occasionally, you might find that individual data points may need adjusting. For example, let’s say that Jerry at NOAA called you up. He was going back through his notes and realized he entered the wrong average temperature in the Rarotonga Airport records on January 4, 2022: it should be 81 degrees rather than 80! He was concerned this might affect your research and called you up to warn you. If you want to fix this value, you can use the square brackets and assign a new value:</p>
+<p><code style="color: blue">raro2022mod[4,5]&lt;-81</code></p>
+<p>Later, Jerry calls to say nevermind, it was a rounding error, the weather on the 4th was fine the way it was. You can change it back the same way:</p>
+<p><code style="color: blue">raro2022mod[4,5]&lt;-80</code></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try it yourself!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Looking up values using the square brackets uses two numbers that are <strong>indices</strong> (the plural of <strong>index</strong>). These indicate a position in a sequence of rows (row 1, row 2, …) or a sequence of columns (column 1, column 2, …) . This is a little like using a coordinate system, giving the index position of a value along two axes. These need to be numerical objects, but R will also accept variables that store numerical objects as indices.</p>
+<ul>
+<li><p>Open a new script and save it to your scripts folder with the name <em>WorkingWithData</em></p></li>
+<li><p>Write some code that assigns a number (say 3 for starters) to a variable called <em>rowIndex</em></p></li>
+<li><p>Add another variable called <em>columnIndex</em> that also stores a number (say, 6)</p></li>
+<li><p>Finally, write some code that uses square brackets to look up a value in the <strong>raro2022mod</strong> tibble with rowIndex and columnIndex. Once you’ve got this working, try changing the numbers for rowIndex and columnIndex and see what happens.</p></li>
+</ul>
+<p><strong>Stretch activity (optional)</strong></p>
+<p>What if you wanted values from multiple rows? Or multiple columns? Or both? Can you think of a way to still use square brackets and get more than one value back?</p>
+</div>
+</div>
+</section>
+<section id="adding-rows" class="level3">
+<h3 class="anchored" data-anchor-id="adding-rows">Adding rows</h3>
+<p>Sometimes you may want to add rows to your data. For example, you may record the same kind of data at several different places or several different times, and you may want to combine the multiple files into a single table.</p>
+<p>In your data folder, you should have a dataset called <em>raroWeather2021.csv</em>. Import this data in as a tibble using <code>read_csv</code> and store it as a variable called <strong>raro2021</strong>:</p>
+<p><code style="color: blue">raro2021&lt;-read_csv("Data/raroWeather2021.csv")</code></p>
+<p>This data comes from the same source, and is also weather data from Rarotonga Airport, but covers the year 2021 instead of 2022. If you look at it, it is structured very much like our 2022 data:</p>
+<p><code style="color: blue">raro2021</code></p>
+<p><img src="Week2Static/raro2021tibble.jpg" class="img-fluid"></p>
+<p>In fact, the major key difference here is that, rather than 365 days, this dataset only has 362. That means that a few days are missing from this dataset. This won’t affect what we’re doing today, but it’s always worth checking the dimensions of your tibbles to make sure the numbers make sense.</p>
+<p>This difference aside, we can see that this has the same 7 columns as our existing data, which means that we should be able to combine these two into a single tibble using the <code>bind_rows</code> function, which works like so:</p>
+<p><code style="color: blue">raro21_22&lt;-bind_rows(raro2021,raro2022mod)</code></p>
+<p>Let’s take a look:</p>
+<p><code style="color: blue">raro21_22</code></p>
+<p><img src="Week2Static/raro2122oops.jpg" class="img-fluid"></p>
+<p>You can see now that there are 727 rows, so we now have two years of data together. However, we now have 13 columns! What gives?! This problem is actually not an issue with the data, but stems from something we did to it: we changed the names in the <code>raro2022mod</code> columns. Because of this, R treats them as different variables, and so when it combines them, it creates a new column for each unique column name. It then fills in the portions for which it has no data (for example, <em>PRECIP_IN</em> for the 2021 data) with NAs.</p>
+<p>What can we do to fix this? We could rename all our columns for the 2021 data to match the 2022 data. But also remember that we still have our raw data for 2022 saved as <code>raro2022</code>, so we can just substitute that in to combine them both:</p>
+<p><code style="color: blue">raro21_22&lt;-bind_rows(raro2021,raro2022)</code></p>
+<p>And when we have a look at the tibble:</p>
+<p><code style="color: blue">raro21_22</code></p>
+<p><img src="Week2Static/raro2122fixed.jpg" class="img-fluid"></p>
+<p>Ah, much better. Back to 7 columns, but both years in the same table.</p>
+</section>
+<section id="adding-columns" class="level3">
+<h3 class="anchored" data-anchor-id="adding-columns">Adding columns</h3>
+<p>There are many instances when you might want to add additional columns to a table. For example, if you had columns of different valuations for ecosystem services provided by state parks, you might want to sum them all and create a column for total value. Or maybe you want to combine</p>
+<p>Let’s say we wanted to convert the precipitation values in our Rarotonga weather data from imperial to metric. The math we need to do so is:</p>
+<p><span class="math display">\[ P_{cm}=P_{in} \times 2.54 \]</span></p>
+<p>Where <span class="math inline">\(P_{cm}\)</span> is precipitation in centimeters, <span class="math inline">\(P_{in}\)</span> and is precipitation in inches.</p>
+<p>First, let’s take the precipitation data we have, which is in inches, out of the tibble and into a vector called <em>raroPrecip</em>:</p>
+<p><code style="color: blue">raroPrecip&lt;-raro21_22$PRCP</code></p>
+<p>See that we can still use the dollar sign (<code>$</code>) operator to indicate column values, just as we did with dataframes. Let’s have a look:</p>
+<p><code style="color: blue">raroPrecip</code></p>
+<p>It will probably spit out something that looks like this:</p>
+<p><code>[1]   NA 0.02 0.04 0.05 0.04   NA 0.24 0.00 0.16 0.02 0.20 0.00 0.00   NA</code></p>
+<p><code>[15] 0.03 0.00   NA 0.00   NA   NA   NA   NA   NA 0.01 0.02 0.00 0.01   NA</code></p>
+<p><code>[29]   NA 0.00 0.06   NA 0.20 0.00   NA   NA 0.00   NA 0.32 0.00   NA   NA</code></p>
+<p><code>[43] 0.14 0.26 0.79 0.05 1.18   NA   NA 4.37 1.34 2.80 0.00   NA 0.39   NA</code></p>
+<p><code>[57] 0.00   NA   NA 0.02   NA   NA 0.67 0.07   NA 0.02 0.20   NA 0.55 0.00</code></p>
+<p><code>[71] 0.75 0.01 0.25 0.11 0.04   NA 0.00 0.39   NA 0.00 0.00   NA   NA 0.03</code></p>
+<p><code>[85]   NA 0.11   NA   NA 0.00 0.00 0.00 0.04 0.00 0.00   NA 0.47 0.04 0.02</code></p>
+<p><code>[99] 1.98 0.04   NA   NA   NA 0.00 0.00   NA   NA   NA 0.04   NA 0.20 0.00</code></p>
+<p><code>[113] 0.00 0.00 0.00   NA   NA   NA 1.61   NA 0.00   NA   NA   NA 0.00   NA</code></p>
+<p><code>[127]   NA 0.02 4.19   NA 0.08 0.00   NA 0.04   NA 0.04 0.04 0.00 0.00 0.00</code></p>
+<p><code>[141] 0.04 0.08 0.00 0.00   NA   NA 0.00   NA   NA 0.00 0.00 0.04 2.09 0.00</code></p>
+<p><code>[155] 0.00   NA 0.03 0.00 0.24 0.16 0.01 0.02 0.35 0.00   NA   NA   NA 0.01</code></p>
+<p><code>[169] 0.00 0.00 0.00 0.12   NA   NA 0.02 0.00 0.05 0.04   NA 0.01 0.00 0.00</code></p>
+<p><code>[183]   NA   NA 0.01 0.00   NA   NA 0.04 0.00 0.00 0.00 0.00 0.61   NA 0.00</code></p>
+<p><code>[197] 0.00   NA   NA 0.00   NA 0.00   NA   NA   NA 0.00 0.67 0.00 0.00   NA</code></p>
+<p><code>[211] 1.85   NA 0.04 0.02   NA 0.00 0.00 0.00 0.00   NA 0.02 1.26   NA   NA</code></p>
+<p><code>[225]   NA 0.00   NA 0.51 0.04 0.00 0.00 0.35 0.00 0.02 0.40   NA 0.00   NA</code></p>
+<p><code>[239] 0.00 0.00 0.00 0.76 0.36   NA   NA   NA 0.01 0.00   NA   NA 0.00 0.08</code></p>
+<p><code>[253] 0.00   NA 0.05 0.00   NA 0.00   NA   NA   NA 0.03 0.00 0.00   NA 0.12</code></p>
+<p><code>[267]   NA 0.00 0.00 0.00 0.00 0.91 0.47 0.24 0.56 0.00 0.00 0.00 0.00   NA</code></p>
+<p><code>[281]   NA   NA   NA   NA 0.00 0.00   NA 0.24 0.00 0.00   NA   NA 0.00 0.00</code></p>
+<p><code>[295] 0.00 0.00   NA 0.00 0.00 0.00 0.00   NA 0.00 0.04 0.01 0.00 0.00 0.00</code></p>
+<p><code>[309] 0.04 0.00   NA   NA 0.00   NA 0.04   NA   NA 0.04 0.00 0.00 0.00   NA</code></p>
+<p><code>[323]   NA 0.04 0.00 0.00   NA   NA   NA   NA 0.00 0.00   NA   NA 0.69 0.00</code></p>
+<p><code>[337] 0.00 1.06 0.17   NA   NA 0.04   NA 2.09   NA 0.00 0.00 0.00 0.11 0.00</code></p>
+<p><code>[351] 0.04 0.04 3.62 1.02 0.01 0.00 0.00 0.04 0.12   NA 1.24   NA 0.08   NA</code></p>
+<p><code>[365] 0.32   NA   NA   NA 0.00 0.00   NA   NA 0.04   NA   NA   NA 0.00   NA</code></p>
+<p><code>[379] 0.10   NA 0.37 0.08   NA 4.37 0.00 0.61 0.13 0.02 0.00 0.00 0.01 0.03</code></p>
+<p><code>[393]   NA 1.07 0.40 0.01   NA   NA   NA 0.00 0.42   NA 0.04 0.00   NA 0.30</code></p>
+<p><code>[407] 0.42 1.02   NA   NA 0.70   NA   NA 0.28 0.01 0.00 0.00   NA   NA 0.00</code></p>
+<p><code>[421]   NA 0.02 0.05 0.00 0.00 0.00 1.20 0.98   NA   NA 0.32 0.13 0.02 0.00</code></p>
+<p><code>[435] 0.00 0.00 0.00 0.00 0.00   NA 0.01 0.00 0.43 0.01 0.00 0.04 0.00 0.08</code></p>
+<p><code>[449] 0.88   NA 0.00 0.00 0.00 0.00   NA 0.14 0.00 0.00 0.00 0.02 0.00 0.01</code></p>
+<p><code>[463] 0.79 0.69   NA 0.00 0.00 0.01 1.18 0.00   NA   NA 0.01   NA 0.87 0.00</code></p>
+<p><code>[477] 0.02 1.14 0.36 0.00 0.02 0.02   NA 0.00   NA 0.13 0.00 0.00 0.00 0.00</code></p>
+<p><code>[491]   NA 0.04   NA   NA 0.20 0.00   NA 0.00 0.02 0.24   NA 0.82 0.00   NA</code></p>
+<p><code>[505]   NA   NA   NA   NA   NA 0.17 0.02 0.06   NA 0.39 0.04 0.04 0.28 0.05</code></p>
+<p><code>[519] 0.00   NA 0.00 0.00 0.00 0.00 0.00   NA 0.82 0.00 0.00   NA   NA   NA</code></p>
+<p><code>[533]   NA 0.00   NA   NA   NA 0.16   NA   NA 0.84   NA 0.08 0.83   NA 0.00</code></p>
+<p><code>[547] 0.00   NA 0.00   NA   NA 0.00   NA 0.00 0.00 0.00   NA 0.00   NA   NA</code></p>
+<p><code>[561]   NA 0.04 0.13   NA 0.02 0.08 0.00 0.05 0.16 0.00 0.14 0.01 0.00 0.00</code></p>
+<p><code>[575] 0.00   NA 0.00 0.00 0.02 0.01 0.01 0.00   NA   NA 0.00 0.00 0.00 0.20</code></p>
+<p><code>[589]   NA 0.00 0.47 0.12   NA 1.52   NA   NA 0.59   NA   NA 0.00 0.20 0.03</code></p>
+<p><code>[603]   NA 0.00   NA 0.00 0.37 0.12 0.16 0.00 0.20 0.00 0.00 0.00 0.00 0.00</code></p>
+<p><code>[617] 0.01 0.00   NA 0.00 0.00 0.00 0.00 0.00 1.28   NA 0.00 0.00   NA 0.00</code></p>
+<p><code>[631]   NA 0.02 2.44   NA   NA 0.05   NA 0.00 0.00   NA 0.00   NA   NA   NA</code></p>
+<p><code>[645] 0.42 0.79   NA 0.00   NA 0.00   NA   NA   NA 0.00 0.02   NA 0.00 0.12</code></p>
+<p><code>[659] 1.73 0.99 0.00 0.10 0.00 0.00 0.43   NA   NA   NA   NA   NA   NA   NA</code></p>
+<p><code>[673]   NA 0.00 0.00   NA 0.00 0.00 0.00 0.00 0.00   NA 0.00 0.08 0.08   NA</code></p>
+<p><code>[687] 0.00 0.08   NA 0.04 0.00   NA   NA 0.08 0.83 0.00 0.00 0.00 0.00 0.00</code></p>
+<p><code>[701]   NA 0.41 2.44   NA   NA   NA   NA   NA   NA   NA 0.66 4.53   NA 0.00</code></p>
+<p><code>[715]   NA 1.98   NA 0.20 0.00 0.08 0.00 0.00 0.00 0.08   NA 0.08 0.24</code></p>
+<p>OK, OK, it’s a very long vector! Maybe we didn’t need to print all of that out just to know what it looks like. For future reference, we can look at just the first 6 entries of a vector using the <code>head</code> function:</p>
+<p><code style="color: blue">head(raroPrecip)</code></p>
+<p><code>[1] NA 0.02 0.04 0.05 0.04   NA</code></p>
+<p>This is just a handy function to let us make sure the data look right (for example, it isn’t character strings or logicals, or numbers that look more like temperatures), but we don’t have to look at all the data to do that. This is a good check to do when you’re working with large vectors. You can look at the last 6 by using the <code>tail</code> function:</p>
+<p><code style="color: blue">tail(raroPrecip)</code></p>
+<p><code>[1] 0.00 0.00 0.08   NA 0.08 0.24</code></p>
+<p>Great, now we have all our precipitation values in a single vector<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, and we can do some quick vector math:</p>
+<p><code style="color: blue">raroPrecipCM&lt;-raroPrecip * 2.54</code></p>
+<p>Remember in Lecture 1 when we talked about R functions and expressions being vectorized? This is an example of that. Rather than have to multiply by a vector of 2.54s, R understands <code>raroPrecip * 2.54</code> to mean</p>
+<p>“Multiply all values in the <code>raroPrecip</code> vector by 2.54.”</p>
+<p>And if we look at the new vector we created, we can see it’s done just that:</p>
+<p><code style="color: blue">head(raroPrecipCM)</code></p>
+<p><code>[1]     NA 0.0508 0.1016 0.1270 0.1016     NA</code></p>
+<p>Note that nothing happened to the NA values, and that’s just as it should be. As they indicate the absence of data, there is nothing to multiply, and so these remain unchanged.</p>
+<p>Now we’d like to add this new vector to our <code>raro21_22</code> tibble. To do this, we’ll use the <code>$</code> operator again, but in a new way:</p>
+<p><code style="color: blue">raro21_22$PRECIP_CM&lt;-raroPrecipCM</code></p>
+<p>What we’ve done here is use <code>$</code> to access a column that doesn’t exist in our <code>raro21_22</code> tibble, which is called <em>PRECIP_CM.</em> If we then assign something to that invented column, as long as the object we’re assigning fits (that is, the vector is as long as the number of rows in the tibble), then it will create a new column and attach the vector data there. If we now look at our tibble:</p>
+<p><code style="color: blue">raro21_22</code></p>
+<p>…we see the new column added to the mix:</p>
+<p><img src="Week2Static/tibble8cols.jpg" class="img-fluid"></p>
+<p>We’ll learn some other ways to create new columns as we continue in the course, including methods that don’t require us to take data out of the tibble at all. But for now, as we’re thinking about how datasets work in R, it’s useful practice to see how we can go back and forth between vectors and tibble columns.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try it yourself!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s get our temperature data converted to metric as well. The math needed to do that is:</p>
+<p><span class="math display">\[ T_{C}=(T_{F}-32) \times \frac{5}{9}  \]</span></p>
+<p>Where <span class="math inline">\(T_{C}\)</span> is temperature in degrees Celsius, and <span class="math inline">\(T_{F}\)</span> is temperature in degrees Fahrenheit. Follow the same steps we used above, and save the values to a new column in the raro21_22 dataset.</p>
+</div>
+</div>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>You may remember that you can also use the square brackets to access the column values in a dataframe (e.g., <code>raro21_22[,4]</code> to get the 4th column). However, if you do this with a tibble, it will return a 1-column tibble just as it did above. This would need to be handled differently than the vector generated using the <code>$</code> operator.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02_ImportData.html" class="pagination-link" aria-label="Importing data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04_ExportingData.html" class="pagination-link" aria-label="Exporting data">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Exporting data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
