@@ -74,7 +74,7 @@
     "href": "04_ExportingData.html",
     "title": "4  Exporting data",
     "section": "",
-    "text": "As a final step, we’ll take our tibble data and export it back to a .csv file. The write_csv function will get us there:\nwrite_csv(raro21_22,\"Data/raroWeather2Year.csv\"\nThis is taking two arguments: the first is the tibble where our data is stored, and the second is a path where we want to save it as a .csv file. In this case, we’ve added the Data folder to the path so, rather than just having the file end up in the working directory, it will go the correct folder, which you can see by clicking on the Data folder in the File tab:\n\nBy this point, you should be able to see this file in your directory and know how to read it back in if you wanted to, but if you’re not sure, go ahead and try it, and go back through the lab if you need a reminder.",
+    "text": "As a final step, we’ll take our tibble data and export it back to a .csv file. The write_csv function will get us there:\nwrite_csv(raro21_22,\"Data/raroWeather2Year.csv)\"\nThis is taking two arguments: the first is the tibble where our data is stored, and the second is a path where we want to save it as a .csv file. In this case, we’ve added the Data folder to the path so, rather than just having the file end up in the working directory, it will go the correct folder, which you can see by clicking on the Data folder in the File tab:\n\nBy this point, you should be able to see this file in your directory and know how to read it back in if you wanted to, but if you’re not sure, go ahead and try it, and go back through the lab if you need a reminder.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Exporting data</span>"
     ]
