@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Visualizing Amounts and Proportions – Getting Started with Visualization in ggplot2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04_Distributions.html" rel="next">
+<link href="./01_UsingGrammar.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fdf964b8551a4c1da979a829183e41b0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02_Amounts.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualizing Amounts and Proportions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Getting Started with Visualization in ggplot2</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_UsingGrammar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Grammar of Graphics</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Amounts.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualizing Amounts and Proportions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Distributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visualizing distributions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Relationships.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Visualizing relationships</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#mapping-to-geom_bar" id="toc-mapping-to-geom_bar" class="nav-link active" data-scroll-target="#mapping-to-geom_bar">Mapping to geom_bar</a></li>
+  <li><a href="#modifying-line-and-fill-colors" id="toc-modifying-line-and-fill-colors" class="nav-link" data-scroll-target="#modifying-line-and-fill-colors">Modifying line and fill colors</a></li>
+  <li><a href="#adding-a-mapping-bars-on-bars" id="toc-adding-a-mapping-bars-on-bars" class="nav-link" data-scroll-target="#adding-a-mapping-bars-on-bars">Adding a mapping: bars on bars</a></li>
+  <li><a href="#try-it-yourself-1" id="toc-try-it-yourself-1" class="nav-link" data-scroll-target="#try-it-yourself-1">Try it yourself!</a></li>
+  <li><a href="#visualizing-proportions" id="toc-visualizing-proportions" class="nav-link" data-scroll-target="#visualizing-proportions">Visualizing Proportions</a></li>
+  <li><a href="#some-additional-considerations-for-plotting-amounts-data" id="toc-some-additional-considerations-for-plotting-amounts-data" class="nav-link" data-scroll-target="#some-additional-considerations-for-plotting-amounts-data">Some additional considerations for plotting amounts data</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Visualizing Amounts and Proportions</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>One of the most common forms of data we might deal with are amounts, or counts of things. This might include counts of species observed in a meadow; the frequencies of ; or the number of pollution violations recorded in different counties. In this section, we’ll explore how to use bar plots in order to illustrate how we can apply the Grammar of Graphics to amounts data through <code>ggplot2</code>.</p>
+<section id="mapping-to-geom_bar" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-to-geom_bar">Mapping to geom_bar</h3>
+<p>In addition to loading the necessary packages, let’s get a new dataset. We can access the data from the Gapminder plot as a package in R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datasets)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("gapminder")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Removing the # at the front will allow you to install this package (I have it here because I already have it installed). This will add the dataset as a tibble called <strong>gapminder</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>gapminder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# ℹ 1,694 more rows</code></pre>
+</div>
+</div>
+<p>We have a few different variables to work with in this dataset, including:</p>
+<ul>
+<li><p>Country</p></li>
+<li><p>Continent</p></li>
+<li><p>Year of recording</p></li>
+<li><p>Life expectancy (in years)</p></li>
+<li><p>Population</p></li>
+<li><p>Per capita Gross Domestic Product (in USD)</p></li>
+</ul>
+<p>Let’s use some of this to make a bar plot. First, we can try using the year of recording as a categorical variable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>year)) <span class="sc">+</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hmmm… all of the bars are exactly the same. This is because the function is counting the number of instances of each year in the dataset. Since the same number of countries are recorded for each year, this means the bar plot will just be the number of countries (142) for each year. What if we used country?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>country)) <span class="sc">+</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ack! Not only is this uninformative (countries are recorded over the same 12 years), but there’s too many countries to plot on the x-axis. Let’s try again but with continents:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gapminder,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>continent)) <span class="sc">+</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This makes a bit more sense. We can see there are more instances of “Africa” than, say, “Americas”, which makes sense: there are more countries in Africa than in the Americas. However, if we look at the left, the counts are a pretty high estimate for number of countries. This is because for each continent, it is counting each country for each year (12) in the dataset.</p>
+<p>Let’s say we just wanted to look at the data from the most recent year in the dataset. First, we need to figure out what that year was. We can use the <code>max</code> function to get this information:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(gapminder<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2007</code></pre>
+</div>
+</div>
+<p>This function just takes a vector and gives the maximum value. So the most recent data here is from 2007. If we just want the data from that year, we can use the square brackets (<code>[]</code>) to subset the data to just the rows from 2007. We’ll create a new variable called gm2007:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>gm2007<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>year<span class="sc">==</span><span class="dv">2007</span>,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Remember that inside the square brackets, what comes left of the comma refers to rows, and what comes right refers to columns. So this code is effectively saying “give me all the rows in the <strong>gapminder</strong> tibble where the value in the <strong>year</strong> column is equal to <strong>2007</strong>.” We’ve assigned it to a new object called <code>gm2007</code>. Now, when we look:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>gm2007</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 142 × 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2007    43.8  31889923      975.
+ 2 Albania     Europe     2007    76.4   3600523     5937.
+ 3 Algeria     Africa     2007    72.3  33333216     6223.
+ 4 Angola      Africa     2007    42.7  12420476     4797.
+ 5 Argentina   Americas   2007    75.3  40301927    12779.
+ 6 Australia   Oceania    2007    81.2  20434176    34435.
+ 7 Austria     Europe     2007    79.8   8199783    36126.
+ 8 Bahrain     Asia       2007    75.6    708573    29796.
+ 9 Bangladesh  Asia       2007    64.1 150448339     1391.
+10 Belgium     Europe     2007    79.4  10392226    33693.
+# ℹ 132 more rows</code></pre>
+</div>
+</div>
+<p>Great, with only 142 rows, we can be confident that we now have only one year’s worth of data. When we make a bar plot:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>continent)) <span class="sc">+</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The numbers on the y-axis look a lot more reasonable. Now each bar is reflecting the number of countries in each continental grouping.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try it yourself!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You can look at all the years in this dataset using the <code>unique</code> function. It works like this</p>
+<p><code>unique(gapminder$year)</code></p>
+<p>Choose another year from this data, create a subset, and then make a barplot of the number of countries by continent.</p>
+</div>
+</div>
+</section>
+<section id="modifying-line-and-fill-colors" class="level3">
+<h3 class="anchored" data-anchor-id="modifying-line-and-fill-colors">Modifying line and fill colors</h3>
+<p>Our graph so far is doing a good job of communicating the number of countries from each continent in our dataset, but let’s say we wanted something a little more lively than a grey-on-grey color scheme. We can add color to our graph elements by making arguments to the <code>geom_bar</code> function. First, we’ll add an argument for <code>color</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>continent)) <span class="sc">+</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color=</span><span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>See how this only changes the color of the lines? For any geometry function, <code>color</code> will always refer to line color. In the case of point geometries, for example, this will change the color of the outline of the points. But in the case of objects that cover a space, like bars, more often we may want to change the color of the filled space. This is done using the <code>fill</code> argument:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>continent)) <span class="sc">+</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">"orange"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>These arguments can be combined to select any combinations of colors we’d prefer to represent our data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>continent)) <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill=</span><span class="st">"orange"</span>,<span class="at">color=</span><span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>But what if we wanted to use different colors for the bars? We could set individual color schemes manually (something we’ll cover later on), but we may also want to have colors that are based on some variable in our data. For example, we might want to have each continent be represented by a different fill color. This would involve mapping fill color on to a variable in our data. To do this, we’ll move fill argument out of the <code>geom_bar</code> function and into the <code>aes</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>continent,<span class="at">fill=</span>continent)) <span class="sc">+</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This illustrates how to add an additional aesthetic mapping, but this relates back to our discussion about deliberate design: given that our continents are already listed on the x-axis, is the continent-specific fill color something that would be needed? Does it add something useful or is it redundant?</p>
+</section>
+<section id="adding-a-mapping-bars-on-bars" class="level3">
+<h3 class="anchored" data-anchor-id="adding-a-mapping-bars-on-bars">Adding a mapping: bars on bars</h3>
+<p>While the situation above is a little vague, one way we might use fill color deliberately is to represent more variables in our bar plot. An example of this would be using the fill color to display the breakdown of another categorical variable within each of the bars.</p>
+<p>We can take a look at this with a new dataset from the <strong><code>datasets</code></strong> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penguins</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      species    island bill_len bill_dep flipper_len body_mass    sex year
+1      Adelie Torgersen     39.1     18.7         181      3750   male 2007
+2      Adelie Torgersen     39.5     17.4         186      3800 female 2007
+3      Adelie Torgersen     40.3     18.0         195      3250 female 2007
+4      Adelie Torgersen       NA       NA          NA        NA   &lt;NA&gt; 2007
+5      Adelie Torgersen     36.7     19.3         193      3450 female 2007
+6      Adelie Torgersen     39.3     20.6         190      3650   male 2007
+7      Adelie Torgersen     38.9     17.8         181      3625 female 2007
+8      Adelie Torgersen     39.2     19.6         195      4675   male 2007
+9      Adelie Torgersen     34.1     18.1         193      3475   &lt;NA&gt; 2007
+10     Adelie Torgersen     42.0     20.2         190      4250   &lt;NA&gt; 2007
+11     Adelie Torgersen     37.8     17.1         186      3300   &lt;NA&gt; 2007
+12     Adelie Torgersen     37.8     17.3         180      3700   &lt;NA&gt; 2007
+13     Adelie Torgersen     41.1     17.6         182      3200 female 2007
+14     Adelie Torgersen     38.6     21.2         191      3800   male 2007
+15     Adelie Torgersen     34.6     21.1         198      4400   male 2007
+16     Adelie Torgersen     36.6     17.8         185      3700 female 2007
+17     Adelie Torgersen     38.7     19.0         195      3450 female 2007
+18     Adelie Torgersen     42.5     20.7         197      4500   male 2007
+19     Adelie Torgersen     34.4     18.4         184      3325 female 2007
+20     Adelie Torgersen     46.0     21.5         194      4200   male 2007
+21     Adelie    Biscoe     37.8     18.3         174      3400 female 2007
+22     Adelie    Biscoe     37.7     18.7         180      3600   male 2007
+23     Adelie    Biscoe     35.9     19.2         189      3800 female 2007
+24     Adelie    Biscoe     38.2     18.1         185      3950   male 2007
+25     Adelie    Biscoe     38.8     17.2         180      3800   male 2007
+26     Adelie    Biscoe     35.3     18.9         187      3800 female 2007
+27     Adelie    Biscoe     40.6     18.6         183      3550   male 2007
+28     Adelie    Biscoe     40.5     17.9         187      3200 female 2007
+29     Adelie    Biscoe     37.9     18.6         172      3150 female 2007
+30     Adelie    Biscoe     40.5     18.9         180      3950   male 2007
+31     Adelie     Dream     39.5     16.7         178      3250 female 2007
+32     Adelie     Dream     37.2     18.1         178      3900   male 2007
+33     Adelie     Dream     39.5     17.8         188      3300 female 2007
+34     Adelie     Dream     40.9     18.9         184      3900   male 2007
+35     Adelie     Dream     36.4     17.0         195      3325 female 2007
+36     Adelie     Dream     39.2     21.1         196      4150   male 2007
+37     Adelie     Dream     38.8     20.0         190      3950   male 2007
+38     Adelie     Dream     42.2     18.5         180      3550 female 2007
+39     Adelie     Dream     37.6     19.3         181      3300 female 2007
+40     Adelie     Dream     39.8     19.1         184      4650   male 2007
+41     Adelie     Dream     36.5     18.0         182      3150 female 2007
+42     Adelie     Dream     40.8     18.4         195      3900   male 2007
+43     Adelie     Dream     36.0     18.5         186      3100 female 2007
+44     Adelie     Dream     44.1     19.7         196      4400   male 2007
+45     Adelie     Dream     37.0     16.9         185      3000 female 2007
+46     Adelie     Dream     39.6     18.8         190      4600   male 2007
+47     Adelie     Dream     41.1     19.0         182      3425   male 2007
+48     Adelie     Dream     37.5     18.9         179      2975   &lt;NA&gt; 2007
+49     Adelie     Dream     36.0     17.9         190      3450 female 2007
+50     Adelie     Dream     42.3     21.2         191      4150   male 2007
+51     Adelie    Biscoe     39.6     17.7         186      3500 female 2008
+52     Adelie    Biscoe     40.1     18.9         188      4300   male 2008
+53     Adelie    Biscoe     35.0     17.9         190      3450 female 2008
+54     Adelie    Biscoe     42.0     19.5         200      4050   male 2008
+55     Adelie    Biscoe     34.5     18.1         187      2900 female 2008
+56     Adelie    Biscoe     41.4     18.6         191      3700   male 2008
+57     Adelie    Biscoe     39.0     17.5         186      3550 female 2008
+58     Adelie    Biscoe     40.6     18.8         193      3800   male 2008
+59     Adelie    Biscoe     36.5     16.6         181      2850 female 2008
+60     Adelie    Biscoe     37.6     19.1         194      3750   male 2008
+61     Adelie    Biscoe     35.7     16.9         185      3150 female 2008
+62     Adelie    Biscoe     41.3     21.1         195      4400   male 2008
+63     Adelie    Biscoe     37.6     17.0         185      3600 female 2008
+64     Adelie    Biscoe     41.1     18.2         192      4050   male 2008
+65     Adelie    Biscoe     36.4     17.1         184      2850 female 2008
+66     Adelie    Biscoe     41.6     18.0         192      3950   male 2008
+67     Adelie    Biscoe     35.5     16.2         195      3350 female 2008
+68     Adelie    Biscoe     41.1     19.1         188      4100   male 2008
+69     Adelie Torgersen     35.9     16.6         190      3050 female 2008
+70     Adelie Torgersen     41.8     19.4         198      4450   male 2008
+71     Adelie Torgersen     33.5     19.0         190      3600 female 2008
+72     Adelie Torgersen     39.7     18.4         190      3900   male 2008
+73     Adelie Torgersen     39.6     17.2         196      3550 female 2008
+74     Adelie Torgersen     45.8     18.9         197      4150   male 2008
+75     Adelie Torgersen     35.5     17.5         190      3700 female 2008
+76     Adelie Torgersen     42.8     18.5         195      4250   male 2008
+77     Adelie Torgersen     40.9     16.8         191      3700 female 2008
+78     Adelie Torgersen     37.2     19.4         184      3900   male 2008
+79     Adelie Torgersen     36.2     16.1         187      3550 female 2008
+80     Adelie Torgersen     42.1     19.1         195      4000   male 2008
+81     Adelie Torgersen     34.6     17.2         189      3200 female 2008
+82     Adelie Torgersen     42.9     17.6         196      4700   male 2008
+83     Adelie Torgersen     36.7     18.8         187      3800 female 2008
+84     Adelie Torgersen     35.1     19.4         193      4200   male 2008
+85     Adelie     Dream     37.3     17.8         191      3350 female 2008
+86     Adelie     Dream     41.3     20.3         194      3550   male 2008
+87     Adelie     Dream     36.3     19.5         190      3800   male 2008
+88     Adelie     Dream     36.9     18.6         189      3500 female 2008
+89     Adelie     Dream     38.3     19.2         189      3950   male 2008
+90     Adelie     Dream     38.9     18.8         190      3600 female 2008
+91     Adelie     Dream     35.7     18.0         202      3550 female 2008
+92     Adelie     Dream     41.1     18.1         205      4300   male 2008
+93     Adelie     Dream     34.0     17.1         185      3400 female 2008
+94     Adelie     Dream     39.6     18.1         186      4450   male 2008
+95     Adelie     Dream     36.2     17.3         187      3300 female 2008
+96     Adelie     Dream     40.8     18.9         208      4300   male 2008
+97     Adelie     Dream     38.1     18.6         190      3700 female 2008
+98     Adelie     Dream     40.3     18.5         196      4350   male 2008
+99     Adelie     Dream     33.1     16.1         178      2900 female 2008
+100    Adelie     Dream     43.2     18.5         192      4100   male 2008
+101    Adelie    Biscoe     35.0     17.9         192      3725 female 2009
+102    Adelie    Biscoe     41.0     20.0         203      4725   male 2009
+103    Adelie    Biscoe     37.7     16.0         183      3075 female 2009
+104    Adelie    Biscoe     37.8     20.0         190      4250   male 2009
+105    Adelie    Biscoe     37.9     18.6         193      2925 female 2009
+106    Adelie    Biscoe     39.7     18.9         184      3550   male 2009
+107    Adelie    Biscoe     38.6     17.2         199      3750 female 2009
+108    Adelie    Biscoe     38.2     20.0         190      3900   male 2009
+109    Adelie    Biscoe     38.1     17.0         181      3175 female 2009
+110    Adelie    Biscoe     43.2     19.0         197      4775   male 2009
+111    Adelie    Biscoe     38.1     16.5         198      3825 female 2009
+112    Adelie    Biscoe     45.6     20.3         191      4600   male 2009
+113    Adelie    Biscoe     39.7     17.7         193      3200 female 2009
+114    Adelie    Biscoe     42.2     19.5         197      4275   male 2009
+115    Adelie    Biscoe     39.6     20.7         191      3900 female 2009
+116    Adelie    Biscoe     42.7     18.3         196      4075   male 2009
+117    Adelie Torgersen     38.6     17.0         188      2900 female 2009
+118    Adelie Torgersen     37.3     20.5         199      3775   male 2009
+119    Adelie Torgersen     35.7     17.0         189      3350 female 2009
+120    Adelie Torgersen     41.1     18.6         189      3325   male 2009
+121    Adelie Torgersen     36.2     17.2         187      3150 female 2009
+122    Adelie Torgersen     37.7     19.8         198      3500   male 2009
+123    Adelie Torgersen     40.2     17.0         176      3450 female 2009
+124    Adelie Torgersen     41.4     18.5         202      3875   male 2009
+125    Adelie Torgersen     35.2     15.9         186      3050 female 2009
+126    Adelie Torgersen     40.6     19.0         199      4000   male 2009
+127    Adelie Torgersen     38.8     17.6         191      3275 female 2009
+128    Adelie Torgersen     41.5     18.3         195      4300   male 2009
+129    Adelie Torgersen     39.0     17.1         191      3050 female 2009
+130    Adelie Torgersen     44.1     18.0         210      4000   male 2009
+131    Adelie Torgersen     38.5     17.9         190      3325 female 2009
+132    Adelie Torgersen     43.1     19.2         197      3500   male 2009
+133    Adelie     Dream     36.8     18.5         193      3500 female 2009
+134    Adelie     Dream     37.5     18.5         199      4475   male 2009
+135    Adelie     Dream     38.1     17.6         187      3425 female 2009
+136    Adelie     Dream     41.1     17.5         190      3900   male 2009
+137    Adelie     Dream     35.6     17.5         191      3175 female 2009
+138    Adelie     Dream     40.2     20.1         200      3975   male 2009
+139    Adelie     Dream     37.0     16.5         185      3400 female 2009
+140    Adelie     Dream     39.7     17.9         193      4250   male 2009
+141    Adelie     Dream     40.2     17.1         193      3400 female 2009
+142    Adelie     Dream     40.6     17.2         187      3475   male 2009
+143    Adelie     Dream     32.1     15.5         188      3050 female 2009
+144    Adelie     Dream     40.7     17.0         190      3725   male 2009
+145    Adelie     Dream     37.3     16.8         192      3000 female 2009
+146    Adelie     Dream     39.0     18.7         185      3650   male 2009
+147    Adelie     Dream     39.2     18.6         190      4250   male 2009
+148    Adelie     Dream     36.6     18.4         184      3475 female 2009
+149    Adelie     Dream     36.0     17.8         195      3450 female 2009
+150    Adelie     Dream     37.8     18.1         193      3750   male 2009
+151    Adelie     Dream     36.0     17.1         187      3700 female 2009
+152    Adelie     Dream     41.5     18.5         201      4000   male 2009
+153    Gentoo    Biscoe     46.1     13.2         211      4500 female 2007
+154    Gentoo    Biscoe     50.0     16.3         230      5700   male 2007
+155    Gentoo    Biscoe     48.7     14.1         210      4450 female 2007
+156    Gentoo    Biscoe     50.0     15.2         218      5700   male 2007
+157    Gentoo    Biscoe     47.6     14.5         215      5400   male 2007
+158    Gentoo    Biscoe     46.5     13.5         210      4550 female 2007
+159    Gentoo    Biscoe     45.4     14.6         211      4800 female 2007
+160    Gentoo    Biscoe     46.7     15.3         219      5200   male 2007
+161    Gentoo    Biscoe     43.3     13.4         209      4400 female 2007
+162    Gentoo    Biscoe     46.8     15.4         215      5150   male 2007
+163    Gentoo    Biscoe     40.9     13.7         214      4650 female 2007
+164    Gentoo    Biscoe     49.0     16.1         216      5550   male 2007
+165    Gentoo    Biscoe     45.5     13.7         214      4650 female 2007
+166    Gentoo    Biscoe     48.4     14.6         213      5850   male 2007
+167    Gentoo    Biscoe     45.8     14.6         210      4200 female 2007
+168    Gentoo    Biscoe     49.3     15.7         217      5850   male 2007
+169    Gentoo    Biscoe     42.0     13.5         210      4150 female 2007
+170    Gentoo    Biscoe     49.2     15.2         221      6300   male 2007
+171    Gentoo    Biscoe     46.2     14.5         209      4800 female 2007
+172    Gentoo    Biscoe     48.7     15.1         222      5350   male 2007
+173    Gentoo    Biscoe     50.2     14.3         218      5700   male 2007
+174    Gentoo    Biscoe     45.1     14.5         215      5000 female 2007
+175    Gentoo    Biscoe     46.5     14.5         213      4400 female 2007
+176    Gentoo    Biscoe     46.3     15.8         215      5050   male 2007
+177    Gentoo    Biscoe     42.9     13.1         215      5000 female 2007
+178    Gentoo    Biscoe     46.1     15.1         215      5100   male 2007
+179    Gentoo    Biscoe     44.5     14.3         216      4100   &lt;NA&gt; 2007
+180    Gentoo    Biscoe     47.8     15.0         215      5650   male 2007
+181    Gentoo    Biscoe     48.2     14.3         210      4600 female 2007
+182    Gentoo    Biscoe     50.0     15.3         220      5550   male 2007
+183    Gentoo    Biscoe     47.3     15.3         222      5250   male 2007
+184    Gentoo    Biscoe     42.8     14.2         209      4700 female 2007
+185    Gentoo    Biscoe     45.1     14.5         207      5050 female 2007
+186    Gentoo    Biscoe     59.6     17.0         230      6050   male 2007
+187    Gentoo    Biscoe     49.1     14.8         220      5150 female 2008
+188    Gentoo    Biscoe     48.4     16.3         220      5400   male 2008
+189    Gentoo    Biscoe     42.6     13.7         213      4950 female 2008
+190    Gentoo    Biscoe     44.4     17.3         219      5250   male 2008
+191    Gentoo    Biscoe     44.0     13.6         208      4350 female 2008
+192    Gentoo    Biscoe     48.7     15.7         208      5350   male 2008
+193    Gentoo    Biscoe     42.7     13.7         208      3950 female 2008
+194    Gentoo    Biscoe     49.6     16.0         225      5700   male 2008
+195    Gentoo    Biscoe     45.3     13.7         210      4300 female 2008
+196    Gentoo    Biscoe     49.6     15.0         216      4750   male 2008
+197    Gentoo    Biscoe     50.5     15.9         222      5550   male 2008
+198    Gentoo    Biscoe     43.6     13.9         217      4900 female 2008
+199    Gentoo    Biscoe     45.5     13.9         210      4200 female 2008
+200    Gentoo    Biscoe     50.5     15.9         225      5400   male 2008
+201    Gentoo    Biscoe     44.9     13.3         213      5100 female 2008
+202    Gentoo    Biscoe     45.2     15.8         215      5300   male 2008
+203    Gentoo    Biscoe     46.6     14.2         210      4850 female 2008
+204    Gentoo    Biscoe     48.5     14.1         220      5300   male 2008
+205    Gentoo    Biscoe     45.1     14.4         210      4400 female 2008
+206    Gentoo    Biscoe     50.1     15.0         225      5000   male 2008
+207    Gentoo    Biscoe     46.5     14.4         217      4900 female 2008
+208    Gentoo    Biscoe     45.0     15.4         220      5050   male 2008
+209    Gentoo    Biscoe     43.8     13.9         208      4300 female 2008
+210    Gentoo    Biscoe     45.5     15.0         220      5000   male 2008
+211    Gentoo    Biscoe     43.2     14.5         208      4450 female 2008
+212    Gentoo    Biscoe     50.4     15.3         224      5550   male 2008
+213    Gentoo    Biscoe     45.3     13.8         208      4200 female 2008
+214    Gentoo    Biscoe     46.2     14.9         221      5300   male 2008
+215    Gentoo    Biscoe     45.7     13.9         214      4400 female 2008
+216    Gentoo    Biscoe     54.3     15.7         231      5650   male 2008
+217    Gentoo    Biscoe     45.8     14.2         219      4700 female 2008
+218    Gentoo    Biscoe     49.8     16.8         230      5700   male 2008
+219    Gentoo    Biscoe     46.2     14.4         214      4650   &lt;NA&gt; 2008
+220    Gentoo    Biscoe     49.5     16.2         229      5800   male 2008
+221    Gentoo    Biscoe     43.5     14.2         220      4700 female 2008
+222    Gentoo    Biscoe     50.7     15.0         223      5550   male 2008
+223    Gentoo    Biscoe     47.7     15.0         216      4750 female 2008
+224    Gentoo    Biscoe     46.4     15.6         221      5000   male 2008
+225    Gentoo    Biscoe     48.2     15.6         221      5100   male 2008
+226    Gentoo    Biscoe     46.5     14.8         217      5200 female 2008
+227    Gentoo    Biscoe     46.4     15.0         216      4700 female 2008
+228    Gentoo    Biscoe     48.6     16.0         230      5800   male 2008
+229    Gentoo    Biscoe     47.5     14.2         209      4600 female 2008
+230    Gentoo    Biscoe     51.1     16.3         220      6000   male 2008
+231    Gentoo    Biscoe     45.2     13.8         215      4750 female 2008
+232    Gentoo    Biscoe     45.2     16.4         223      5950   male 2008
+233    Gentoo    Biscoe     49.1     14.5         212      4625 female 2009
+234    Gentoo    Biscoe     52.5     15.6         221      5450   male 2009
+235    Gentoo    Biscoe     47.4     14.6         212      4725 female 2009
+236    Gentoo    Biscoe     50.0     15.9         224      5350   male 2009
+237    Gentoo    Biscoe     44.9     13.8         212      4750 female 2009
+238    Gentoo    Biscoe     50.8     17.3         228      5600   male 2009
+239    Gentoo    Biscoe     43.4     14.4         218      4600 female 2009
+240    Gentoo    Biscoe     51.3     14.2         218      5300   male 2009
+241    Gentoo    Biscoe     47.5     14.0         212      4875 female 2009
+242    Gentoo    Biscoe     52.1     17.0         230      5550   male 2009
+243    Gentoo    Biscoe     47.5     15.0         218      4950 female 2009
+244    Gentoo    Biscoe     52.2     17.1         228      5400   male 2009
+245    Gentoo    Biscoe     45.5     14.5         212      4750 female 2009
+246    Gentoo    Biscoe     49.5     16.1         224      5650   male 2009
+247    Gentoo    Biscoe     44.5     14.7         214      4850 female 2009
+248    Gentoo    Biscoe     50.8     15.7         226      5200   male 2009
+249    Gentoo    Biscoe     49.4     15.8         216      4925   male 2009
+250    Gentoo    Biscoe     46.9     14.6         222      4875 female 2009
+251    Gentoo    Biscoe     48.4     14.4         203      4625 female 2009
+252    Gentoo    Biscoe     51.1     16.5         225      5250   male 2009
+253    Gentoo    Biscoe     48.5     15.0         219      4850 female 2009
+254    Gentoo    Biscoe     55.9     17.0         228      5600   male 2009
+255    Gentoo    Biscoe     47.2     15.5         215      4975 female 2009
+256    Gentoo    Biscoe     49.1     15.0         228      5500   male 2009
+257    Gentoo    Biscoe     47.3     13.8         216      4725   &lt;NA&gt; 2009
+258    Gentoo    Biscoe     46.8     16.1         215      5500   male 2009
+259    Gentoo    Biscoe     41.7     14.7         210      4700 female 2009
+260    Gentoo    Biscoe     53.4     15.8         219      5500   male 2009
+261    Gentoo    Biscoe     43.3     14.0         208      4575 female 2009
+262    Gentoo    Biscoe     48.1     15.1         209      5500   male 2009
+263    Gentoo    Biscoe     50.5     15.2         216      5000 female 2009
+264    Gentoo    Biscoe     49.8     15.9         229      5950   male 2009
+265    Gentoo    Biscoe     43.5     15.2         213      4650 female 2009
+266    Gentoo    Biscoe     51.5     16.3         230      5500   male 2009
+267    Gentoo    Biscoe     46.2     14.1         217      4375 female 2009
+268    Gentoo    Biscoe     55.1     16.0         230      5850   male 2009
+269    Gentoo    Biscoe     44.5     15.7         217      4875   &lt;NA&gt; 2009
+270    Gentoo    Biscoe     48.8     16.2         222      6000   male 2009
+271    Gentoo    Biscoe     47.2     13.7         214      4925 female 2009
+272    Gentoo    Biscoe       NA       NA          NA        NA   &lt;NA&gt; 2009
+273    Gentoo    Biscoe     46.8     14.3         215      4850 female 2009
+274    Gentoo    Biscoe     50.4     15.7         222      5750   male 2009
+275    Gentoo    Biscoe     45.2     14.8         212      5200 female 2009
+276    Gentoo    Biscoe     49.9     16.1         213      5400   male 2009
+277 Chinstrap     Dream     46.5     17.9         192      3500 female 2007
+278 Chinstrap     Dream     50.0     19.5         196      3900   male 2007
+279 Chinstrap     Dream     51.3     19.2         193      3650   male 2007
+280 Chinstrap     Dream     45.4     18.7         188      3525 female 2007
+281 Chinstrap     Dream     52.7     19.8         197      3725   male 2007
+282 Chinstrap     Dream     45.2     17.8         198      3950 female 2007
+283 Chinstrap     Dream     46.1     18.2         178      3250 female 2007
+284 Chinstrap     Dream     51.3     18.2         197      3750   male 2007
+285 Chinstrap     Dream     46.0     18.9         195      4150 female 2007
+286 Chinstrap     Dream     51.3     19.9         198      3700   male 2007
+287 Chinstrap     Dream     46.6     17.8         193      3800 female 2007
+288 Chinstrap     Dream     51.7     20.3         194      3775   male 2007
+289 Chinstrap     Dream     47.0     17.3         185      3700 female 2007
+290 Chinstrap     Dream     52.0     18.1         201      4050   male 2007
+291 Chinstrap     Dream     45.9     17.1         190      3575 female 2007
+292 Chinstrap     Dream     50.5     19.6         201      4050   male 2007
+293 Chinstrap     Dream     50.3     20.0         197      3300   male 2007
+294 Chinstrap     Dream     58.0     17.8         181      3700 female 2007
+295 Chinstrap     Dream     46.4     18.6         190      3450 female 2007
+296 Chinstrap     Dream     49.2     18.2         195      4400   male 2007
+297 Chinstrap     Dream     42.4     17.3         181      3600 female 2007
+298 Chinstrap     Dream     48.5     17.5         191      3400   male 2007
+299 Chinstrap     Dream     43.2     16.6         187      2900 female 2007
+300 Chinstrap     Dream     50.6     19.4         193      3800   male 2007
+301 Chinstrap     Dream     46.7     17.9         195      3300 female 2007
+302 Chinstrap     Dream     52.0     19.0         197      4150   male 2007
+303 Chinstrap     Dream     50.5     18.4         200      3400 female 2008
+304 Chinstrap     Dream     49.5     19.0         200      3800   male 2008
+305 Chinstrap     Dream     46.4     17.8         191      3700 female 2008
+306 Chinstrap     Dream     52.8     20.0         205      4550   male 2008
+307 Chinstrap     Dream     40.9     16.6         187      3200 female 2008
+308 Chinstrap     Dream     54.2     20.8         201      4300   male 2008
+309 Chinstrap     Dream     42.5     16.7         187      3350 female 2008
+310 Chinstrap     Dream     51.0     18.8         203      4100   male 2008
+311 Chinstrap     Dream     49.7     18.6         195      3600   male 2008
+312 Chinstrap     Dream     47.5     16.8         199      3900 female 2008
+313 Chinstrap     Dream     47.6     18.3         195      3850 female 2008
+314 Chinstrap     Dream     52.0     20.7         210      4800   male 2008
+315 Chinstrap     Dream     46.9     16.6         192      2700 female 2008
+316 Chinstrap     Dream     53.5     19.9         205      4500   male 2008
+317 Chinstrap     Dream     49.0     19.5         210      3950   male 2008
+318 Chinstrap     Dream     46.2     17.5         187      3650 female 2008
+319 Chinstrap     Dream     50.9     19.1         196      3550   male 2008
+320 Chinstrap     Dream     45.5     17.0         196      3500 female 2008
+321 Chinstrap     Dream     50.9     17.9         196      3675 female 2009
+322 Chinstrap     Dream     50.8     18.5         201      4450   male 2009
+323 Chinstrap     Dream     50.1     17.9         190      3400 female 2009
+324 Chinstrap     Dream     49.0     19.6         212      4300   male 2009
+325 Chinstrap     Dream     51.5     18.7         187      3250   male 2009
+326 Chinstrap     Dream     49.8     17.3         198      3675 female 2009
+327 Chinstrap     Dream     48.1     16.4         199      3325 female 2009
+328 Chinstrap     Dream     51.4     19.0         201      3950   male 2009
+329 Chinstrap     Dream     45.7     17.3         193      3600 female 2009
+330 Chinstrap     Dream     50.7     19.7         203      4050   male 2009
+331 Chinstrap     Dream     42.5     17.3         187      3350 female 2009
+332 Chinstrap     Dream     52.2     18.8         197      3450   male 2009
+333 Chinstrap     Dream     45.2     16.6         191      3250 female 2009
+334 Chinstrap     Dream     49.3     19.9         203      4050   male 2009
+335 Chinstrap     Dream     50.2     18.8         202      3800   male 2009
+336 Chinstrap     Dream     45.6     19.4         194      3525 female 2009
+337 Chinstrap     Dream     51.9     19.5         206      3950   male 2009
+338 Chinstrap     Dream     46.8     16.5         189      3650 female 2009
+339 Chinstrap     Dream     45.7     17.0         195      3650 female 2009
+340 Chinstrap     Dream     55.8     19.8         207      4000   male 2009
+341 Chinstrap     Dream     43.5     18.1         202      3400 female 2009
+342 Chinstrap     Dream     49.6     18.2         193      3775   male 2009
+343 Chinstrap     Dream     50.8     19.0         210      4100   male 2009
+344 Chinstrap     Dream     50.2     18.7         198      3775 female 2009</code></pre>
+</div>
+</div>
+<p>This is morphological data recorded on different penguin populations from three Antarctic islands. Here, we have some categories (<strong>species</strong>, <strong>island</strong>, <strong>sex</strong>) as well as some numerical data (<strong>bill_length</strong>, <strong>flipper_length</strong>, etc.).</p>
+<p>First, let’s convert this to a tibble again:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>penguinData<span class="ot">&lt;-</span><span class="fu">as_tibble</span>(penguins)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>penguinData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island    bill_len bill_dep flipper_len body_mass sex     year
+   &lt;fct&gt;   &lt;fct&gt;        &lt;dbl&gt;    &lt;dbl&gt;       &lt;int&gt;     &lt;int&gt; &lt;fct&gt;  &lt;int&gt;
+ 1 Adelie  Torgersen     39.1     18.7         181      3750 male    2007
+ 2 Adelie  Torgersen     39.5     17.4         186      3800 female  2007
+ 3 Adelie  Torgersen     40.3     18           195      3250 female  2007
+ 4 Adelie  Torgersen     NA       NA            NA        NA &lt;NA&gt;    2007
+ 5 Adelie  Torgersen     36.7     19.3         193      3450 female  2007
+ 6 Adelie  Torgersen     39.3     20.6         190      3650 male    2007
+ 7 Adelie  Torgersen     38.9     17.8         181      3625 female  2007
+ 8 Adelie  Torgersen     39.2     19.6         195      4675 male    2007
+ 9 Adelie  Torgersen     34.1     18.1         193      3475 &lt;NA&gt;    2007
+10 Adelie  Torgersen     42       20.2         190      4250 &lt;NA&gt;    2007
+# ℹ 334 more rows</code></pre>
+</div>
+</div>
+<p>Now let’s use a bar plot to look at penguin counts per island:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguinData,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>island)) <span class="sc">+</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Great. Now, if we want to see how these break down in terms of specie, we can use a stacked bar by telling R to map this on to the aesthetic <code>fill</code> for the bars:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguinData,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>island,<span class="at">fill=</span>species)) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This reveals some useful patterns that we didn’t have before: some species only occur on certain islands. Note again that rather than place <code>fill</code> under the geom_bar function (which would apply fo to all the bars), we’re using the <code>fill</code> argument in aes to connect it to another variable: penguin species. This gives us a bar that communicates the total counts of penguins for each island (bar height measured on the y-axis), as well as the breakdown by species (fill color within each bar).</p>
+</section>
+<section id="try-it-yourself-1" class="level2">
+<h2 class="anchored" data-anchor-id="try-it-yourself-1">Try it yourself!</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>With the <code>penguinData</code> data, try the following:</p>
+<ul>
+<li><p>Plot the counts per island broken down by sex</p></li>
+<li><p>Plot the counts per species, broken down by island</p></li>
+<li><p>Plot the counts per island, broken down by year of observation</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="visualizing-proportions" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-proportions">Visualizing Proportions</h2>
+<p>Sometimes, we may want to visualize our counts as proportions. Here, we are comparing counts in categorical groups based on their relationship to the population as a whole (percentage of a total) rather than their absolute numbers.</p>
+<p>In the case of the visualization we created of penguin species breakdown by island, rather than the specific numbers of each species, we may instead want to compare their relative proportions on each island. To do this, we can add an argument <code>position="fill"</code> to the geom_bar function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguinData,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>island,<span class="at">fill=</span>species)) <span class="sc">+</span>   </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">"fill"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>While it seems like this should be related to fill color, the “fill” here only indicates that the bar should “fill” the space. There are additional options for the position argument that would allow you to plot multiple bars side-by-side, etc., which we will get into later. It’s OK if this isn’t 100% clear yet, just be aware that this is an option you can pursue if you want to deal with proportions rather than counts.</p>
+</section>
+<section id="some-additional-considerations-for-plotting-amounts-data" class="level2">
+<h2 class="anchored" data-anchor-id="some-additional-considerations-for-plotting-amounts-data">Some additional considerations for plotting amounts data</h2>
+<section id="what-to-do-when-the-data-are-already-counted" class="level4">
+<h4 class="anchored" data-anchor-id="what-to-do-when-the-data-are-already-counted">What to do when the data are already counted</h4>
+<p>Sometimes, the dataset you receive will not be individual records, but a table with counts. We can get an example of what this looks like by using the count function on our <code>penguinData</code> object:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>penguinCounts<span class="ot">&lt;-</span><span class="fu">count</span>(penguinData,island)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>penguinCounts</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  island        n
+  &lt;fct&gt;     &lt;int&gt;
+1 Biscoe      168
+2 Dream       124
+3 Torgersen    52</code></pre>
+</div>
+</div>
+<p>Now we have a two-column tibble: one column giving the island name, and another (n) giving the number of penguins recorded on that island. Compare this table to the bar charts we made above. The numbers indicated in each bar should be the same as those in the table. Let’s say someone gave us these numbers and asked us to make a bar plot out of them. We could try using the same code we’ve seen already, just swapping in the <code>penguinCount</code>s data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguinCounts,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>island)) <span class="sc">+</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What happened? The <code>geom_bar</code> function assumes that you want it to count the number of instances of each category in the variable mapped to x position. With our <code>penguinCounts</code> data, the island variable only has one instance of each island name.</p>
+<p>One way to deal with this issue is to use a different geometry. The <code>geom_col</code> function will produce a bar plot, but one that accepts mapping for both the x-position (category) and the y-position (count).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguinCounts,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>island,<span class="at">y=</span>n)) <span class="sc">+</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Compare this to our initial plot of the penguin counts by island, and you’ll find them to be the same, despite the difference in the way the data is stored.</p>
+</section>
+<section id="reordering-the-categories-displayed" class="level4">
+<h4 class="anchored" data-anchor-id="reordering-the-categories-displayed">Reordering the categories displayed</h4>
+<p>Right now our plots are presenting the categories on the x-axis from left to right in alphabetical order. We might instead want to order them based on some other attribute of the data. To do this, it helps for R to know that the categorical variable isn’t just a set of random labels, but a <em>factor</em>: a fixed suite of categories used for meaningful grouping. We can see that we have two factors already in the 2007 Gapminder data we created, indicated under the heading by the label <em>&lt;fctr&gt;</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gm2007</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 142 × 6
+   country     continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       2007    43.8  31889923      975.
+ 2 Albania     Europe     2007    76.4   3600523     5937.
+ 3 Algeria     Africa     2007    72.3  33333216     6223.
+ 4 Angola      Africa     2007    42.7  12420476     4797.
+ 5 Argentina   Americas   2007    75.3  40301927    12779.
+ 6 Australia   Oceania    2007    81.2  20434176    34435.
+ 7 Austria     Europe     2007    79.8   8199783    36126.
+ 8 Bahrain     Asia       2007    75.6    708573    29796.
+ 9 Bangladesh  Asia       2007    64.1 150448339     1391.
+10 Belgium     Europe     2007    79.4  10392226    33693.
+# ℹ 132 more rows</code></pre>
+</div>
+</div>
+<p>Factors are unique data types, and require some particular consideration when using them. Another package in the tidyverse family, <code>forcats</code>, provides a suite of functions for making dealing with these easier. In this case, we can apply the <code>fct_infreq</code> function to the continent vector to order them based on their frequency in the data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fct_infreq</span>(continent))) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The <code>fct_infreq</code> function takes the variable of interest (<strong>continent</strong>) and set the order of the plot based on the frequency with which it occurs in the dataset.</p>
+<p>We won’t dive into dealing with factors too deeply here, but will come back to it from time to time. If you’d like to learn more about this now, I recommend <a href="https://r4ds.hadley.nz/factors.html">this chapter</a> in the Wickham et al.&nbsp;book.</p>
+</section>
+<section id="reorienting-bar-graphs" class="level4">
+<h4 class="anchored" data-anchor-id="reorienting-bar-graphs">Reorienting bar graphs</h4>
+<p>Oftentimes, our categorical labels at the bottom will overlap. We saw an extreme case of this when we tried to plot bars by country. If you have a milder case of this, it can often be advantageous to plot horizontally rather than vertically. We can do this by adding another layer with a function, <code>coord_flip</code>, related to the coordinate space in which the data are plotted:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fct_infreq</span>(continent))) <span class="sc">+</span>   </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span>   </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_Amounts_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Like the geometry, this coordinate layer is added using the <code>+</code> operator, and simply flips the x and y axes. Again, this is something we’ll come back to in a later lecture.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01_UsingGrammar.html" class="pagination-link" aria-label="A Grammar of Graphics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Grammar of Graphics</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04_Distributions.html" class="pagination-link" aria-label="Visualizing distributions">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Visualizing distributions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
