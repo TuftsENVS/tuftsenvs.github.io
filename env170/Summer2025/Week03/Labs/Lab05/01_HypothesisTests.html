@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Hypothesis tests – Hypothesis Testing and Quarto</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02_LetTheProcessWork.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-8da5b4427184b79ecddefad3d342027e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-fdf964b8551a4c1da979a829183e41b0.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_HypothesisTests.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hypothesis tests</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Hypothesis Testing and Quarto</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_HypothesisTests.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hypothesis tests</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_LetTheProcessWork.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Choosing a test</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_IntroducingQuarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introducing code notebooks and Quarto</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_FileHandlingQ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Looking under the hood</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_VisualizingQ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Modifying the look of the Quarto document</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-process" id="toc-the-process" class="nav-link active" data-scroll-target="#the-process">The Process</a></li>
+  <li><a href="#a-motivating-example" id="toc-a-motivating-example" class="nav-link" data-scroll-target="#a-motivating-example">A motivating example</a></li>
+  <li><a href="#keeping-track-of-test-assumptions" id="toc-keeping-track-of-test-assumptions" class="nav-link" data-scroll-target="#keeping-track-of-test-assumptions">Keeping track of test assumptions</a></li>
+  <li><a href="#tldr" id="toc-tldr" class="nav-link" data-scroll-target="#tldr">tl;dr</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Hypothesis tests</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>If you have ever heard the phrase “For the sake of argument..”, you’ve heard a hypothesis. A hypothesis is a proposition about the world that forms the starting point for an investigation. A hypothesis doesn’t have to be true, and oftentimes it can be helpful to start from a hypothesis that is probably not true.</p>
+<p>For example, let’s start with the hypothesis that vanilla is the favorite ice cream flavor of all Tufts students. This may not be true, and in fact it probably isn’t even true for this class. But it provides a useful basis for investigation: <em>if</em> that were true, then every time I asked a student on campus their favorite ice cream flavor, they would reply “vanilla”. The moment I received another answer, such as “chocolate” or “<a href="https://www.dairyfoods.com/articles/94264-nightfood-launches-pickle-flavored-ice-cream">dill pickle</a>”, then my hypothesis would be rejected. By rejecting my hypothesis, I’ve learned something about the ice cream preferences of the students.</p>
+<p>A <strong>hypothesis test</strong>, then, is a test that determines whether that hypothesis should be kept or rejected. The main goal of testing a hypothesis is not to prove it is true, but to rule it out as a possibility. Hypothesis tests are principally used to establish either a) a <em>difference</em> between variable values between groups; or b) a <em>relationship</em> between two or more variables.</p>
+<p>Hypothesis testing is not the only way to learn about the world. What hypothesis tests give us is confidence that our ideas about the world are worthy of further investigation.</p>
+<section id="the-process" class="level3">
+<h3 class="anchored" data-anchor-id="the-process">The Process</h3>
+<p>There are four basic components to a hypothesis test:</p>
+<ol type="1">
+<li>Stating the hypothesis</li>
+<li>Collecting the data</li>
+<li>Conducting a test</li>
+<li>Interpreting the p-value</li>
+</ol>
+<p>We’ll go through each one to get a clearer idea of what each one means. If you’re a little rusty with stats, it’s worth reading the section below as it provides a good basis for understanding the use of hypothesis testing. If you feel like you’re pretty familiar with stats and how hypothesis testing works, you can skip to the <a href="#hypothesis-testing-in-r">Hypothesis testing in R</a> heading.</p>
+<section id="state-the-hypothesis" class="level4">
+<h4 class="anchored" data-anchor-id="state-the-hypothesis">State the hypothesis</h4>
+<p>It’s really important to start with a clear statement of the hypothesis with clear criteria for rejection. In the ice cream example above, the statement “Vanilla is the favorite ice cream flavor of all Tufts students” has a clear way to reject it: find someone who prefers another flavor.</p>
+<p>While we could formulate hypotheses in many ways, a helpful place to start is a <em>null hypothesis</em>: this is the idea that there is no difference or relationship among the variables being tested, and that any apparent difference/relationship in the data is likely the result of chance. For example, if we were interested in whether trees in one city were larger on average than trees in another, the null hypothesis would be “there is no difference in the average height of trees in the two cities”.</p>
+<p>This idea of <em>chance</em> is really important, because when we don’t know what process generated the pattern, it is always possible that a null hypothesis is actually correct. We can think of a null hypothesis test, then, as a statement of how <em>likely</em> it is that a null hypothesis is true. So before we move on, we also need to establish the criteria we would use to reject the null hypothesis. A widely held convention is to reject the null hypothesis if there is less than a 5% chance that it is true (see below).</p>
+<p>We may also want to evaluate an <em>alternative hypothesis</em>: this is an expectation about the nature of difference or relationship. It is usually expressed in terms of an direction (e.g., less than, greater than)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. For example, an alternative hypothesis in our tree height scenario is “Trees in Charlotte, NC are larger than those in Charlestown, SC”. The alternative might also just be the opposite of the null hypothesis without stating a direction<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>: “Trees in Charlotte, NC are differently sized than those in Charlestown, SC”</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Try it yourself!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Stating a hypothesis can seem really unnatural if it’s not something you do on a regular basis. A lot of it comes down to our expectations about the way the world works. Try and come up with a hypothesis about the relationship/difference among these variables:</p>
+<ul>
+<li><p>Number of web searches for skincare products and number of searches about water quality</p></li>
+<li><p>Universal basic income and incidence of vandalism</p></li>
+<li><p>Number of days with outdoor recess and number of school-adjacent beekeepers</p></li>
+</ul>
+<p>As you think about your hypotheses, think about whether they have a clear criteria for rejection: under what circumstances could you be confident that your hypothesis is <em>not</em> true?</p>
+</div>
+</div>
+</section>
+<section id="collect-the-data" class="level4">
+<h4 class="anchored" data-anchor-id="collect-the-data">Collect the data</h4>
+<p>The next step is to collect the data, usually by sampling variables within a population. In data science, the collection process is often involves gathering and repurposing of existing datasets. As such, we don’t necessarily get to control how data is collected, and must evaluate the quality of the data <em>post hoc</em>. The first thing to consider is, in the context of your hypothesis, what will be the dependent (or response) variables, and what will be the independent variables (if any). For example, if your hypothesis is that the average size of wildfires in Colorado have not changed between the years 2000 and 2020, you would need a response variable (wildfire sizes in Colorado) and one independent variable (the year of the fire).</p>
+</section>
+<section id="perform-a-test" class="level4">
+<h4 class="anchored" data-anchor-id="perform-a-test">Perform a test</h4>
+<p>Next, we perform our test using the data we collected. This involves calculating a “test statistic” derived from the sample data, and then comparing this to a distribution of test statistic values you would get if the null hypothesis were true.</p>
+<p>You’ve hopefully heard of some of the common statistical tests: Pearson’s chi-squared test, Student’s <em>t</em>-test, etc. The particular test being used will be determined by the kind of hypothesis (e.g., looking for a difference, looking for a relationship), the kind of data (e.g., nominal, ordinal, interval, ratio), and how the data were collected (independent samples, repeated measures, etc). We’ll look at the process of choosing a test in the next section.</p>
+<p>Each test will also come with a set of assumptions about the composition of the data. For example, a common assumption is that the error/uncertainty is normally distributed, which is based on the idea that there isn’t some other process biasing the distribution.</p>
+</section>
+<section id="interpret-the-p-value" class="level4">
+<h4 class="anchored" data-anchor-id="interpret-the-p-value">Interpret the p-value</h4>
+<p>Once we have calculated the test statistic, we can determine the <strong><em>p</em>-value</strong>, which is the that probability that the difference or relationship observed in the sample could arise under a given hypothesis. We then determine whether this probability is enough to retain the hypothesis or reject it.</p>
+<p>In the case of testing a null hypothesis, a <em>p</em>-value of 0.05 would indicate that the observed difference or relationship has a 5% probability of arising by chance; in other words, it is highly unlikely. This is a commonly used standard in many scientific disciplines.</p>
+<p>Keep in mind that a high <em>p</em>-value or a low <em>p</em>-value is not an indicator of the relative strength of any hypothesis. Instead, it is an indicator of the evidence <em>against</em> the null hypothesis.</p>
+</section>
+<section id="hypothesis-testing-in-r" class="level4">
+<h4 class="anchored" data-anchor-id="hypothesis-testing-in-r">Hypothesis testing in R</h4>
+<p>There are a number of functions in R that provide access to hypothesis tests, and even more that can be accessed in specialized statistics packages. Each, but they usually follow something like the following format:</p>
+<p><code>test.name(variable1, variable2, arguments)</code></p>
+<p>The variables in this example are typically vectors of values, which might come from a column in tibble or dataframe. The vectorized operation of these functions makes conducting hypothesis tests in R a pretty straightforward process.</p>
+<p>However, there is a catch: as long as you give it the correct <em>kinds</em> of arguments, R will give you some kind of result, even if it is not appropriate for your data or your hypothesis. Therefore, it is up to you to be skeptical, carefully determine whether the appropriate test has been selected, and interpret the results accordingly.</p>
+</section>
+</section>
+<section id="a-motivating-example" class="level3">
+<h3 class="anchored" data-anchor-id="a-motivating-example">A motivating example</h3>
+<p>To get a sense of how this all works, let’s look at the <code>penguins</code> dataset from the <strong>palmerpenguins</strong> package. Let’s say that a study showed that Chinstrap and Gentoo penguins at <a href="https://en.wikipedia.org/wiki/Cape_Adare">Cape Adare</a> in Antarctica have the same average body mass. We want to know whether the same thing is true for the Palmer Islands penguins population.</p>
+<p>First, let’s look at the body mass distributions of these two penguin species in our dataset. First, we’ll create a subset of these using a new function called <code>filter</code>. This works similarly to using square brackets and will let us subset our data based on a given criteria. We’ll use <code>geom_density</code>, which is a smoothed version of a histogram, to compare :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#create a dataset of just Chinstrap and Gentoo penguins</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>genChin <span class="ot">&lt;-</span> <span class="fu">filter</span>(penguins,species <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Chinstrap'</span>,<span class="st">'Gentoo'</span>))</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove any  observations with NA values</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>genChin<span class="ot">&lt;-</span><span class="fu">drop_na</span>(genChin)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#plot the two  species</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(genChin,<span class="fu">aes</span>(<span class="at">x=</span>body_mass_g,<span class="at">fill=</span>species))<span class="sc">+</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha=</span><span class="fl">0.50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01_HypothesisTests_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A few things to notice about this code:</p>
+<ul>
+<li><p>For the <code>filter</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> function, the first argument is the <strong>penguins</strong> dataset, and the second argument is a <em>condition</em>: <code>species %in% c('Chinstrap', 'Gentoo')</code>. The <code>%in%</code> operator checks for membership in a list of objects, so in this case, it is only going to keep rows from the penguins dataset where species is either Chinstrap or Gentoo.</p></li>
+<li><p>We used the <code>drop_na</code> function on the subset of data, to remove any rows with missing data.</p></li>
+<li><p>For the plot, we mapped <strong>species</strong> on to <code>fill</code>, which creates a separate distribution for each species. We then applied <code>alpha=0.5</code> in the <code>geom_density</code> function to make these semi-transparent.</p></li>
+<li><p>Unlike a histogram, the y-axis values of a density plot are not counts, but measures of probability which add up to 1.</p></li>
+</ul>
+<p>In the plot, you can see that body masses among the samples of penguins vary between 2500 an 6500 g<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. Each species’ values also appear to follow a roughly normal distribution around a central (mean) value. We can get the average body weight of these samples by using the <code>mean</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>chinstrap<span class="ot">&lt;-</span><span class="fu">filter</span>(genChin,species <span class="sc">==</span> <span class="st">"Chinstrap"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(chinstrap<span class="sc">$</span>body_mass_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3733.088</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gentoo<span class="ot">&lt;-</span><span class="fu">filter</span>(genChin,species <span class="sc">==</span> <span class="st">"Gentoo"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(gentoo<span class="sc">$</span>body_mass_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5092.437</code></pre>
+</div>
+</div>
+<p>So the average body mass for Chinstrap penguins in our sample is around 3733 grams, while the average for Gentoo penguins is around 5092 grams. Just looking at these values would suggest there is a difference between the two populations. However, it is also possible that this is simply an outcome of our sampling. What if their average body mass were the same, and by random chance we just happened to get larger Gentoo penguins and/or smaller Chinstrap penguins?</p>
+<p>We can reformulate this question as our null hypothesis: the average body mass of the population of Palmer Islands Chinstrap penguins <u>is no different</u> than that of the Gentoo penguins. If that were the case, then what is the probability that our samples would have a difference of 1376 g?</p>
+<p>Next, we collect our data: in this case, it’s the body masses of the Chinstrap and Gentoo penguins, which we already assembled as a table above:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>genChin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 187 × 8
+   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Gentoo  Biscoe           46.1          13.2               211        4500
+ 2 Gentoo  Biscoe           50            16.3               230        5700
+ 3 Gentoo  Biscoe           48.7          14.1               210        4450
+ 4 Gentoo  Biscoe           50            15.2               218        5700
+ 5 Gentoo  Biscoe           47.6          14.5               215        5400
+ 6 Gentoo  Biscoe           46.5          13.5               210        4550
+ 7 Gentoo  Biscoe           45.4          14.6               211        4800
+ 8 Gentoo  Biscoe           46.7          15.3               219        5200
+ 9 Gentoo  Biscoe           43.3          13.4               209        4400
+10 Gentoo  Biscoe           46.8          15.4               215        5150
+# ℹ 177 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>Different kinds of hypotheses and data require different tests. Knowing which test is appropriate for which situation takes a lot of practice, and even among researchers who regularly use of statistics it is common to consult reference materials. Even looking up the right test can be tricky if you don’t know exactly what kinds of things you need the test to handle.</p>
+<p>The test we want to conduct is looking for <em>differences</em> in a <em>continuous/ratio</em> variable (body mass) with two independent samples (Chinstrap and Gentoo penguins). A common test used for this kind of analysis is the independent <strong>two-sample t-test</strong>. This calculates whether the difference in the means of two samples might arise from sampling two larger populations with the same mean.</p>
+<p>The <code>t.test</code> function allows us to run this test in R. This function takes, as minimum, two arguments: a <strong>data</strong> argument (a tibble or dataframe), and <strong>formula</strong> argument that gives two vectors connected by a tilde (~). R interprets the formula y ~ x as “compare variable y by variable x”, where x refers the groups/samples being compared. Here’s what it looks like:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">data =</span> genChin, body_mass_g <span class="sc">~</span> species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  body_mass_g by species
+t = -20.765, df = 169.62, p-value &lt; 2.2e-16
+alternative hypothesis: true difference in means between group Chinstrap and group Gentoo is not equal to 0
+95 percent confidence interval:
+ -1488.578 -1230.120
+sample estimates:
+mean in group Chinstrap    mean in group Gentoo 
+               3733.088                5092.437 </code></pre>
+</div>
+</div>
+<p>This is a pretty typical output from an R statistical test: it tells us the name of the test, what data is being assessed, and then a set of values derived from the test. How do we interpret these numbers?</p>
+<ul>
+<li><p><strong><em>t</em></strong> This is the test statistic for the t-test. Values of <em>t</em> that vary from zero suggest a difference between the group means.</p></li>
+<li><p><strong>df</strong> = This is the degrees of freedom, which is based on the number of individuals in each sample. This is used in estimating the distribution of test statistic values and the calculation of the <em>p</em>-value.</p></li>
+<li><p><strong><em>p</em>-value</strong> This is the probability that the different averages of our sampled penguin species arose by sampling larger populations with no difference between them.</p></li>
+<li><p><strong>alternative hypothesis</strong> Since we didn’t specify an alternative hypothesis, the default is the direct alternative to the null hypothesis: that there <em>is</em> a difference in the average body masses of the two penguin species.</p></li>
+<li><p><strong>confidence interval</strong> This is a range of values within which the difference between the two sample means are expected to fall given the test statistic and the degrees of freedom<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p></li>
+<li><p><strong>mean in group</strong> This is the mean of each sample (see above).</p></li>
+</ul>
+<p>One thing to note here is that the method here is the Welch method. This method is used when the samples have unequal <a href="https://www.geeksforgeeks.org/maths/variance/">variances</a>, and R uses this as the default. We’ll briefly touch on why this matters further down.</p>
+<p>Looking at our <em>p</em>-value, we see 2.2e-16. This is a scientific notational rendering of 2.2 x 10<sup>-16</sup>, or 0.00000000000000022. In other words, a number very close to zero. This is about as low a number as R will register for a <em>p</em>-value, and is certainly lower than the 0.05 criteria for rejection. So our interpretation is that there is not enough evidence to retain the null hypothesis.</p>
+</section>
+<section id="keeping-track-of-test-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="keeping-track-of-test-assumptions">Keeping track of test assumptions</h3>
+<p>Each hypothesis test will come with it’s own set of assumptions about the condition of the data. If these assumptions are not met, then any result from these tests might be considered suspect.</p>
+<p>The main assumptions of the t-test are as follows:</p>
+<ul>
+<li><p>The data are independent (in this case, the body mass of one penguin doesn’t affect that of another)</p></li>
+<li><p>The sample was collected randomly from the population (true as far as we know)</p></li>
+<li><p>Data are normally distributed (e.g., not positively or negatively skewed)</p></li>
+</ul>
+<p>Some of these will be obvious based on the type of data: for example, we can say confidently that one penguin’s body mass is not directly influencing that of other penguins. Others we will not have direct control over as data scientists. For example, we can’t say for certain whether the sample of penguins would qualify as completely random, and so this has to remain an assumption.</p>
+<p>Still others we can test whether they meet the criteria of the test by using the data itself. In this case, we can assess whether the data are normally distributed. For example, the <a href="https://www.r-bloggers.com/2019/08/shapiro-wilk-test-for-normality-in-r/">Shapiro-Wilk test</a> allows us to assess normality in a vector of values. It is a null hypothesis test itself, where the null hypothesis is that the data are drawn from a normal (non-skewed) distribution.</p>
+<p>We can use the <code>shapiro.test</code> function to access this test. First, we’ll look at distributions for Gentoo penguins:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(gentoo<span class="sc">$</span>body_mass_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  gentoo$body_mass_g
+W = 0.98606, p-value = 0.2605</code></pre>
+</div>
+</div>
+<p>Now for Chinstrap penguins:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(chinstrap<span class="sc">$</span>body_mass_g)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  chinstrap$body_mass_g
+W = 0.98449, p-value = 0.5605</code></pre>
+</div>
+</div>
+<p>Since both of these values are greater than 0.05, we cannot reject the null hypothesis that these were drawn from normally distributed data. So on this front, our analysis stands.</p>
+<p>Finally, remember above that R defaults to using the Welch method in a two-sample t-test. In a standard t-test, another assumption is that the variance between the two samples is equal. Over the years several methods have been developed that allow a hypothesis test when certain assumptions cannot be met, and the Welch method is one of those. But was it necessary for our analysis?</p>
+<p>The <a href="https://www.geeksforgeeks.org/fishers-f-test-in-r-programming/">F-test</a> provides us with a way to test for equal variance. The F-test is another form of null hypothesis test, but the hypothesis in this case is that there is no difference in the variance (how far the values extend around the mean) in body mass in the two groups.</p>
+<p>We can access the F-test in R using the <code>var.test</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(body_mass_g <span class="sc">~</span> species, <span class="at">data=</span>genChin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test to compare two variances
+
+data:  body_mass_g by species
+F = 0.58738, num df = 67, denom df = 118, p-value = 0.01816
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.3881431 0.9117636
+sample estimates:
+ratio of variances 
+         0.5873804 </code></pre>
+</div>
+</div>
+<p>In this case, our p-value is under 0.05, so we can say that there is no evidence that our samples have the same variance. That means that using the Welch method was the right call for our data, and we can be confident in our interpretation that our null hypothesis, that there is no appreciable difference in mean body weight between Chinstrap and Gentoo penguins, should not be retained.</p>
+</section>
+<section id="tldr" class="level3">
+<h3 class="anchored" data-anchor-id="tldr">tl;dr</h3>
+<p>Hypothesis tests are a way to establish whether a difference or relationship within a dataset is likely to have arisen. The process of conducting a test involves multiple steps. Here, we used the two-sample t-test as an example of how to go about conducting a test with a particular kind of data and hypothesis. Each situation will require a determination of the kind of test to be used. In the next section, we’ll look at how to incorporate this into the process.</p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>This is called a one-sided alternative hypothesis.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>This is called a two-sided alternative hypothesis.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This function comes from the <strong><code>dplyr</code></strong> package, another member of the <strong><code>tidyverse</code></strong> family. We’ll learn more about this function and others like it in a later lab.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Note here that the density plot appears to continue beyond these values. The edges of the density plot are set by the limits of the data itself. If you wanted to modify this to show the entire distribution, you could set these manually using <code>xlim</code><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Note, here they are negative. This is because of the order in which the two groups, Chinstrap and Gentoo, were differenced. If done the other way around, it would be the positive versions of these numbers.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Introduction">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02_LetTheProcessWork.html" class="pagination-link" aria-label="Choosing a test">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Choosing a test</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

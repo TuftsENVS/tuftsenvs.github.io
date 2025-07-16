@@ -1,0 +1,112 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hypothesis Testing and Quarto",
+    "section": "",
+    "text": "Introduction\nSo far in this course, we’ve stressed the importance of visualizing data as a way to address the limitations of numerical summaries. At the same time, human brains are wired to find patterning, and can assign patterning to visual representations of data even where none actually exists. Because of this, it is important to take a skeptical view of the patterns we see in our data.\nStatistical inference is a tool for systematically reasoning about data. In environmental research, statistics are used to understand differences and similarities among populations of organisms, measurements of pollutants in the air or water, or the opinions held by residents of city. A common form of statistical inference is hypothesis testing: a way of assessing the likelihood that a given proposition about the world is true. The first part of this lab is aimed at helping to guide you through the process of conducting hypothesis tests in R. Here, we’ll focus on what a hypothesis test looks like and how to select the right test, using some of the datasets you’re already familiar with from this course.\nAt the end of the day, we want to be able to communicate our efforts to others. One major reason is that we want our work to be replicable, and for others to be able to build upon it, including our future selves. So far we’ve learned to use comments as a way to leave notes about what our code is doing, but these are very limited and do not give us much room to emphasize, enumerate, and represent complex ideas and reasoning. In the second part of this lab, we will be learning how to use code notebooks to document our work; specifically, we’ll be using Quarto documents, which come bundled with RStudio.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#preliminaries",
+    "href": "index.html#preliminaries",
+    "title": "Hypothesis Testing and Quarto",
+    "section": "Preliminaries",
+    "text": "Preliminaries\nTo begin, I recommend, nay, I implore you to set up a file system, including a folder for storing data, somewhere where it will be easy to recall.\nWe’ll also be using the tidyverse package, and drawing on data from the modeldata, palmerpenguins, and gapminder packages.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "01_HypothesisTests.html",
+    "href": "01_HypothesisTests.html",
+    "title": "1  Hypothesis tests",
+    "section": "",
+    "text": "The Process\nIf you have ever heard the phrase “For the sake of argument..”, you’ve heard a hypothesis. A hypothesis is a proposition about the world that forms the starting point for an investigation. A hypothesis doesn’t have to be true, and oftentimes it can be helpful to start from a hypothesis that is probably not true.\nFor example, let’s start with the hypothesis that vanilla is the favorite ice cream flavor of all Tufts students. This may not be true, and in fact it probably isn’t even true for this class. But it provides a useful basis for investigation: if that were true, then every time I asked a student on campus their favorite ice cream flavor, they would reply “vanilla”. The moment I received another answer, such as “chocolate” or “dill pickle”, then my hypothesis would be rejected. By rejecting my hypothesis, I’ve learned something about the ice cream preferences of the students.\nA hypothesis test, then, is a test that determines whether that hypothesis should be kept or rejected. The main goal of testing a hypothesis is not to prove it is true, but to rule it out as a possibility. Hypothesis tests are principally used to establish either a) a difference between variable values between groups; or b) a relationship between two or more variables.\nHypothesis testing is not the only way to learn about the world. What hypothesis tests give us is confidence that our ideas about the world are worthy of further investigation.\nThere are four basic components to a hypothesis test:\nWe’ll go through each one to get a clearer idea of what each one means. If you’re a little rusty with stats, it’s worth reading the section below as it provides a good basis for understanding the use of hypothesis testing. If you feel like you’re pretty familiar with stats and how hypothesis testing works, you can skip to the Hypothesis testing in R heading.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Hypothesis tests</span>"
+    ]
+  },
+  {
+    "objectID": "01_HypothesisTests.html#footnotes",
+    "href": "01_HypothesisTests.html#footnotes",
+    "title": "1  Hypothesis tests",
+    "section": "",
+    "text": "This is called a one-sided alternative hypothesis.↩︎\nThis is called a two-sided alternative hypothesis.↩︎\nThis function comes from the dplyr package, another member of the tidyverse family. We’ll learn more about this function and others like it in a later lab.↩︎\nNote here that the density plot appears to continue beyond these values. The edges of the density plot are set by the limits of the data itself. If you wanted to modify this to show the entire distribution, you could set these manually using xlim↩︎\nNote, here they are negative. This is because of the order in which the two groups, Chinstrap and Gentoo, were differenced. If done the other way around, it would be the positive versions of these numbers.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Hypothesis tests</span>"
+    ]
+  },
+  {
+    "objectID": "02_LetTheProcessWork.html",
+    "href": "02_LetTheProcessWork.html",
+    "title": "2  Choosing a test",
+    "section": "",
+    "text": "Example 1: Scat morphology by species\nThe particular hypothesis test you’ll use will depend on the kind of data you have, the number of variables, and whether certain assumptions about the a data can be met. Below is a flow chart that can guide you to select a (click the link to see a larger version).\nYou may have seen one of these before, they are a common feature of statistics courses. These are meant to be a guide rather than a definitive statement on choice of test, and this list is by no means exhaustive. You may find that your data have some particulars not covered in this chart, in which case you may need to look at alternative tests.\nFor now, let’s go through a couple of examples using data we have seen before to show how you might choose a test using this chart.\nLet’s say we wanted to know whether a ropey or segmented appearance is a clear indicator of species in the scat dataset. First we,’ll start with ropeyness:\nState the hypothesis: There is no difference in the frequency of ropey scat appearance among grey foxes, coyotes, and bobcats. We will use 0.05 as our threshold for rejection.\nCollect the data: The data are the scat dataset from the modeldata package, specifically the Species and ropey columns. The Species column is nominal (character) data, while the ropey column is a binary (0 or 1) value representing a true/false, which is also nominal. We can look at these frequencies ourselves by using the table function:\nlibrary(modeldata)\ntable(scat$Species,scat$ropey)\n\n          \n            0  1\n  bobcat   24 33\n  coyote   13 15\n  gray_fox 11 14\nFrom this table, it appears that ropeyness is something that is more common than not among all species.\nPerform a test: Here we are looking for a difference between species, and our data is nominal and therefore categorical. The flow chart above suggests we should use the chi-squared test for association.\nThe assumptions of the chi-squared test can be found here. An important one is that there has to be enough data so that each combination of categories in the table above could be at least 5. In our case, since there are 6 different combinations, we need at least 30 observations. The scat dataset exceeds this threshold.\nThe chisq.test function in R lets us run this test on our data. Note here that we are using the $ notation to access each column, and delivering them in x, y order:\nchisq.test(scat$Species,scat$ropey)\n\n\n    Pearson's Chi-squared test\n\ndata:  scat$Species and scat$ropey\nX-squared = 0.14443, df = 2, p-value = 0.9303\nThe test statistic \\(\\chi^2\\) is an indicator of whether there is a difference in how the categories in both variables are associated with one another. The degrees of freedom in this case is the number of categories in one variable multiplied by the number of categories in the other (or 2 x 1 here).\nInterpret the p-value: In this case our p-value is around 0.93, which is well above the 0.05 threshold for rejection. In this case, we cannot reject the null hypothesis that there is no difference in ropey scat frequencies among the three species studied here.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Choosing a test</span>"
+    ]
+  },
+  {
+    "objectID": "02_LetTheProcessWork.html#footnotes",
+    "href": "02_LetTheProcessWork.html#footnotes",
+    "title": "2  Choosing a test",
+    "section": "",
+    "text": "What’s the difference? The Pearson correlation evaluates the strength of therelationship between the variables using their values; the Spearman method treats them in terms of the ranked positions of each data point.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Choosing a test</span>"
+    ]
+  },
+  {
+    "objectID": "03_IntroducingQuarto.html",
+    "href": "03_IntroducingQuarto.html",
+    "title": "3  Introducing code notebooks and Quarto",
+    "section": "",
+    "text": "Creating a Quarto document\nCode notebooks are software tools that combine code, text, and outputs in a single document. They are based on the notion of Literate Programming, first promoted by Donald Knuth, where code is written in a way where it can also be understood in a human language.\nMuch of the business of data science often involves work that occurs in discrete parts, including:\nCode notebooks are well-situated to integrate with these activities. Coding notebooks have several benefits over using flat text metadata or comments within a script:\nIn this section, we’ll go over the basics of creating a code notebook in Quarto.\nQuarto documents can be created directly in RStudio, and will open in the Source tab like an R script. Go to the File dropdown menu, select New File, and then Quarto Document. You should see a dialogue box open that looks something like this:\nHere you can set the document name and author, the kind of project you want to create, the kind of file you want to publish the output, and a few other options.\nFor this lab, we’re going to start off with a Quarto Document. Name it anything you like, though it would help to name it something that associates it with the lab. List yourself as the author. And for now, we’ll use the default settings for output (HTML1), engine (Knitr), and we’ll use the visual editor. Click Create. You should now see a new document that looks something like this:\nBe aware that creating the document will not save your new document as a file. Notice when the tab is created, the document is called Untitled1. Take this opportunity to save the file by going to the File dropdown menu, select Save As, and save your document to your working directory. This should now appear in your Files tab as a Quarto Markdown (.qmd) file.\nLooking at the document, it probably looks like a blank script file except for a few lines at the top bracketed by three hyphens (---). These lines are called a YAML block. They define some global parameters for the document, which so far include the title and author. There are a lot more parameters you might set here; we’ll discuss this shortly.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Introducing code notebooks and Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "03_IntroducingQuarto.html#footnotes",
+    "href": "03_IntroducingQuarto.html#footnotes",
+    "title": "3  Introducing code notebooks and Quarto",
+    "section": "",
+    "text": "To publish directly to PDF, we need to make sure that you have a distribution of the typesetting software LaTeX installed (incidentally, Knuth is the author of LaTeX’s progenitor, TeX). You can do this by running install.packages(\"tinytex\") from the command line.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Introducing code notebooks and Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "04_FileHandlingQ.html",
+    "href": "04_FileHandlingQ.html",
+    "title": "4  Looking under the hood",
+    "section": "",
+    "text": "Most of the operations we just used to create our document took place in the editor bar:\n\nThis bar is included as part of Quarto’s visual editor. The visual editor lets you modify a document using a WYSIWYM (What You See Is What You MEAN) interface, so the things that you see in the document (e.g., bolding, headings, code outputs) are rendered more or less as you would expect them to appear, though it includes some markings and controls embedded in the document (for example, the play button on the code chunk).\nThe Quarto document itself is actually a script written using Markdown language, which is used for formatting documents that are a mix of text and executable code. The Visual Editor takes these elements and shows them to you in a way that lets you assess their visual look, but the actual .qmd file you’re creating looks a little different…\n\nQuarto source editor\nAt the left side of the editor bar, you can toggle between the visual editor and the source editor:\n\n\n\n\n\nWhat you see should now should look similarly to the document we were working on, except that the formatting has been removed. The source shows what the .qmd file looks like in reality: a text file with some additional In fact, if we took this out of RStudio and opened it in a text editor like Notepad, it would look something like this:\n\nWhat you’re seeing here is an example of Markdown, which is a text file where particular sequences of symbols are translated into text formatting and code chunks. For example:\n\nHash marks (###) are used to indicate header level\nBold text is surrounded by two asterisks **\nText in italics will be surrounded by single asterisks *\nText in code format will be surrounded by single backticks `\nCode chunks begin and end with three backticks ```\nCode chunks will usually begin with curly braces containing the language being used ({r})\n\nMarkdown enables the literal programming approach because, as you can see, even with the additional symbols this document is still very much readable.\nPay particular attention to what’s happening inside the code chunk. What this section is doing is telling Markdown (and subsequently Pandoc) that this is meant to be read as executable code. As the final output is being rendered, this code will be processed and any outputs will be added to the document.\n\n\n\n\n\n\nTry it yourself!\n\n\n\nAdd to the document you’ve created using the Source editor.\n\nAdd a third header called “This is the third section!”\nAdd some text to further emphasize your data science skills, and modify it with bolding, italics, or code formatting (make sure not to attempt this inside a code chunk!)\nAdd a code chunk that include code that uses runif to generate two vectors of 500 random values between 0 and 1, and then plots them using the plot function.\n\n\n\nYou can edit your document in the source code editor, then switch back to the visual editor to see what your document will look like. Some more complex elements (for example, adding raw HTML code) will not show up formatted correctly in the visual editor, but will when the document is rendered.\nYou might be asking yourself why you would ever use the Source when you can use the Visual Editor. The short answer is that, like other word processing software, there’s room for software error, especially when a document becomes large or formatting becomes very complex (alternating between code formatting and italics in a single line, for example). If something doesn’t look right, you can use the source editor to check what’s going on underneath the hood.\n\n\nFile handling with Quarto Documents\nOften, the work that we are documenting in a Quarto document will involve some external dataset: for example, data stored in a .csv file. We’ve dealt with importing data from outside of R before.\nThe same is true when working in a Quarto document. The default working directory for a Quarto document is the directory where it is saved, and file paths are considered relative to that position.\nDownload the abalone dataset from Canvas and save it in a subdirectory within your working directory called “data”. Then you can create a new code chunk with the following:\n\nlibrary(tidyverse)\nabalone&lt;-read_csv(\"data/abalone.csv\")\nabalone\n\nWhen you do this yourself, you should see two different windows here: one with the messages that come up when you call the tidyverse library and use the read_csv function, and another displaying a table with the abalone data. Our Quarto document now has access to the abalone data.\nAn important caveat here: if you want to share a Quarto document that is using an external data file, you need to also include that data file, ideally in the same relative location to your Quarto file. So, for example, if your data file is stored in a subdirectory called “data”, then you’d want to send both the Quarto document and that folder with the data file inside it. We’ll cover this in class later this week.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Looking under the hood</span>"
+    ]
+  },
+  {
+    "objectID": "05_VisualizingQ.html",
+    "href": "05_VisualizingQ.html",
+    "title": "5  Modifying the look of the Quarto document",
+    "section": "",
+    "text": "Code chunks\nWhile the text editing capabilities of Quarto documents are useful, the main attraction is the ability to combine the information. However, depending on our audience and what we are trying to communicate, we may want to include different components in the rendered product. There are also\nWhile the code chunk at the end of the last section showed three lines of code, the document I was looking at in my visual editor actually included an additional line:\nThe #| echo: true line here is a local instruction to the code chunk to change one of the settings. This only applies to this code chunk, and these instructions won’t show up in the rendered version of the document.\nLet’s break it down. The #| symbol indicates that I want to give an instruction, and you’ll see this now shows up in a lighter color. The echo: option relates to the visibility of the code (if you think of code as instructions being issued, having it echo means having it repeated back to you before giving the output). Finally, this is set using a logical (true/false) value. So it’s saying to Quarto: “I want you to show the code here.” If I had instead set echo: to false, like so..\n..then when I render the document, the table of abalone values would show up without any code.\nThese local options are used to suppress different kinds of activities in the code chunk. For example, the eval option will determine whether the code chunk will be run or not. This is helpful if you just want to show some code, but don’t want it to produce an outcome. Likewise, setting fig-show: hide will hide whatever plot is generated by the code. These options and their effects are listed in the table below:\nKeep in mind that these are local effects, so whatever they are doing, they are only doing in that code chunk.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modifying the look of the Quarto document</span>"
+    ]
+  },
+  {
+    "objectID": "05_VisualizingQ.html#final-thoughts",
+    "href": "05_VisualizingQ.html#final-thoughts",
+    "title": "5  Modifying the look of the Quarto document",
+    "section": "Final thoughts",
+    "text": "Final thoughts\nBy this point, we’ve covered the foundational skills needed to read data into R, visualize it, analyze it, and publish your work in a shareable format. As we go forward, you’ll learn more complex and sophisticated techniques, but the skills you’ve learned so far will be a consistent feature of this work. Practice is what will make these elements become second nature, and will help you as you expand your skills into new and more exciting areas. So when you’re ready, head over to today’s lab…",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Modifying the look of the Quarto document</span>"
+    ]
+  }
+]
