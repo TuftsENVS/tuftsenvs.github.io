@@ -312,54 +312,6 @@ Wrangling in the Tidyverse
 <h2>Ease of identification and re-use</h2>
 
 <img data-src="InClassStatic/csvTidyTable.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="activity-a-mess-of-data" class="slide level2">
-<h2>Activity: A mess of data</h2>
-<p>Create a new heading in your Quarto document for this activity. Download the fellsTravelData.csv file from Canvas and read it in to R. Spend a couple of minutes looking over the data.</p>
-
-<img data-src="InClassStatic/fellsImage.jpg" class="r-stretch quarto-figure-center"><p class="caption">friendsofthefells.org</p></section>
-<section id="exploring-the-data" class="slide level2">
-<h2>Exploring the data</h2>
-<p>Compare <strong>university year</strong> to <strong>drive time</strong>.</p>
-</section>
-<section id="exploring-the-data-1" class="slide level2">
-<h2>Exploring the data</h2>
-<p>Compare <strong>university year</strong> to <strong>drive time</strong>.</p>
-
-<img data-src="InClassStatic/ggplotBlank.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="exploring-the-data-2" class="slide level2">
-<h2>Exploring the data</h2>
-<p>Compare <strong>university year</strong> to <strong>drive time</strong>.</p>
-
-<img data-src="InClassStatic/ggplot1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="exploring-the-survey-data" class="slide level2">
-<h2>Exploring the survey data</h2>
-<p>Compare <strong>university year</strong> to <strong>public transit time.</strong></p>
-
-<img data-src="InClassStatic/ggplotBlank.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="exploring-the-survey-data-1" class="slide level2">
-<h2>Exploring the survey data</h2>
-<p>Compare <strong>university year</strong> to <strong>public transit time.</strong></p>
-
-<img data-src="InClassStatic/ggplot2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="exploring-the-survey-data-2" class="slide level2">
-<h2>Exploring the survey data</h2>
-<p>Compare <strong>mode of transportation</strong> to <strong>time spent in transit</strong>.</p>
-
-<img data-src="InClassStatic/ggplotBlank.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="exploring-the-survey-data-3" class="slide level2">
-<h2>Exploring the survey data</h2>
-<p>Compare <strong>mode of transportation</strong> to <strong>time spent in transit</strong>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="InClassStatic/ggplot3.png" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="InClassStatic/dataNamesProblemTable.png" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-</section>
 <section id="data-wrangling-the-big-three" class="slide level2">
 <h2>Data wrangling: the big three</h2>
 <p>Column headers are values, not variable names.</p>
@@ -396,94 +348,6 @@ Wrangling in the Tidyverse
 <h2>Data wrangling in the tidyverse</h2>
 
 <img data-src="https://epirhandbook.com/en/images/pivoting/pivot_longer_new.png" class="r-stretch quarto-figure-center"><p class="caption">epirhandbook.com/en/pivoting-data.html</p></section>
-<section id="data-wrangling-in-the-tidyverse-1" class="slide level2">
-<h2>Data wrangling in the tidyverse</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>fellsData<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/fellsTravelData.csv"</span>)</span>
-<span id="cb2-2"><a href=""></a>fellsData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 64 × 4
-   universityYear walkTime driveTime ptTime
-   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
- 1 first                65        12     37
- 2 first                60        12     51
- 3 first                66        10     33
- 4 first                58        14     60
- 5 first                70        12     44
- 6 first                62        11     40
- 7 first                62        11     52
- 8 first                57         9     60
- 9 first                66        11     50
-10 first                66        11     55
-# ℹ 54 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="data-wrangling-in-the-tidyverse-2" class="slide level2">
-<h2>Data wrangling in the tidyverse</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>fellsData2<span class="ot">&lt;-</span><span class="fu">pivot_longer</span>(</span>
-<span id="cb4-2"><a href=""></a>  <span class="at">data=</span>fellsData,</span>
-<span id="cb4-3"><a href=""></a>  <span class="at">cols=</span>walkTime<span class="sc">:</span>ptTime,</span>
-<span id="cb4-4"><a href=""></a>  <span class="at">names_to=</span><span class="st">"method"</span>,</span>
-<span id="cb4-5"><a href=""></a>  <span class="at">values_to=</span><span class="st">"time"</span></span>
-<span id="cb4-6"><a href=""></a>  )</span>
-<span id="cb4-7"><a href=""></a>fellsData2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 192 × 3
-   universityYear method     time
-   &lt;chr&gt;          &lt;chr&gt;     &lt;dbl&gt;
- 1 first          walkTime     65
- 2 first          driveTime    12
- 3 first          ptTime       37
- 4 first          walkTime     60
- 5 first          driveTime    12
- 6 first          ptTime       51
- 7 first          walkTime     66
- 8 first          driveTime    10
- 9 first          ptTime       33
-10 first          walkTime     58
-# ℹ 182 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="data-wrangling-in-the-tidyverse-3" class="slide level2">
-<h2>Data wrangling in the tidyverse</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>fellsData2<span class="ot">&lt;-</span><span class="fu">pivot_longer</span>(</span>
-<span id="cb6-2"><a href=""></a>  <span class="at">data=</span>fellsData,</span>
-<span id="cb6-3"><a href=""></a>  <span class="at">cols=</span>walkTime<span class="sc">:</span>ptTime,</span>
-<span id="cb6-4"><a href=""></a>  <span class="at">names_to=</span><span class="st">"method"</span>,</span>
-<span id="cb6-5"><a href=""></a>  <span class="at">values_to=</span><span class="st">"time"</span>,</span>
-<span id="cb6-6"><a href=""></a>  <span class="at">names_pattern =</span> <span class="st">"(.*)Time"</span></span>
-<span id="cb6-7"><a href=""></a>  )</span>
-<span id="cb6-8"><a href=""></a>fellsData2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 192 × 3
-   universityYear method  time
-   &lt;chr&gt;          &lt;chr&gt;  &lt;dbl&gt;
- 1 first          walk      65
- 2 first          drive     12
- 3 first          pt        37
- 4 first          walk      60
- 5 first          drive     12
- 6 first          pt        51
- 7 first          walk      66
- 8 first          drive     10
- 9 first          pt        33
-10 first          walk      58
-# ℹ 182 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="data-wrangling-in-the-tidyverse-4" class="slide level2">
-<h2>Data wrangling in the tidyverse</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>fellsData2,<span class="fu">aes</span>(<span class="at">x=</span>method,<span class="at">y=</span>time))<span class="sc">+</span></span>
-<span id="cb8-2"><a href=""></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="Lecture06_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
 <section id="pipes-in-r" class="slide level2">
 <h2>Pipes in R</h2>
 <p>The pipe operator <code>%&gt;%</code> allows us to combine multiple functions into an ordered set of transformations.</p>
@@ -514,7 +378,7 @@ Wrangling in the Tidyverse
 <section id="pipes-in-r-2" class="slide level2">
 <h2>Pipes in R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>nycflights <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(month<span class="sc">==</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>nycflights <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(month<span class="sc">==</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,610 × 16
     year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
@@ -550,11 +414,11 @@ Wrangling in the Tidyverse
 <section id="data-pipelines-2" class="slide level2">
 <h2>Data pipelines</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>nycflights <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">speed =</span> distance <span class="sc">/</span> air_time <span class="sc">*</span> <span class="dv">60</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb12-3"><a href=""></a>  <span class="fu">select</span>(year<span class="sc">:</span>day,dep_time,carrier,flight,speed) <span class="sc">%&gt;%</span>   </span>
-<span id="cb12-4"><a href=""></a>  <span class="fu">filter</span>(month<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb12-5"><a href=""></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"Date"</span>,<span class="fu">c</span>(month,day,year),<span class="at">sep=</span><span class="st">"/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>nycflights <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">speed =</span> distance <span class="sc">/</span> air_time <span class="sc">*</span> <span class="dv">60</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb5-3"><a href=""></a>  <span class="fu">select</span>(year<span class="sc">:</span>day,dep_time,carrier,flight,speed) <span class="sc">%&gt;%</span>   </span>
+<span id="cb5-4"><a href=""></a>  <span class="fu">filter</span>(month<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb5-5"><a href=""></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"Date"</span>,<span class="fu">c</span>(month,day,year),<span class="at">sep=</span><span class="st">"/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,610 × 5
    Date      dep_time carrier flight speed
@@ -580,11 +444,11 @@ Wrangling in the Tidyverse
 <section id="section" class="slide level2">
 <h2></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>rawData<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/abalone.csv"</span>)  </span>
-<span id="cb14-2"><a href=""></a>rawData <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb14-4"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
-<span id="cb14-5"><a href=""></a>  <span class="fu">slice_max</span>(<span class="at">order_by=</span>rings,<span class="at">n=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>rawData<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/abalone.csv"</span>)  </span>
+<span id="cb7-2"><a href=""></a>rawData <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb7-4"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
+<span id="cb7-5"><a href=""></a>  <span class="fu">slice_max</span>(<span class="at">order_by=</span>rings,<span class="at">n=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 136 × 3
     ...1 diameter_mm rings
@@ -610,15 +474,15 @@ Wrangling in the Tidyverse
 <h2>Can I use pipes with ggplot2?</h2>
 <p>YES!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>rawData <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb16-3"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
-<span id="cb16-4"><a href=""></a>  <span class="fu">slice_max</span>(<span class="at">order_by=</span>rings,<span class="at">n=</span><span class="dv">100</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb16-5"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>diameter_mm,<span class="at">y=</span>rings)) <span class="sc">+</span> </span>
-<span id="cb16-6"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Diameter (mm)"</span>,<span class="at">y=</span><span class="st">"Rings"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>rawData <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb9-3"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
+<span id="cb9-4"><a href=""></a>  <span class="fu">slice_max</span>(<span class="at">order_by=</span>rings,<span class="at">n=</span><span class="dv">100</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb9-5"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>diameter_mm,<span class="at">y=</span>rings)) <span class="sc">+</span> </span>
+<span id="cb9-6"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Diameter (mm)"</span>,<span class="at">y=</span><span class="st">"Rings"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="Lecture06_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<img data-src="Lecture06_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
 <section id="can-i-use-pipes-with-base-r" class="slide level2">
 <h2>Can I use pipes with Base R?</h2>
 </section>
@@ -626,11 +490,11 @@ Wrangling in the Tidyverse
 <h2>Can I use pipes with Base R?</h2>
 <p>YES!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
-<span id="cb17-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb17-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb17-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span>   </span>
-<span id="cb17-5"><a href=""></a>  <span class="fu">colSums</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
+<span id="cb10-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb10-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb10-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span>   </span>
+<span id="cb10-5"><a href=""></a>  <span class="fu">colSums</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  wholeWeight shuckedWeight 
      692331.2      300215.6 </code></pre>
@@ -641,11 +505,11 @@ Wrangling in the Tidyverse
 <h2>Can I use pipes with Base R?</h2>
 <p>YES!*</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>rawData <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>      </span>
-<span id="cb19-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>      </span>
-<span id="cb19-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-5"><a href=""></a>  <span class="fu">sum</span>(wholeWeight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>rawData <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>      </span>
+<span id="cb12-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>      </span>
+<span id="cb12-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href=""></a>  <span class="fu">sum</span>(wholeWeight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error: object 'wholeWeight' not found</code></pre>
 </div>
@@ -655,11 +519,11 @@ Wrangling in the Tidyverse
 <h2>Can I use pipes with Base R?</h2>
 <p>YES!*</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
-<span id="cb21-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb21-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb21-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span>   </span>
-<span id="cb21-5"><a href=""></a>  {<span class="fu">sum</span>(.<span class="sc">$</span>wholeWeight)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
+<span id="cb14-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb14-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb14-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span>   </span>
+<span id="cb14-5"><a href=""></a>  {<span class="fu">sum</span>(.<span class="sc">$</span>wholeWeight)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 692331.2</code></pre>
 </div>
@@ -670,11 +534,11 @@ Wrangling in the Tidyverse
 <h2>Can I use pipes for analyzing and modeling data?</h2>
 <p>YES!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
-<span id="cb23-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
-<span id="cb23-3"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
-<span id="cb23-4"><a href=""></a>  <span class="fu">lm</span>(rings <span class="sc">~</span> diameter_mm, <span class="at">data=</span>.) <span class="sc">%&gt;%</span>   </span>
-<span id="cb23-5"><a href=""></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
+<span id="cb16-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb16-3"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
+<span id="cb16-4"><a href=""></a>  <span class="fu">lm</span>(rings <span class="sc">~</span> diameter_mm, <span class="at">data=</span>.) <span class="sc">%&gt;%</span>   </span>
+<span id="cb16-5"><a href=""></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
