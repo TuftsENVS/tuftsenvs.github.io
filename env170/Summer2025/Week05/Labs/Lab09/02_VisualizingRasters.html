@@ -315,7 +315,7 @@ Attaching package: 'scales'</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rescaledElev<span class="ot">&lt;-</span><span class="fu">rescale</span>(<span class="fu">c</span>(mn,<span class="sc">-</span><span class="dv">1000</span>,<span class="sc">-</span><span class="dv">500</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">500</span>,mx),<span class="at">to=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now when we run the ggplot, we can add two new colors: dark blue and blue, so our values will scale up to blue shades only through to 361</p>
+<p>Now when we run the ggplot, we can add two new colors: dark blue and blue, so our values will scale up to blue shades only through to 0.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster</span>(<span class="at">data=</span>cebuDEM) <span class="sc">+</span></span>
