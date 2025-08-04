@@ -1,0 +1,11 @@
+# Introduction {.unnumbered}
+
+A model is something that represents an aspect of the real world by way of an analogy. A [model train](https://www.nvmrc.org/stem-education), for example, can represent aspects of a real locomotive like wheels and car couplings through miniature replicas. Mathematical models like the [Lotka-Volterra equations](https://sail.usc.edu/~lgoldste/ArtPhon/Slides/lotka-volterramodel.pdf) can represent the dynamics of predator and prey species through the the interactions of population growth and energy. Computer simulations are a class of models that can be used to represent all kinds of phenomena, from [galaxies](https://www.nature.com/articles/s42254-019-0127-2) to [climate systems](https://link.springer.com/article/10.1007/s10584-015-1582-0) to [potatoes](https://www.sciencedirect.com/science/article/pii/S0168192306002826?casa_token=I1ruva02_BsAAAAA:xcu0orHj7YjxWveKOnmPxkM5PPA2SHk7fNEV9qR_imvqwN0d2QM0VlVCDRhxmP0Phjxlruyvhxg).
+
+All models share an important quality: they are all imperfect representations of the real phenomenon. However, despite their imperfections, they are often used to help us better understand the world around us. There is famous quote often attributed to the statistician George Box that sums up this idea:
+
+"All models are wrong, but some models are useful."
+
+This lab will deal with how to use linear models for predicting relationships between variables. The goal here is to go through the process of building and comparing linear models in R, but also to think about what models are for, and the tradeoffs involved when using models for particular applications. \
+\
+We'll be making use of the tree inventory data that we've seen before, as well as the **`tidyverse`** and **`modeldata`** packages.
