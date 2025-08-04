@@ -18,5 +18,15 @@
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Building models</span>"
     ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Usefully Wrong: Models in R",
+    "section": "",
+    "text": "Introduction\nA model is something that represents an aspect of the real world by way of an analogy. A model train, for example, can represent aspects of a real locomotive like wheels and car couplings through miniature replicas. Mathematical models like the Lotka-Volterra equations can represent the dynamics of predator and prey species through the the interactions of population growth and energy. Computer simulations are a class of models that can be used to represent all kinds of phenomena, from galaxies to climate systems to potatoes.\nAll models share an important quality: they are all imperfect representations of the real phenomenon. However, despite their imperfections, they are often used to help us better understand the world around us. There is famous quote often attributed to the statistician George Box that sums up this idea:\n“All models are wrong, but some models are useful.”\nOne of the key This lab will deal with how to use linear models for predicting relationships between variables.",
+    "crumbs": [
+      "Introduction"
+    ]
   }
 ]
