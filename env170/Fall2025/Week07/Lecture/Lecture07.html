@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="Lecture07_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Lecture07_files/libs/quarto-html/tabby.min.js"></script>
+<script src="Lecture07_files/libs/quarto-html/popper.min.js"></script>
+<script src="Lecture07_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="Lecture07_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Lecture07_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="Lecture07_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
+
+  <meta name="author" content="Wrangling in the Tidyverse">
+  <title>Environmental Data Analysis and Visualization</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="Lecture07_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="Lecture07_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="Lecture07_files/libs/revealjs/dist/theme/quarto-2f366650f320edcfcf53d73c80250a32.css">
+  <link href="Lecture07_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="Lecture07_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="Lecture07_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="Lecture07_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Environmental Data Analysis and Visualization</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Wrangling in the Tidyverse 
+</div>
+</div>
+</div>
+
+</section>
+<section id="warm-up-activity" class="slide level2">
+<h2>Warm-up activity</h2>
+<ul>
+<li><p>Follow the link on Canvas to the research publication in the Week 7 module</p></li>
+<li><p>In the paper, find the link to the repository where the data and code are stored. Follow this link, and download the zip file containing the code and data</p></li>
+<li><p>Unzip the zip file, open the R project file, and then open the Quarto document and see if you can get the code to run</p></li>
+</ul>
+</section>
+<section id="simulating-zebra-teeth-and-isotopes" class="slide level2">
+<h2>Simulating zebra teeth and isotopes</h2>
+
+<img data-src="InClassStatic/zebraTeeth.png" class="r-stretch quarto-figure-center"><p class="caption">Pederzani, Sarah, and Kate Britton. 2019. “Oxygen Isotopes in Bioarchaeology: Principles and Applications, Challenges and Opportunities.” <em>Earth-Science Reviews</em> 188 (January): 77–107. https://doi.org/10.1016/j.earscirev.2018.11.005.</p></section>
+<section id="dataset-of-the-day" class="slide level2">
+<h2>Dataset of the day</h2>
+<p>Research data!</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><a href="https://figshare.com/"><img data-src="InClassStatic/figShare.png" style="width:51.0%"></a> <a href="https://datadryad.org/"><img data-src="InClassStatic/dryad.png" style="width:51.0%"></a></p>
+</div><div class="column" style="width:50%;">
+<p><a href="https://zenodo.org/"><img data-src="InClassStatic/zenodo.png" style="width:51.0%"></a> <a href="https://osf.io/"><img data-src="InClassStatic/osf.png" style="width:51.0%"></a></p>
+</div></div>
+</section>
+<section id="visualization-critique" class="slide level2">
+<h2>Visualization critique</h2>
+
+<img data-src="InClassStatic/alexa.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.reddit.com/r/dataisugly/comments/1b3uj1k/the_perfect_example_of_why_pie_charts_are_terrible/#lightbox">via Reddit</a> (see also <a href="https://www.nps.gov/aboutus/mortality-data.htm#:~:text=Out%20of%20420+%20national%20parks,service%20is%20available%20to%20anyone">nps.gov</a>)</p></section>
+<section id="visualization-critique-1" class="slide level2">
+<h2>Visualization critique</h2>
+
+<img data-src="InClassStatic/greta.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.pewresearch.org/science/2025/09/17/how-americans-view-ai-and-its-impact-on-people-and-society/">Pew Research</a></p></section>
+<section id="visualization-critique-2" class="slide level2">
+<h2>Visualization critique</h2>
+
+<img data-src="InClassStatic/madison.png" class="r-stretch quarto-figure-center"><p class="caption">the.food.review via <a href="https://www.instagram.com/p/DNjcc6tPUr3/?img_index=1">Instagram</a></p></section>
+<section id="datasets" class="slide level2">
+<h2>Datasets</h2>
+
+<img data-src="InClassStatic/dataToDataset.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="data-in-the-field" class="slide level2">
+<h2>Data in the field</h2>
+
+<img data-src="InClassStatic/measureVeg.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="data-in-the-field-1" class="slide level2">
+<h2>Data in the field</h2>
+
+<img data-src="InClassStatic/vegData.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="messy-data" class="slide level2">
+<h2>Messy data</h2>
+<p>The process of data entry is often designed and conducted with limited consideration given to the process of data analysis.</p>
+
+<img data-src="InClassStatic/messyData.png" class="r-stretch quarto-figure-center"><p class="caption">https://openscapes.org/blog/2020-10-12-tidy-data/</p></section>
+<section id="activity-making-a-mess-of-data" class="slide level2">
+<h2>Activity: Making a mess of data</h2>
+<p>With the sticky notes you’ve been given, complete the data table that’s been started on the door to the data lab. Use Google Maps or similar to estimate transportation times.</p>
+
+<img data-src="InClassStatic/fellsImage.jpg" class="r-stretch quarto-figure-center"><p class="caption">friendsofthefells.org</p></section>
+<section id="exploring-the-data" class="slide level2">
+<h2>Exploring the data</h2>
+<p>Compare <strong>university year</strong> to <strong>drive time</strong>.</p>
+</section>
+<section id="exploring-the-data-1" class="slide level2">
+<h2>Exploring the data</h2>
+<p>Compare <strong>university year</strong> to <strong>drive time</strong>.</p>
+
+<img data-src="InClassStatic/ggplotBlank.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="exploring-the-data-2" class="slide level2">
+<h2>Exploring the data</h2>
+<p>Compare <strong>university year</strong> to <strong>drive time</strong>.</p>
+
+<img data-src="InClassStatic/ggplot1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="exploring-the-survey-data" class="slide level2">
+<h2>Exploring the survey data</h2>
+<p>Compare <strong>university year</strong> to <strong>public transit time.</strong></p>
+
+<img data-src="InClassStatic/ggplotBlank.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="exploring-the-survey-data-1" class="slide level2">
+<h2>Exploring the survey data</h2>
+<p>Compare <strong>university year</strong> to <strong>public transit time.</strong></p>
+
+<img data-src="InClassStatic/ggplot2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="exploring-the-survey-data-2" class="slide level2">
+<h2>Exploring the survey data</h2>
+<p>Compare <strong>mode of transportation</strong> to <strong>time spent in transit</strong>.</p>
+
+<img data-src="InClassStatic/ggplotBlank.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="exploring-the-survey-data-3" class="slide level2">
+<h2>Exploring the survey data</h2>
+<p>Compare <strong>mode of transportation</strong> to <strong>time spent in transit</strong>.</p>
+
+<img data-src="InClassStatic/ggplot3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="exploring-the-survey-data-4" class="slide level2">
+<h2>Exploring the survey data</h2>
+<p>Compare <strong>mode of transportation</strong> to <strong>time spent in transit</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/ggplot3.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/dataNamesProblemTable.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</section>
+<section id="data-wrangling-the-big-three" class="slide level2">
+<h2>Data wrangling: the big three</h2>
+<p>Column headers are values, not variable names.</p>
+
+<img data-src="InClassStatic/messyTable1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="data-wrangling-the-big-three-1" class="slide level2">
+<h2>Data wrangling: the big three</h2>
+<p>Multiple variables are stored in a single column.</p>
+
+<img data-src="InClassStatic/messyTable2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="data-wrangling-the-big-three-2" class="slide level2">
+<h2>Data wrangling: the big three</h2>
+<p>Variables stored in both rows and columns.</p>
+
+<img data-src="InClassStatic/messyTable3.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="into-the-tidyverse" class="slide level2">
+<h2>Into the <code>tidyverse</code></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/tidyverseLogo.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/tidyversePackages.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="tidy-data-principles" class="slide level2">
+<h2>Tidy data principles</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div style="color: deepskyblue;">
+<p>Each variable forms a column</p>
+</div>
+<div style="color: orange;">
+<p>Each observation forms a row</p>
+</div>
+<div style="color: purple;">
+<p>Each cell contains a single value</p>
+</div>
+</div><div class="column" style="width:70%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/tidyTable1.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div></div>
+<div style="font-size: 50%; text-align: right;">
+<p>After Wickham, H. 2014. Tidy data. <em>The Journal of Statistical Software</em> 59.</p>
+</div>
+</section>
+<section id="vectorization" class="slide level2">
+<h2>Vectorization</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/tidyTable2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/vectorization.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</section>
+<section id="querying" class="slide level2">
+<h2>Querying</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/tidyTable2.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/querying.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</section>
+<section id="consistency" class="slide level2">
+<h2>Consistency</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/tidyTable3.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/consistency.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</section>
+<section id="data-wrangling-in-the-tidyverse" class="slide level2">
+<h2>Data wrangling in the <code>tidyverse</code></h2>
+
+<img data-src="https://epirhandbook.com/en/images/pivoting/pivot_longer_new.png" class="r-stretch quarto-figure-center"><p class="caption">epirhandbook.com/en/pivoting-data.html</p></section>
+<section id="data-wrangling-in-the-tidyverse-1" class="slide level2">
+<h2>Data wrangling in the tidyverse</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>fellsData<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/fakeFellsData.csv"</span>)</span>
+<span id="cb2-2"><a href=""></a>fellsData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 64 × 4
+   universityYear walkTime driveTime ptTime
+   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+ 1 first                65        12     37
+ 2 first                60        12     51
+ 3 first                66        10     33
+ 4 first                58        14     60
+ 5 first                70        12     44
+ 6 first                62        11     40
+ 7 first                62        11     52
+ 8 first                57         9     60
+ 9 first                66        11     50
+10 first                66        11     55
+# ℹ 54 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="data-wrangling-in-the-tidyverse-2" class="slide level2">
+<h2>Data wrangling in the tidyverse</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>fellsData2<span class="ot">&lt;-</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb4-2"><a href=""></a>  <span class="at">data=</span>fellsData,</span>
+<span id="cb4-3"><a href=""></a>  <span class="at">cols=</span>walkTime<span class="sc">:</span>ptTime,</span>
+<span id="cb4-4"><a href=""></a>  <span class="at">names_to=</span><span class="st">"method"</span>,</span>
+<span id="cb4-5"><a href=""></a>  <span class="at">values_to=</span><span class="st">"time"</span></span>
+<span id="cb4-6"><a href=""></a>  )</span>
+<span id="cb4-7"><a href=""></a>fellsData2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 192 × 3
+   universityYear method     time
+   &lt;chr&gt;          &lt;chr&gt;     &lt;dbl&gt;
+ 1 first          walkTime     65
+ 2 first          driveTime    12
+ 3 first          ptTime       37
+ 4 first          walkTime     60
+ 5 first          driveTime    12
+ 6 first          ptTime       51
+ 7 first          walkTime     66
+ 8 first          driveTime    10
+ 9 first          ptTime       33
+10 first          walkTime     58
+# ℹ 182 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="data-wrangling-in-the-tidyverse-3" class="slide level2">
+<h2>Data wrangling in the tidyverse</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>fellsData2<span class="ot">&lt;-</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb6-2"><a href=""></a>  <span class="at">data=</span>fellsData,</span>
+<span id="cb6-3"><a href=""></a>  <span class="at">cols=</span>walkTime<span class="sc">:</span>ptTime,</span>
+<span id="cb6-4"><a href=""></a>  <span class="at">names_to=</span><span class="st">"method"</span>,</span>
+<span id="cb6-5"><a href=""></a>  <span class="at">values_to=</span><span class="st">"time"</span>,</span>
+<span id="cb6-6"><a href=""></a>  <span class="at">names_pattern =</span> <span class="st">"(.*)Time"</span></span>
+<span id="cb6-7"><a href=""></a>  )</span>
+<span id="cb6-8"><a href=""></a>fellsData2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 192 × 3
+   universityYear method  time
+   &lt;chr&gt;          &lt;chr&gt;  &lt;dbl&gt;
+ 1 first          walk      65
+ 2 first          drive     12
+ 3 first          pt        37
+ 4 first          walk      60
+ 5 first          drive     12
+ 6 first          pt        51
+ 7 first          walk      66
+ 8 first          drive     10
+ 9 first          pt        33
+10 first          walk      58
+# ℹ 182 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="data-wrangling-in-the-tidyverse-4" class="slide level2">
+<h2>Data wrangling in the tidyverse</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>fellsData2,<span class="fu">aes</span>(<span class="at">x=</span>method,<span class="at">y=</span>time))<span class="sc">+</span></span>
+<span id="cb8-2"><a href=""></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Lecture07_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section id="pipes-in-r" class="slide level2">
+<h2>Pipes in R</h2>
+<p>The pipe operator <code>%&gt;%</code> allows us to combine multiple functions into an ordered set of transformations.</p>
+</section>
+<section id="pipes-in-r-1" class="slide level2">
+<h2>Pipes in R</h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32,735 × 16
+    year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  
+ 1  2013     6    30      940        15     1216        -4 VX      N626VA 
+ 2  2013     5     7     1657        -3     2104        10 DL      N3760C 
+ 3  2013    12     8      859        -1     1238        11 DL      N712TW 
+ 4  2013     5    14     1841        -4     2122       -34 DL      N914DL 
+ 5  2013     7    21     1102        -3     1230        -8 9E      N823AY 
+ 6  2013     1     1     1817        -3     2008         3 AA      N3AXAA 
+ 7  2013    12     9     1259        14     1617        22 WN      N218WN 
+ 8  2013     8    13     1920        85     2032        71 B6      N284JB 
+ 9  2013     9    26      725       -10     1027        -8 AA      N3FSAA 
+10  2013     4    30     1323        62     1549        60 EV      N12163 
+# ℹ 32,725 more rows
+# ℹ 7 more variables: flight &lt;int&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,
+#   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="pipes-in-r-2" class="slide level2">
+<h2>Pipes in R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>nycflights <span class="sc">%&gt;%</span>  <span class="fu">filter</span>(month<span class="sc">==</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,610 × 16
+    year month   day dep_time dep_delay arr_time arr_delay carrier tailnum
+   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  
+ 1  2013     1     1     1817        -3     2008         3 AA      N3AXAA 
+ 2  2013     1    23     2024        37     2141        29 EV      N17115 
+ 3  2013     1    15     1626        -3     1941        10 B6      N594JB 
+ 4  2013     1    17      626        -4      846         3 US      N554UW 
+ 5  2013     1     8      902        -3     1006       -17 B6      N281JB 
+ 6  2013     1    15     1947       167     2241       171 AA      N5EGAA 
+ 7  2013     1     1     1454        -4     1554       -21 EV      N11544 
+ 8  2013     1    30     1306        -9     1430        -1 EV      N13969 
+ 9  2013     1     4     1942        -3     2249       -40 B6      N637JB 
+10  2013     1     8     1859        -6     2158       -27 AA      N322AA 
+# ℹ 2,600 more rows
+# ℹ 7 more variables: flight &lt;int&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;,
+#   distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="data-pipelines" class="slide level2">
+<h2>Data pipelines</h2>
+<ul>
+<li><p>Pipelines start with raw data (e.g., tibble) as the input</p></li>
+<li><p>This table is passed as the first argument to the next function (so they don’t need the <strong>data</strong> argument)</p></li>
+<li><p>The result of a pipeline is a dataset that can be fed into visualizations and analysis.</p></li>
+</ul>
+</section>
+<section id="data-pipelines-1" class="slide level2">
+<h2>Data pipelines</h2>
+
+<img data-src="InClassStatic/pipeline2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="data-pipelines-2" class="slide level2">
+<h2>Data pipelines</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>nycflights <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">speed =</span> distance <span class="sc">/</span> air_time <span class="sc">*</span> <span class="dv">60</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb12-3"><a href=""></a>  <span class="fu">select</span>(year<span class="sc">:</span>day,dep_time,carrier,flight,speed) <span class="sc">%&gt;%</span>   </span>
+<span id="cb12-4"><a href=""></a>  <span class="fu">filter</span>(month<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb12-5"><a href=""></a>  <span class="fu">unite</span>(<span class="at">col=</span><span class="st">"Date"</span>,<span class="fu">c</span>(month,day,year),<span class="at">sep=</span><span class="st">"/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,610 × 5
+   Date      dep_time carrier flight speed
+   &lt;chr&gt;        &lt;int&gt; &lt;chr&gt;    &lt;int&gt; &lt;dbl&gt;
+ 1 1/1/2013      1817 AA         353  319.
+ 2 1/23/2013     2024 EV        4412  319.
+ 3 1/15/2013     1626 B6         369  414 
+ 4 1/17/2013      626 US        1433  311.
+ 5 1/8/2013       902 B6          56  340.
+ 6 1/15/2013     1947 AA         575  396.
+ 7 1/1/2013      1454 EV        4390  363.
+ 8 1/30/2013     1306 EV        4120  277.
+ 9 1/4/2013      1942 B6         645  466.
+10 1/8/2013      1859 AA          21  441.
+# ℹ 2,600 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="data-pipelines-3" class="slide level2">
+<h2>Data pipelines</h2>
+<p>“I want a table with ID Number, Diameter in mm, and number of rings on top 100 <strong>abalone</strong> by ring count.”</p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>rawData<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/abalone.csv"</span>)  </span>
+<span id="cb14-2"><a href=""></a>rawData <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb14-4"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
+<span id="cb14-5"><a href=""></a>  <span class="fu">slice_max</span>(<span class="at">order_by=</span>rings,<span class="at">n=</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 136 × 3
+    ...1 diameter_mm rings
+   &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt;
+ 1   481         117    29
+ 2  2109         107    27
+ 3  2210          93    27
+ 4   295          99    26
+ 5  2202          98    25
+ 6  3150         108    24
+ 7  3281         108    24
+ 8   314          94    23
+ 9   315          97    23
+10   502         104    23
+# ℹ 126 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="can-i-use-pipes-with-ggplot2" class="slide level2">
+<h2>Can I use pipes with ggplot2?</h2>
+</section>
+<section id="can-i-use-pipes-with-ggplot2-1" class="slide level2">
+<h2>Can I use pipes with ggplot2?</h2>
+<p>YES!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>rawData <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb16-3"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
+<span id="cb16-4"><a href=""></a>  <span class="fu">slice_max</span>(<span class="at">order_by=</span>rings,<span class="at">n=</span><span class="dv">100</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb16-5"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>diameter_mm,<span class="at">y=</span>rings)) <span class="sc">+</span> </span>
+<span id="cb16-6"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Diameter (mm)"</span>,<span class="at">y=</span><span class="st">"Rings"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="Lecture07_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<section id="can-i-use-pipes-with-base-r" class="slide level2">
+<h2>Can I use pipes with Base R?</h2>
+</section>
+<section id="can-i-use-pipes-with-base-r-1" class="slide level2">
+<h2>Can I use pipes with Base R?</h2>
+<p>YES!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
+<span id="cb17-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb17-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb17-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span>   </span>
+<span id="cb17-5"><a href=""></a>  <span class="fu">colSums</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  wholeWeight shuckedWeight 
+     692331.2      300215.6 </code></pre>
+</div>
+</div>
+</section>
+<section id="can-i-use-pipes-with-base-r-2" class="slide level2">
+<h2>Can I use pipes with Base R?</h2>
+<p>YES!*</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>rawData <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>      </span>
+<span id="cb19-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>      </span>
+<span id="cb19-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-5"><a href=""></a>  <span class="fu">sum</span>(wholeWeight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: object 'wholeWeight' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="can-i-use-pipes-with-base-r-3" class="slide level2">
+<h2>Can I use pipes with Base R?</h2>
+<p>YES!*</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
+<span id="cb21-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">wholeWeight=</span>weight.whole <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb21-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">shuckedWeight=</span>weight.shucked <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb21-4"><a href=""></a>  <span class="fu">select</span>(wholeWeight,shuckedWeight) <span class="sc">%&gt;%</span>   </span>
+<span id="cb21-5"><a href=""></a>  {<span class="fu">sum</span>(.<span class="sc">$</span>wholeWeight)}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 692331.2</code></pre>
+</div>
+</div>
+<p>*certain rules apply when first argument is not a table, or when referencing column names</p>
+</section>
+<section id="can-i-use-pipes-for-analyzing-and-modeling-data" class="slide level2">
+<h2>Can I use pipes for analyzing and modeling data?</h2>
+<p>YES!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>rawData <span class="sc">%&gt;%</span>   </span>
+<span id="cb23-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">diameter_mm=</span>diameter <span class="sc">*</span> <span class="dv">200</span>) <span class="sc">%&gt;%</span>   </span>
+<span id="cb23-3"><a href=""></a>  <span class="fu">select</span>(...<span class="dv">1</span>,diameter_mm,rings) <span class="sc">%&gt;%</span>   </span>
+<span id="cb23-4"><a href=""></a>  <span class="fu">lm</span>(rings <span class="sc">~</span> diameter_mm, <span class="at">data=</span>.) <span class="sc">%&gt;%</span>   </span>
+<span id="cb23-5"><a href=""></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = rings ~ diameter_mm, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.1868 -1.6932 -0.7200  0.9066 15.9999 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 2.318574   0.172737   13.42   &lt;2e-16 ***
+diameter_mm 0.093350   0.002057   45.37   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.639 on 4175 degrees of freedom
+Multiple R-squared:  0.3302,    Adjusted R-squared:  0.3301 
+F-statistic:  2059 on 1 and 4175 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="summing-up" class="slide level2">
+<h2>Summing up</h2>
+<div>
+<ul>
+<li class="fragment"><p>Data messiness can arise in a number of ways from a variety of sources, but will inevitably slow the process</p></li>
+<li class="fragment"><p>Data that follows tidy principles enables vectorization, querying, consistency, and ease of re-use</p></li>
+<li class="fragment"><p>As data scientists, we need to develop practices for quickly manipulating and transforming datasets to be more amenable to analysis and visualization</p></li>
+</ul>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="Lecture07_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="Lecture07_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="Lecture07_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="Lecture07_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="Lecture07_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="Lecture07_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="Lecture07_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="Lecture07_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="Lecture07_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="Lecture07_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
