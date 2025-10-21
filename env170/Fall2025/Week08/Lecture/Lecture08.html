@@ -296,12 +296,12 @@ Does Anybody Really Know What Time It Is?
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">head</span>(XOM) <span class="co">#look at first six lines</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           XOM.Open XOM.High XOM.Low XOM.Close XOM.Volume XOM.Adjusted
-2007-01-03    76.26    76.27   73.51     74.11   30510700     38.61196
+2007-01-03    76.26    76.27   73.51     74.11   30510700     38.61197
 2007-01-04    73.85    73.90   72.21     72.72   31046600     37.88776
-2007-01-05    72.45    73.38   72.22     73.24   24671500     38.15868
-2007-01-08    73.88    74.25   71.85     72.65   25981900     37.85130
+2007-01-05    72.45    73.38   72.22     73.24   24671500     38.15869
+2007-01-08    73.88    74.25   71.85     72.65   25981900     37.85128
 2007-01-09    71.85    72.84   71.44     72.09   27039900     37.55951
-2007-01-10    71.81    73.11   70.64     70.99   30572000     36.98643</code></pre>
+2007-01-10    71.81    73.11   70.64     70.99   30572000     36.98642</code></pre>
 </div>
 </div>
 </section>
@@ -337,6 +337,9 @@ Does Anybody Really Know What Time It Is?
 <img data-src="Lecture08_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
 <section id="time" class="slide level2">
 <h2>Time</h2>
+</section>
+<section id="time-1" class="slide level2">
+<h2>Time:</h2>
 </section>
 <section id="time-what-is-it" class="slide level2">
 <h2>Time: what is it?</h2>
@@ -377,7 +380,7 @@ Time as data is a strange beast.<br>
 <ul>
 <li><p><code>2025</code></p></li>
 <li><p><code>10</code></p></li>
-<li><p><code>19</code></p></li>
+<li><p><code>21</code></p></li>
 </ul>
 </section>
 <section id="time-what-is-it-6" class="slide level2">
@@ -392,7 +395,7 @@ Time as data is a strange beast.<br>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co">#give the precise time as a date-time object</span></span>
 <span id="cb12-2"><a href=""></a><span class="fu">now</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2025-10-21 13:34:09 EDT"</code></pre>
+<pre><code>[1] "2025-10-21 14:11:01 EDT"</code></pre>
 </div>
 </div>
 </section>
@@ -435,9 +438,9 @@ Time as data is a strange beast.<br>
 <h2>Handling time data</h2>
 <div>
 <ul>
-<li class="fragment"><p><code>ymd</code> = “year, month, day” e.g., 2025/10/21</p></li>
-<li class="fragment"><p><code>dmy</code> = “day, month, year” e.g., 21/10/2025</p></li>
-<li class="fragment"><p><code>mdy</code> = “month, day, year” e.g., 10/21/2025</p></li>
+<li class="fragment"><p><code>ymd</code> = <em>year, month, day</em> e.g., 2025/10/21</p></li>
+<li class="fragment"><p><code>dmy</code> = <em>day, month, year</em> e.g., 21/10/2025</p></li>
+<li class="fragment"><p><code>mdy</code> = <em>month, day, year</em> e.g., 10/21/2025</p></li>
 </ul>
 </div>
 </section>
@@ -450,53 +453,12 @@ Time as data is a strange beast.<br>
 <li><p>“1980-Dec-11”</p></li>
 </ul>
 </section>
-<section id="handling-time-data-4" class="slide level2">
-<h2>Handling time data</h2>
-<p><code>lubridate</code> also has functions that allow you to extract parts of dates</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2025</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21</code></pre>
-</div>
-</div>
-</section>
-<section id="handling-time-data-5" class="slide level2">
-<h2>Handling time data</h2>
-<p>…or ways of accessing different ways of expressing date information (like the day of the week).</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] Tuesday
-7 Levels: Sunday &lt; Monday &lt; Tuesday &lt; Wednesday &lt; Thursday &lt; ... &lt; Saturday</code></pre>
-</div>
-</div>
-</section>
-<section id="quick-activity-making-a-day-of-it" class="slide level2">
-<h2>Quick activity: Making a day of it</h2>
-<p>Pick any day within the last 500 years. It could be your birthday, your sibling or parents birthday, or even some non-birthday date. Store it as a character object.<br>
-</p>
-<p>Use the appropriate <strong><code>lubridate</code></strong> function to convert it to a date object (e.g.&nbsp;<code>ymd</code>, <code>mdy</code>, <code>dmy</code>).<br>
-</p>
-<p>Use the <code>wday</code> function to figure out on which day of the week your date fell. You can use the <code>label</code> and <code>abbr</code> arguments to turn it into a named day of the week.</p>
-</section>
-<section id="handling-time-data-6" class="slide level2">
-<h2>Handling time data</h2>
-<p>These functions can come in handy if you want to evaluate patterns that relate to temporal structure.</p>
-
-<img data-src="Lecture08_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
 <section id="visualizing-time-data" class="slide level2">
 <h2>Visualizing time data</h2>
 <p>NASDAQ Composite data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>nasdaq<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/nasdaq.csv"</span>)</span>
-<span id="cb27-2"><a href=""></a>nasdaq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>nasdaq<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"data/nasdaq.csv"</span>)</span>
+<span id="cb22-2"><a href=""></a>nasdaq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 127 × 5
    Date       `Close/Last`   Open   High    Low
@@ -518,30 +480,89 @@ Time as data is a strange beast.<br>
 <section id="visualizing-time-data-1" class="slide level2">
 <h2>Visualizing time data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">ggplot</span>(nasdaq,<span class="fu">aes</span>(<span class="at">x=</span>Date,<span class="at">y=</span>Open)) <span class="sc">+</span></span>
-<span id="cb29-2"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">"darkblue"</span>) <span class="sc">+</span></span>
-<span id="cb29-3"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Date"</span>,<span class="at">y=</span><span class="st">"Points at Closing"</span>,<span class="at">title=</span><span class="st">"NASDAQ Composite, May-October 2024"</span>) <span class="sc">+</span></span>
-<span id="cb29-4"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">ggplot</span>(nasdaq,<span class="fu">aes</span>(<span class="at">x=</span>Date,<span class="at">y=</span>Open)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Date"</span>,<span class="at">y=</span><span class="st">"Points at Closing"</span>,<span class="at">title=</span><span class="st">"NASDAQ Composite, May-October 2024"</span>) <span class="sc">+</span></span>
+<span id="cb24-4"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="Lecture08_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
+<img data-src="Lecture08_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
 <section id="visualizing-time-data-2" class="slide level2">
 <h2>Visualizing time data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">ggplot</span>(nasdaq,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">mdy</span>(Date),<span class="at">y=</span>Open)) <span class="sc">+</span></span>
-<span id="cb30-2"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">"darkblue"</span>) <span class="sc">+</span></span>
-<span id="cb30-3"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Date"</span>,<span class="at">y=</span><span class="st">"Points at Closing"</span>,<span class="at">title=</span><span class="st">"NASDAQ Composite, May-October 2024"</span>) <span class="sc">+</span></span>
-<span id="cb30-4"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">ggplot</span>(nasdaq,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">mdy</span>(Date),<span class="at">y=</span>Open)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">"darkblue"</span>) <span class="sc">+</span></span>
+<span id="cb25-3"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Date"</span>,<span class="at">y=</span><span class="st">"Points at Closing"</span>,<span class="at">title=</span><span class="st">"NASDAQ Composite, May-October 2024"</span>) <span class="sc">+</span></span>
+<span id="cb25-4"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="Lecture08_files/figure-revealjs/unnamed-chunk-16-1.png" width="960" class="r-stretch"></section>
+<img data-src="Lecture08_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<section id="handling-time-data-4" class="slide level2">
+<h2>Handling time data</h2>
+<p><code>lubridate</code> also has functions that allow you to extract parts of dates…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">year</span>(todaysDate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2025</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">month</span>(todaysDate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">day</span>(todaysDate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 21</code></pre>
+</div>
+</div>
+</section>
+<section id="handling-time-data-5" class="slide level2">
+<h2>Handling time data</h2>
+<p>…or ways of accessing different expressions of date information (like the day of the week or name of a month).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">wday</span>(todaysDate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">wday</span>(todaysDate,<span class="at">label=</span><span class="cn">TRUE</span>, <span class="at">abbr=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Tuesday
+7 Levels: Sunday &lt; Monday &lt; Tuesday &lt; Wednesday &lt; Thursday &lt; ... &lt; Saturday</code></pre>
+</div>
+</div>
+</section>
+<section id="quick-activity-making-a-day-of-it" class="slide level2">
+<h2>Quick activity: Making a day of it</h2>
+<p>Pick any day within the last 500 years. It could be your birthday, your sibling or parents birthday, or even some non-birthday date. Store it as a character object.<br>
+</p>
+<p>Use the appropriate <strong><code>lubridate</code></strong> function to convert it to a date object (e.g.&nbsp;<code>ymd</code>, <code>mdy</code>, <code>dmy</code>).<br>
+</p>
+<p>Use the <code>wday</code> function to figure out on which day of the week your date fell. You can use the <code>label</code> and <code>abbr</code> arguments to turn it into a named day of the week.</p>
+</section>
+<section id="handling-time-data-6" class="slide level2">
+<h2>Handling time data</h2>
+<p>These functions can come in handy if you want to evaluate patterns that relate to temporal structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="co">#Which month is the most volatile in terms of Exxon daily price range?</span></span>
+<span id="cb36-2"><a href=""></a>exxon <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">Price_Range=</span>XOM.High<span class="sc">-</span>XOM.Low) <span class="sc">%&gt;%</span> <span class="co">#get daily price range</span></span>
+<span id="cb36-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">Month=</span><span class="fu">month</span>(Date,<span class="at">label=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co">#get month name</span></span>
+<span id="cb36-5"><a href=""></a>  <span class="fu">select</span>(Month,Price_Range) <span class="sc">%&gt;%</span> <span class="co">#subset to month and range</span></span>
+<span id="cb36-6"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Month,Price_Range)) <span class="sc">+</span></span>
+<span id="cb36-7"><a href=""></a>  <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="handling-time-data-7" class="slide level2">
+<h2>Handling time data</h2>
+<p>These functions can come in handy if you want to evaluate patterns that relate to temporal structure.</p>
+
+<img data-src="Lecture08_files/figure-revealjs/unnamed-chunk-17-1.png" width="960" class="r-stretch"></section>
 <section id="visualizing-time-data-3" class="slide level2">
 <h2>Visualizing time data</h2>
 <p><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005137/GISTEMP_Curves_July2023_1080p60.mp4"></video> NASA Scientific Visualization Studio (<a href="https://svs.gsfc.nasa.gov/5137/" class="uri">https://svs.gsfc.nasa.gov/5137/</a>)</p>
 </section>
 <section id="visualizing-time-data-4" class="slide level2">
 <h2>Visualizing time data</h2>
-<p><video id="video_shortcode_videojs_video2" width="400" height="300" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title=""><source src="https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005057/GISTEMP_Spiral_30sec_C.mp4"></video> NASA Scientific Visualization Studio (<a href="https://svs.gsfc.nasa.gov/5057/">https://svs.gsfc.nasa.gov/5137/</a>)</p>
+<p><video id="video_shortcode_videojs_video2" width="800" height="600" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title=""><source src="https://svs.gsfc.nasa.gov/vis/a000000/a005000/a005057/GISTEMP_Spiral_30sec_C.mp4"></video> NASA Scientific Visualization Studio (<a href="https://svs.gsfc.nasa.gov/5057/">https://svs.gsfc.nasa.gov/5137/</a>)</p>
 </section>
 <section id="effectively-communicating-with-visuals" class="slide level2">
 <h2>Effectively communicating with visuals</h2>
