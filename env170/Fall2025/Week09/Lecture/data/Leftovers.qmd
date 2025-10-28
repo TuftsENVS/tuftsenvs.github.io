@@ -1,0 +1,52 @@
+## Catching the eye
+
+`{r} #| echo: TRUE #| message: FALSE data<-read_csv("data/collegeData.csv") data}`
+
+## Catching the eye
+
+`` {r} #| echo: TRUE #| message: FALSE data<-data %>%   filter(`Credit Type`=="Undergraduate") %>%   pivot_longer(cols=`Fiscal Year 2013`:`Fiscal Year 2022`,names_to = "Year",values_to = "Enrollment",names_prefix = "Fiscal Year ") %>% mutate(Year=ymd(Year,truncated = 2L)) %>% group_by(Institution)  data} ``
+
+## Catching the eye
+
+`{r} #| echo: TRUE #| message: FALSE  data2<-data %>% filter(Institution=="Salem State University")  ggplot(data,aes(x=Year,y=Enrollment,group=Institution)) +   geom_line(color="lightgrey") +    geom_line(data=data2,aes(x=Year,y=Enrollment),col="blue",lwd=1.5) +   theme_classic() +   labs(title="Salem State University Enrollments",subtitle="Grey lines indicate other state system institutions")}`
+
+## Catching the eye
+
+`{r} #| echo: false #| message: false  data2<-data %>% filter(Institution=="Salem State University")  ggplot(data,aes(x=Year,y=Enrollment,group=Institution)) +   geom_line(color="lightgrey") +    geom_line(data=data2,aes(x=Year,y=Enrollment),col="blue",lwd=1.5) +   theme_classic() +   labs(title="Salem State University Enrollments",subtitle="Grey lines indicate other state system institutions")}`
+
+## Activity: A story in three images
+
+Working together in pairs, choose a story from a list. Your task is to convey the main idea to us in three images or less [without]{.underline} using images directly from that story.
+
+Use the internet to find (tasteful, appropriate) images.
+
+Go to the activity page on Canvas and add these to a blank document.
+
+## 
+
+```{r}
+library(tidyverse)
+library(sf)
+data<-read_csv("whereEat2.csv")
+data2<-data %>% filter(Longitude < -70) %>% filter(Latitude > 40)
+
+boston<-st_read("City_of_Boston_Boundary.shp")
+eatSpat<-st_as_sf(data2,coords=c("Longitude","Latitude"))
+st_crs(eatSpat)<-4326
+
+ggplot()+
+  geom_sf(data=boston) +
+  geom_sf(data=eatSpat)
+```
+
+## Interactive Maps
+
+`{r} #| echo: true library(htmlwidgets) library(leaflet) m <- leaflet() %>% setView(lng = -71.0589, lat = 42.3601, zoom = 12) %>% addTiles() m}`
+
+## Interactive maps
+
+`{r} #| echo: true library(sf) trees<-st_read("data/allTrees.shp")}`
+
+## Interactive maps
+
+`{r} #| echo: true treeMap<-leaflet(data = trees) %>% addTiles() %>%   addMarkers(popup = ~as.character(name), label = ~as.character(name))  treeMap}`
