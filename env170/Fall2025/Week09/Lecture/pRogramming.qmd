@@ -1,0 +1,249 @@
+---
+title: "Putting the FUN in FUNdamentals of Programming"
+author: "Ben Davies"
+date: "10/28/2025"
+format: html
+editor: visual
+---
+
+Beyond manipulating and plotting data, R is a powerful tool for automating complicated tasks and making them easy to reproduce. This is often done through the use of programming customized algorithms and functions. In this section, we will work on a few of the most common types of programming structures.
+
+## First steps
+
+```{r}
+#| message: FALSE
+#| warning: FALSE
+
+require(tidyverse)
+```
+
+## `for` loops
+
+A `for` loop is a structure that iterates over a vector and performs a task for each item. This is useful when you want to apply an elaborate procedure over a given set of data. First, create a new script/Quarto document and save it alongside the [dataset here](http://tuftsenvs.github.io/env170/Fall2025/pRogramming/fishlength.csv). Next, let's load some data:
+
+```{r}
+#| message: FALSE
+
+fishlength<-read_csv("fishlength.csv")
+fishlength
+```
+
+This is some made-up data on fish lengths from a 100m^2^ stream survey for two species: longfin eels (*Anguilla dieffenbachii*) and rainbow trout (*Oncorhynchus mykiss*). A basic `for` loop could take the species information and incorporate it into a character string. We can do this by adding the following to the script:
+
+```{r}
+
+for (i in 1:10) {
+  j<-paste("The scientific name of this fish is", fishlength[i,1])
+  print(j)
+}
+```
+
+This shows how a basic for loop is constructed. After we use `for`, we put in our iterator in parentheses, which here is `(i in 1:10)`. Combined, this reads `for (i in 1:10)`, which basically means:
+
+**For every item *i* in the integer sequence 1 to 10**
+
+You might think of it like a line of people waiting to ride a rollercoaster, where the people are the sequence of integers, and the rollercoaster is the loop instructions. The rollercoaster car picks up one of the people waiting (in the first case, the number 1), takes them through the loop, returns to the beginning and then picks up the next person (in this case, 2). The letter `i` here acts like the rollercoaster car; each number in our sequence will be iterated through the loop code as `i`.\
+\
+The rest of the loop is in curly braces, and this is the code that will be applied using each item in the sequence from 1 to 10. The `paste` function will take a couple of character strings and paste them together to form a single string. Here, we are pasting together the phrase "The scientific name of this fish is" and `fishlength[i,1]`, which means the item at the *i*th row and the 1st column in our data table. Remembering that the `for` loop will iterate each value in the sequence of 1 to 10 into the placeholder variable `i`, and since the first column of the dataset is species names, then this code will iterate through each of the first ten entries in the species column and add them into the character string. The code saves this to a variable called j, and then prints this value before moving on to the next value in the sequence. The result is 10 repetitions of the same phrase, each being combined from the text and an iterated value in the table.
+
+A question might arise from this bit of the exercise: why did we use the term `i`? Is that short for something? Is it an R-specific term? The answer is a resounding NO: we could replace `i` with pretty much anything. Behold:
+
+```{r}
+for (maryPoppins in 1:10) {
+  j<-paste("The scientific name of this fish is", fishlength[maryPoppins,1])
+  print(j)
+}
+```
+
+While i is sort of a convention in the programming world for loop iterators, this works like any other object name assignment we've seen so far. This is particularly important to know when you start building [nested loops](https://www.w3schools.com/r/r_for_loop_nested.asp), or loops within loops.
+
+But what about the object's value itself: can we use this in our loop? The answer here is a resounding YES, and this is one of the things that makes loops especially valuable. Have a look at this revised version of our loop:
+
+```{r}
+for (i in 1:10) {
+  j<-paste("The scientific name of fish", i, "is", fishlength[i,1])
+  print(j)
+}
+```
+
+Hopefully, this makes the process of loop iteration more clear. What's happening here is that the text being pasted together includes a break after the word "fish", which is followed by `i`. The `paste` function will take these and concatenate them, and as the loop progresses, it will go through each number in the list and use it in the generation of the printed phrase.\
+\
+Impressive, no? OK, this by itself is admittedly not very useful, but when combined with other programming elements, we can do quite a bit more.
+
+## `if` and `else` statements
+
+An `if` statement will check to see whether a particular condition has been met and, if it has, it will perform a given task. In R, these follow the following pattern:
+
+`if (` *condition* `){` *task* `}`
+
+While we can apply operations and built-in functions to our data, sometimes we may want to apply these differently based on some criteria. This is where `if` statements are particularly useful.
+
+Coming back to our fish length data, let's say we wanted to estimate biomass in our pretend catchment. There are formulas that can be applied to length data to estimate sh weight, but these are usually specic to a given species[^1]. For the species in our data, these are:
+
+[^1]: PG Jellyman, DJ Booker, SK Crow, ML Bonnett & DJ Jellyman (2013) Does one size t all? An evaluation of lengthweight relationships for New Zealand's freshwater sh species, New Zealand Journal of Marine and Freshwater Research, 47:4, 450-468
+
+Longn eel: $W= 3.624 \times 10^{-7}  \times L^{3.307}$
+
+Rainbow trout: $W = 2.101 \times 10^{-5}  \times L^{2.909}$
+
+Since we know these formulas, we can use an if statement to apply the correct formula to each species. There's a few different ways this could be done, but we'll walk through one way that uses an `if` statement.
+
+First, let's create an empty vector where we can store our new weight values:
+
+```{r}
+weight<-c()
+```
+
+We need something that can go through each row in the table, so a `for` loop should do the job. For each row, we want to figure out whether that species is an eel and, if it is, we want to apply the right formula using the length. We can use an `if` statement to get this done. All in all the code going into our script will look like this:
+
+```{r}
+for (i in 1:nrow(fishlength)) {
+  if (fishlength[i,1] == "A. dieffenbachii") {
+    l<-fishlength[i,2]
+    w<-(3.624*10^-7)*l^3.307
+    weight<-append(weight,as.numeric(w))
+    }
+  }
+```
+
+This begins as a `for` loop that iterates through a sequence of numbers: 1 through the number of of rows (`nrow`) in our **fishlength** tibble.
+
+Next, we see the statement `if (fishlength[i,1] == "A. dieffenbachii")`. The code `fishlength[i,1]` is drawing again on the *i* placeholder variable from the `for` loop, so `[i,1]` reads as "the *i*the value of the 1st column." This will iterate through each item in the species column and feed it into the value for *i*. The `==` compares these values to the character string "A. dieffenbachii", the latin name for longn eel. If they are not the same, then the code returns back to the `for` loop and continues to the next row; otherwise, the `if` statement proceeds with the rest of the code.
+
+The three lines inside of the if statement produce the weight values we're looking for. First, it assigns the *ith* value from the **length_mm** column to the variable `len`. It plugs this value into the formula `(3.624*10^-7)*len^3.307`, which is the regression formula for weight in longn eels. This is assigned to the variable `w`. Finally, we use the `append` function to add this to our empty vector `weight`. Note that we use `as.numeric` to coerce the `w` object into a number (rather than as a 1x1 tibble).
+
+As it proceeds through the table, for each eel it comes across, it will calculate the weight in grams and add it to the `weight` vector. We can then see these values stored in this vector using the `head` function.
+
+```{r}
+head(weight)
+```
+
+This is a good start, but ideally we want to calculate the weights for both species. How do we do this? Before continuing, try and think of a way this might be done.
+
+First, let's reset our weight vector to be empty:
+
+```{r}
+weight<-c()
+```
+
+To calculate the values for two species, you might consider adding another if statement below the first one, modifying the condition to include the scientific name for rainbow trout and substituting in the formula for that species. But since the only other species we are dealing with is trout, we can use `else` to simplify things a bit. The full code should look something like this:
+
+```{r}
+for (i in 1:nrow(fishlength)) {
+  if (fishlength[i,1] == "A. dieffenbachii") {
+    l<-fishlength[i,2]
+    w<-(3.624*10^-7)*l^3.307
+    weight<-append(weight,as.numeric(w))
+    }
+  else {
+    l<-fishlength[i,2]
+    w<-(2.101*10^-5)*l^2.909
+    weight<-append(weight,as.numeric(w))
+  }
+}
+```
+
+In the end, both of these solution do the same thing; however, not all cases will work this way, as we will see below. Now we can add our weight vector to our fish dataset and calculate biomass estimates:
+
+```{r}
+fishdata<-mutate(fishlength,weight=weight)
+biomass<-sum(fishdata$weight)
+biomass
+```
+
+So, at least as far as eels and trout go, you can expect about 381 kgs/100m^2^ from our pretend catchment.
+
+## Functions
+
+After awhile, the code we generate may become cumbersome to understand if we need to repeatedly build nested for loops and if statements. In these cases, we may want to build functions that can perform some transformation on a value, or vector, or table of data. Defining functions in R is done through something along the lines of:
+
+`myfunction<-function(` a , b ) `{` some code using a and b `}`
+
+For our first function, we'll keep it simple: we have a water temperature recorded in degrees Fahrenheit that we would like to convert to degrees Celsius. What we want is a function that will take a value in one scale and do the mathematics to convert it to the other. Let's call our new function `f2c`:
+
+```{r}
+f2c<-function(f){
+  c<-((f+40)/1.8)-40
+  c
+}
+```
+
+Here, we begin by giving the function the name `f2c`. Next, we declare that it will be a function that accepts a variable value we call `f`. We don't need to tell the function what the value of `f` will be, or even what kind of object it will be, as long as the remaining code can deal with the object we give it. Next, we declare that a new variable called `c` will be the outcome of a mathematical formula that includes the variable `f`. Finally, our function returns the value of the new variable `c`, and this will be the output of the function.
+
+Once the function is loaded into R's memory by running the code above, this will send all of the code to the R console and, presuming there are no errors in our code, it will now be a function we can call, just like functions we've already seen like `append` or `sum`. So let's try it out!
+
+```{r}
+f2c(68)
+```
+
+Again:
+
+```{r}
+f2c(32)
+```
+
+And again, this time on a vector of values:
+
+```{r}
+f2c(c(14,50,212))
+```
+
+In this last case, we can see that, as built, our function can handle not only single values, but multiple values given as a vector. This is pretty good, but it only goes one way. What would be more useful would be a function that could do conversions in both directions. To do this, we can modify our function by adding a second variable to indicate whether we are converting from Fahrenheit or Celsius, and if/else statement that changes the maths accordingly.
+
+```{r}
+convertTemp<-function(t,s){
+  if (s == "F"){
+    converted<-((t+40)/1.8)-40
+    }
+  else {
+    converted<-((t+40)*1.8)-40
+    }
+  converted
+}
+```
+
+Here, we've used a second argument, s, to indicate a symbol. If that symbol's value is "F", it will run the first value, t, through the formula for Fahrenheit to Celcius. In any other case, it will run the value through formula for Celcius to Fahrenheit. Now instead of accepting only Fahrenheit temperatures, we can convert from either Fahrenheit or Celsius.
+
+```{r}
+convertTemp(40,"C")
+convertTemp(40,"F")
+convertTemp(c(20,30,40),"C")
+```
+
+This seems pretty good, and once again we can apply the conversion to a vector of values, but there's something we're missing. Since we used `else` in this case, we could literally type in anything other than "F" and get the Celsius value. Behold:
+
+```{r}
+convertTemp(-50,"Bobcar")
+```
+
+There are a couple of things we can do at this point to make our function a bit more... functional. First, we can take the `else` out of our if/else statement and convert it into two if statements that either use "C" or "F" for scales. Second, we can add in a warning in the event that the scale is neither of these. Try editing the function in the following way:
+
+```{r}
+convertTemp<-function(t,s){
+  if (s == "F"){
+    converted<-((t+40)/1.8)-40
+  }
+  if (s == "C") {
+    converted<-((t+40)*1.8)-40
+  }
+  if (!(s %in% c("C","F"))) {
+    warning("Scale invalid. Please use C or F for scale.")
+  }
+  else {
+    converted
+  }
+}
+```
+
+Here, we've used two `if` statements to convert the temperatures, and an if/else statement to determine if a valid scale has been entered. To determine if we have an invalid scale value, we use another `if` statement, but this one is a little funny. The `!` symbol means "not" in most programming languages, while s %in% c("C","F") means "s is a member of a set containing C and F". Put it all together and it reads
+
+**"If it is not the case that s is a member of a set containing C and F, then..."**
+
+This provides the condition that triggers our warning. Now if we enter an invalid scale, we get a helpful warning, and otherwise we get the correct value:
+
+```{r}
+convertTemp(-50,"C")
+convertTemp(-50,"Bobcar")
+```
+
+In programming terms, this is an example of *exception handling*, where we have accounted for potential misuses of the function within the code itself. However, not all possible errors are accounted for in our function. Someone with the inclination might try to use a character string, or a boolean TRUE/FALSE. These will inevitably lead to problems, some of which may or may not have clear solutions for the user. How much care you put into error handling will be a major factor in the reusability of your code for other purposes.
