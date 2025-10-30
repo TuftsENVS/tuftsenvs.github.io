@@ -496,8 +496,8 @@ all geometries</code></pre>
 </section>
 <section id="using-joins-to-combine-table-and-spatial-data" class="level3">
 <h3 class="anchored" data-anchor-id="using-joins-to-combine-table-and-spatial-data">Using joins to combine table and spatial data</h3>
-<p>More often than not, you may want to do some kind of analysis or visualization only to find you have one variable stored in one dataset, and another stored in another dataset. This can be a bit frustrating, but there are tools. The most helpful of these is the <code>left_join</code> function. This takes two datasets and uses a common shared variable to join them together. This can be particularly helpful when some</p>
-<p>This can be particularly helpful when you have table data and want to map it. Let’s say we wanted to view our 2007 life expectancy data from the <strong>gapminder</strong> dataset as a map. First, we’ll subset bring in that data and subset it to just 2007 and just the <strong>country</strong> and <strong>lifeExp</strong> columns:</p>
+<p>More often than not, you may want to do some kind of analysis or visualization only to find you have one variable stored in one dataset, and another stored in another dataset. This can be a bit frustrating, but there are tools. The most helpful of these is the <code>left_join</code> function. This takes two datasets and uses a common shared variable to join them together.</p>
+<p>This can be particularly helpful when you have table data and want to map it. Let’s say we wanted to view our 2007 life expectancy data from the <strong>gapminder</strong> dataset as a map. First, we’ll bring in that data and subset it to just 2007 and just the <strong>country</strong> and <strong>lifeExp</strong> columns:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
