@@ -1,5 +1,0 @@
----
-title: "About"
----
-
-This tree inventory is an ongoing project conducted as part of the *Introduction to Environmental Studies* course at Tufts University. Students taking the course during the Fall semester collect data about campus trees, including species identifications, diameter, height, and health indicators.
