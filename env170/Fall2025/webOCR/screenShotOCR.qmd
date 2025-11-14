@@ -1,0 +1,115 @@
+---
+title: "Web scraping from screenshots?"
+format: html
+editor: visual
+---
+
+## Packages!
+
+We'll need these packages for this operation:
+
+```{r}
+#| warning: FALSE
+#| message: FALSE
+#install.packages("webshot2")
+#install.packages("magick")
+#install.packages("tesseract")
+#install.packages("tidyverse")
+library(webshot2) #for snapshots
+library(magick) #for image reading
+library(tesseract) #for ocr
+library(tidyverse) #for data
+```
+
+## Taking screenshots of websites
+
+The **`webshot2`** package can be used to take a screenshot of a webpage, it requires Google Chrome to be installed on the machine. The `webshot` function needs a url, add a delay to give the site time to load, and a filename to store the screenshot. Let's do it for my Tufts profile.
+
+```{r}
+
+webshot("https://facultyprofiles.tufts.edu/benjamin-davies", delay = 0.5,file="webshot.png")
+```
+
+## OCR website
+
+The **`magick`** and **`tesseract`** packages can be used to read in an image, then recognize and pull text from an image.
+
+```{r}
+#read an image
+img <- image_read("webshot.png")
+
+#get the text, tell tesseract it's in English
+text<-image_ocr(img,language="eng")
+```
+
+Now we can look at the text...
+
+```{r}
+text
+```
+
+It's a single giant character object with all the text on the screen. Let's say I wanted the university where the prof got their PhD. Here you have to look for patterns that will let you isolate the interesting piece of information. Blocks of text are split by `\n`; university name follows `PhD` heading, and then is followed by a comma. \
+
+```{r}
+#split up text based on \n
+textSplit<-strsplit(text, "\n")
+#this produces a list object, unlist turns it into a vector
+textSplit<-unlist(textSplit)
+#which tells me where the word "PhD" comes up in the vector
+phd<-which(str_detect(textSplit,"PhD"))
+#pull out the next item in the vector
+school<-textSplit[phd+1]
+#This splits up that object based on commas, which produces a list object
+school<-str_split(school, ",")
+#Make list object a vector
+school<-unlist(school)
+#Take the first item in the vector
+school<-school[1]
+#print it out
+school
+```
+
+## Trying a scrape
+
+Now we're going to try and get alma maters for the ENVS faculty. We'll create a vector that includes the url ID for each faculty member, then use a `for` loop to iterate through that vector and run the code above for each profile.
+
+```{r}
+#list of profs in alpha order
+profs<-c("benjamin-davies","sara-gomez","hassaanfurqan-khan","karen-kosinski","ninian-stein")
+#empty vector to store schools
+almaMater<-c()
+
+#This loop iterates over the profs vector, pasting their name into the url to get their profile, then runs the code above (though see below where tail and append function used). After this, the result gets added to a vector of schools.
+for (i in profs){
+  url<-paste0("https://facultyprofiles.tufts.edu/",i)
+  webshot(url, delay = 0.5,file="webshot.png")
+  img <- image_read("webshot.png")
+  text<-image_ocr(img,language="eng")
+  data<-image_ocr_data(img,language="eng")
+  textSplit<-strsplit(text, "\n")
+  textSplit<-unlist(textSplit)
+  phd<-which(str_detect(textSplit,"PhD"))
+  school<-textSplit[phd+1]
+  #This line was added because some folks mentioned the phrase PhD in their bio, so tail just finds the last instance in the text
+  school<-tail(school,n=1)
+  school<-str_split(school, ",")
+  school<-unlist(school)
+  school<-school[1]
+  #This adds the result to the almaMater vector
+  almaMater<-append(almaMater,school)
+}
+
+
+```
+
+Now combine the profs and schools into a tibble, and voilà!
+
+```{r}
+#remove the hyphens in prof names
+profs<-str_replace(profs,"-"," ")
+#capitalize first letters
+profs<-str_to_title(profs)
+#make tibble
+profPhD<-tibble(profs,almaMater)
+profPhD
+```
