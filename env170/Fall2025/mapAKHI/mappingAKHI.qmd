@@ -1,0 +1,40 @@
+---
+title: "Plotting US spatial data with Alaska and Hawaii offset"
+format: html
+editor: visual
+---
+
+## Plotting US states and territories
+
+Data from ESRI [ArcGIS Hub](https://hub.arcgis.com/datasets/TrainingServices::us-state-boundaries/explore?location=24.148743%2C-65.721188%2C3.01)
+
+```{r}
+library(tidyverse)
+library(sf)
+
+#read in spatial data
+allStates<-st_read(("US_State_Boundaries.shp"))
+
+#plot it
+ggplot()+
+  geom_sf(data=allStates)
+```
+
+## With tigris package
+
+```{r}
+#install.packages(tigris)
+library(tigris)
+
+#filter to create a new dataset with 50 States (no territories)
+fiftyStates<-allStates %>% 
+  filter(OBJECTID %in% c(1:25,28:60))
+
+#Offset AK and HI using shift_geometry function from tigris
+fiftyStatesShifted<-shift_geometry(fiftyStates,position=c("below"))
+
+#plot new map
+ggplot()+
+  geom_sf(data=fiftyStatesShifted)
+
+```
