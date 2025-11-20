@@ -1,0 +1,32 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "A Brief Primer for ArcGIS",
+    "section": "",
+    "text": "Connecting Raster and Vector Data\nOftentimes, we may be interested in the interactions between the locations of features and continuous variables in the environments they are found in. For example, we might be interested to know whether maple yield varies depending on whether a maple tree is on a slope or level ground. Since slope angle varies across space, we’d need to be able to not only each tree’s yield, but the slope associated with the location of that tree. In this lab, we’ll look at how we can visualize raster data, and then how to evaluate interactions between continuous raster data and discrete vector features.",
+    "crumbs": [
+      "Connecting Raster and Vector Data"
+    ]
+  },
+  {
+    "objectID": "VisualizingRasters.html",
+    "href": "VisualizingRasters.html",
+    "title": "1  Visualizing raster data",
+    "section": "",
+    "text": "For this section, we’ll look at a few different ways to work with raster data, which is used to represent continuous variables across space as gridded sets of cells containing a value for that variable.\n\nFrom the kapitiBirds.gdb geodatabase, add the kapiti_outline and the kapiti_elev datasets. These are coastline and elevation data from Kapiti Island, a conservation area off the western coast of Wellington, New Zealand. It should look something like this:\n\n\n\n\n\n\n\nRight click on the outline in the Table of Contents to access its Symbology. Under Properties, set the color to No color and the outline to a black line.\nNow right click on the kapiti_elev dataset in the Table of Contents and access its Symbology. This will look a little different from the options we’ve seen before:\n\n\n\n\n\n\n\nSince rasters are used to represent continuous data, the way they are visualized is often as a values “stretched” along a color ramp. Color ramps may be sequential (grading high to low from one color to another), diverging (two colors grading away from a third central color), or qualitative (colors grade without reference to magnitude).\n\n\n\n\n\n\n\nUnder Color scheme, you can see that the current ramp is sequential, going from black at low values, to white at high values. Click on this menu to select another ramp. You can try a few different ones and see what they look like. Since this is elevation data, I suggest something that looks like terrain colors: greens, yellows, browns, etc.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Visualizing raster data</span>"
+    ]
+  },
+  {
+    "objectID": "ExtractingRasterValues.html",
+    "href": "ExtractingRasterValues.html",
+    "title": "2  Extracting raster data",
+    "section": "",
+    "text": "Let’s say we wanted to use this map to figure out the elevation of different backcountry huts on the island. We can do this by extracting the values from the elevation raster at the locations of the huts.\n\nLoad the kapiti_huts dataset. These are the locations of five (fictional) Department of Conservation huts. It should look something like this:\n\n\n\n\n\n\n\nRight click the huts in the Table of Contents to modify the Symbology so they are larger and easier to see.\nIn the Analysis ribbon, click Tools, then at the top of the pane click Toolboxes. Go to the Spatial Analyst toolkit, and select the Extract Values to Points tool. The window should look like this:\n\n\n\n\n\n\n\nThis tool extracts the values from a raster using the locations of a point dataset, and then generates a new point feature with the raster values added to a new column at the end of the attribute table.\n\n\n\nSet Input point features to kapiti_huts, set Input raster to kapiti_elev, and output to a new feature called kapitiHutsElev. Click Run. The new feature should now appear in the Table Contents. Right click on it to access the attribute table, which should now look like this:\n\n\n\n\n\n\n\nNow there is a new field called RASTERVALU. This contains the elevation data for the points at those locations. If you wanted to check them, you could use the Explore tool in the Map ribbon to click on these points and the raster underneath.\nIf you want to rename the new field, go to the three lines button and select Field View, and then double click the field name to edit it:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Extracting raster data</span>"
+    ]
+  }
+]
