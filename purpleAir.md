@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Air Quality Data
+title: Air Quality @ ENVS
 permalink: /tuftsAQ/
 tags: aq
 ---
