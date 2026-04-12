@@ -1,0 +1,42 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "A Brief Primer for ArcGIS",
+    "section": "",
+    "text": "Connecting Raster and Vector Data\nOftentimes, we may be interested in the interactions between the locations of features and continuous variables in the environments they are found in. For example, we might be interested to know whether maple yield varies depending on whether a maple tree is on a slope or level ground. Since slope angle varies across space, we’d need to be able to not only each tree’s yield, but the slope associated with the location of that tree. In this lab, we’ll look at how we can visualize raster data, and then how to evaluate interactions between continuous raster data and discrete vector features.",
+    "crumbs": [
+      "Connecting Raster and Vector Data"
+    ]
+  },
+  {
+    "objectID": "VisualizingRasters.html",
+    "href": "VisualizingRasters.html",
+    "title": "1  Visualizing raster data",
+    "section": "",
+    "text": "For this section, we’ll look at a few different ways to work with raster data, which is used to represent continuous variables across space as gridded sets of cells containing a value for that variable.\n\nFrom the kapitiBirds.gdb geodatabase, add the kapiti_outline and the kapiti_elev datasets. These are coastline and elevation data from Kapiti Island, a conservation area off the western coast of Wellington, New Zealand. It should look something like this:\n\n\n\n\n\n\n\nRight click on the outline in the Table of Contents to access its Symbology. Under Properties, set the color to No color and the outline to a black line.\nNow right click on the kapiti_elev dataset in the Table of Contents and access its Symbology. This will look a little different from the options we’ve seen before:\n\n\n\n\n\n\n\nSince rasters are used to represent continuous data, the way they are visualized is often as a values “stretched” along a color ramp. Color ramps may be sequential (grading high to low from one color to another), diverging (two colors grading away from a third central color), or qualitative (colors grade without reference to magnitude).\n\n\n\n\n\n\n\nUnder Color scheme, you can see that the current ramp is sequential, going from black at low values, to white at high values. Click on this menu to select another ramp. You can try a few different ones and see what they look like. Since this is elevation data, I suggest something that looks like terrain colors: greens, yellows, browns, etc.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Visualizing raster data</span>"
+    ]
+  },
+  {
+    "objectID": "ExtractingRasterValues.html",
+    "href": "ExtractingRasterValues.html",
+    "title": "2  Extracting raster data",
+    "section": "",
+    "text": "Let’s say we wanted to use this map to figure out the elevation of different backcountry huts on the island. We can do this by extracting the values from the elevation raster at the locations of the huts.\n\nLoad the kapiti_huts dataset. These are the locations of five (fictional) Department of Conservation huts. It should look something like this:\n\n\n\n\n\n\n\nRight click the huts in the Table of Contents to modify the Symbology so they are larger and easier to see.\nIn the Analysis ribbon, click Tools, then at the top of the pane click Toolboxes. Go to the Spatial Analyst toolkit, and select the Extract Values to Points tool. The window should look like this:\n\n\n\n\n\n\n\nThis tool extracts the values from a raster using the locations of a point dataset, and then generates a new point feature with the raster values added to a new column at the end of the attribute table.\n\n\n\nSet Input point features to kapiti_huts, set Input raster to kapiti_elev, and output to a new feature called kapitiHutsElev. Click Run. The new feature should now appear in the Table Contents. Right click on it to access the attribute table, which should now look like this:\n\n\n\n\n\n\n\nNow there is a new field called RASTERVALU. This contains the elevation data for the points at those locations. If you wanted to check them, you could use the Explore tool in the Map ribbon to click on these points and the raster underneath.\nIf you want to rename the new field, go to the three lines button and select Field View, and then double click the field name to edit it:",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Extracting raster data</span>"
+    ]
+  },
+  {
+    "objectID": "densityRaster.html",
+    "href": "densityRaster.html",
+    "title": "3  Creating a density raster",
+    "section": "",
+    "text": "Let’s say we wanted to stay at one of the huts on Kapiti Island for a birdwatching trip, and wanted to know where we were likely to see the most birds. To figure this out, we can use a set of bird sightings to learn which hut features the most bird sightings.\n\nIn the Table of Contents, click the box next to the elevation and huts data to hide them.\nLoad the kapiti_birds dataset. These are actual locations of bird sightings on Kapiti Island obtained from iNaturalist (via gbif.org). It should look a bit like this:\n\n\n\n\n\n\n\nGo back to the toolboxes. Expand the Spatial Analyst Tools toolbox and the Density toolset, and select the Kernel Density tool. Kernel density is a measure of the density of objects calculated for a moving window over the area of interest. This allows us to visualize how density varies over space.\nSelect the kapiti_birds as the Input point or polyline features. Leaving the Population field value as NONE will make each feature count once; if you had an attribute in your data that counted the number of objects at a given location (for example, if each point had an attribute for the number of birds observed at that location), you could select that field to incorporate those numbers. For the Output raster, save it as birdDensity.\nSince we’re looking at data recorded on an island, we may not want to include ocean spaces in our calculation. To change this, select the Input barrier features menu in the and choose the kapiti_outline dataset.\nWe may also want to limit the output to the island rather than have our estimates extend beyond its boundaries. To do this, click on Environments at the top of the pane. Under Mask, select the kapiti_outline dataset. This will ‘mask’ any values that are generated outside of the island outline polygon. When you have this finished, click Run. The output should look like this:\n\n\n\n\n\n\n\nIf you look at the left, you can see that the density values are shown using a color gradient from transparent to dark purple. For each cell, this is the density of bird sightings per unit area (km2). You can see how these vary with respect to the hut locations by using the Explore tool.\nRight click on the birdDensity dataset in the Table of Contents to look at the Symbology. You can see that rather than a “stretched” color ramp, these are “Classified”, which means that values are grouped and assigned a color. This is why there are visible contours between density values on the map.\nUnder Method, notice that it says Equal Interval. This means that the data are grouped in equally sized intervals from the minimum to the maximum value. You can choose from a few different options here. A commonly-used method is the Natural Breaks or Jenks method, which divides the data into groups that aim to maintain a consistent level of variability between them. You can also modify the number of different groups by changing the Classes value.\n\n\nTry it yourself!\nUsing the skills above and what you’ve already learned, create a map that shows the elevation data with 50% transparency, and shows the huts as proportional or graduated symbols indicating the relative density of bird sightings at their locations.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Creating a density raster</span>"
+    ]
+  }
+]
