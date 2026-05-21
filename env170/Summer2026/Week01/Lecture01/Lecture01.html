@@ -6,10 +6,10 @@
 <script src="Lecture01_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="Lecture01_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Lecture01_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Lecture01_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="Lecture01_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="Lecture01_files/libs/quarto-contrib/videojs/video.min.js"></script>
 <link href="Lecture01_files/libs/quarto-contrib/videojs/video-js.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.42">
+  <meta name="generator" content="quarto-1.9.36">
 
   <meta name="author" content="hello world!">
   <title>Environmental Data Analysis and Visualization</title>
@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="Lecture01_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="Lecture01_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -31,8 +34,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,7 +47,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -96,7 +100,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Lecture01_files/libs/revealjs/dist/theme/quarto-b9d2fe02cc32158b42e7eed6b5f25a77.css">
+  <link rel="stylesheet" href="Lecture01_files/libs/revealjs/dist/theme/quarto-e7615ae3f47a09451c723600273e2044.css">
   <link href="Lecture01_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="Lecture01_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="Lecture01_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -211,31 +215,25 @@ hello world!
 <ol type="1">
 <li><p>Who answered before you (in order of speaking)?</p></li>
 <li><p>What is your name?</p></li>
-<li><p>What is your major/program of study?</p></li>
-<li><p>What do you hope to get out of ENV 170/ENV 195?</p></li>
-<li><p>Where is your favorite place to eat on or near the Tufts campus?</p></li>
+<li><p>What is your major/program of study/area of interest?</p></li>
+<li><p>Where is your favorite place to eat on or near the Tufts campus and why?</p></li>
 </ol>
 </section>
 <section id="about-me" class="slide level2">
 <h2>About me</h2>
 <div class="columns">
-<div class="column" style="width:30%;">
-<div class="quarto-figure quarto-figure-left">
+<div class="column" style="width:50%;">
+<p><strong>Dr.&nbsp;Ben Davies</strong><br>
+<a href="mailto:benjamin.davies@tufts.edu">benjamin.davies@tufts.edu</a><br>
+<br>
+Office hours: TBD (right now!)</p>
+<p>Research Interests: coupled natural-human systems, computational modeling and simulation, urban ecology, geoarchaeology, (pre)histories of Oceania and Africa, ancient seafaring, serious games</p>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="InClassStatic/bdav.jpg" class="quarto-figure quarto-figure-left" style="width:90.0%"></p>
+<p><img data-src="InClassStatic/bdav.jpg" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
 </figure>
 </div>
-</div><div class="column" style="width:70%;">
-<p><strong>Ben Davies</strong><br>
-benjamin.davies@tufts.edu<br>
-Office hours: Tuesdays 4-5PM<br>
-<br>
-Research interests</p>
-<ul>
-<li><p>Coupled Natural Human Systems</p></li>
-<li><p>Computational Social Science</p></li>
-<li><p>Archaeology of Oceania and Africa</p></li>
-</ul>
 </div></div>
 </section>
 <section id="about-this-course" class="slide level2">
@@ -249,36 +247,281 @@ Research interests</p>
 <li><p>share their findings to different audiences.</p></li>
 </ul>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-
-<img data-src="InClassStatic/dataSciencePipeline.png" class="r-stretch"></section>
 <section id="about-this-course-1" class="slide level2">
 <h2>About this course</h2>
 <p>Students will also explore how aesthetic and design choices contribute to the usefulness of visualizations for telling environmental stories and best practices for making data and open and accessible for public reuse.</p>
 </section>
-<section id="why-use-data-to-build-narratives" class="slide level2">
-<h2>Why use data to build narratives?</h2>
-<iframe data-external="1" src="https://www.youtube.com/embed/ph439t-kTIE" width="900" height="600" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+<section id="why-use-data-to-tell-environmental-stories" class="slide level2">
+<h2>Why use data to tell environmental stories?</h2>
+<div class="columns">
+<div class="column" style="width:15%;">
+
+</div><div class="column" style="width:85%;">
+<p><iframe data-external="1" src="https://www.youtube.com/embed/ph439t-kTIE" width="900" height="600" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe><br>
+ted.com</p>
+</div></div>
 </section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-<p><video id="video_shortcode_videojs_video1" width="900" height="600" class="video-js vjs-default-skin " controls="" preload="auto" data-setup="{}" title=""><source src="https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005137/GISTEMP_Curves_July2023_1080p60.mp4"></video><br>
-NASA Scientific Visualization Studio (https://svs.gsfc.nasa.gov/5137/)</p>
+<section id="how-data-helps-making-patterns-clearer" class="slide level2">
+<h2>How data helps: making patterns clearer</h2>
+
+<img data-src="InClassStatic/tooManyThrees.jpg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.youtube.com/watch?v=9Avr1LeOBSk">WEEI 93.7 FM</a></p></section>
+<section id="how-data-helps-making-patterns-clearer-1" class="slide level2">
+<h2>How data helps: making patterns clearer</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">shotX</th>
+<th style="text-align: right;">shotY</th>
+<th style="text-align: left;">time_remaining</th>
+<th style="text-align: left;">player</th>
+<th style="text-align: left;">team</th>
+<th style="text-align: left;">made</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">9.3</td>
+<td style="text-align: left;">04:16:00</td>
+<td style="text-align: left;">Kelly Oubre</td>
+<td style="text-align: left;">CHO</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">27.1</td>
+<td style="text-align: right;">11.6</td>
+<td style="text-align: left;">10:09:00</td>
+<td style="text-align: left;">Trae Young</td>
+<td style="text-align: left;">ATL</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25.1</td>
+<td style="text-align: right;">3.2</td>
+<td style="text-align: left;">05:15:00</td>
+<td style="text-align: left;">Joe Harris</td>
+<td style="text-align: left;">BRK</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23.1</td>
+<td style="text-align: right;">4.8</td>
+<td style="text-align: left;">11:23:00</td>
+<td style="text-align: left;">Mason Plumlee</td>
+<td style="text-align: left;">CHO</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">18.4</td>
+<td style="text-align: right;">17.7</td>
+<td style="text-align: left;">11:27:00</td>
+<td style="text-align: left;">Anthony Davis</td>
+<td style="text-align: left;">LAL</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">23.7</td>
+<td style="text-align: right;">6.1</td>
+<td style="text-align: left;">01:18:00</td>
+<td style="text-align: left;">Ricky Rubio</td>
+<td style="text-align: left;">CLE</td>
+<td style="text-align: left;">FALSE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19.2</td>
+<td style="text-align: right;">8.3</td>
+<td style="text-align: left;">01:23:00</td>
+<td style="text-align: left;">Bradley Beal</td>
+<td style="text-align: left;">WAS</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22.2</td>
+<td style="text-align: right;">28.8</td>
+<td style="text-align: left;">10:12:00</td>
+<td style="text-align: left;">Paul Millsap</td>
+<td style="text-align: left;">BRK</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">33.4</td>
+<td style="text-align: right;">26.0</td>
+<td style="text-align: left;">03:30:00</td>
+<td style="text-align: left;">Miles Bridges</td>
+<td style="text-align: left;">CHO</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">25.3</td>
+<td style="text-align: right;">10.8</td>
+<td style="text-align: left;">06:13:00</td>
+<td style="text-align: left;">Trae Young</td>
+<td style="text-align: left;">ATL</td>
+<td style="text-align: left;">TRUE</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
-<section id="section-2" class="slide level2">
-<h2></h2>
+<section id="how-data-helps-making-patterns-clearer-2" class="slide level2">
+<h2>How data helps: making patterns clearer</h2>
 
-<img data-src="InClassStatic/migrations.png" class="r-stretch quarto-figure-center"><p class="caption">Nature Conservancy (http://maps.tnc.org/migrations-in-motion/#5/38.376/-104.985)</p></section>
-<section id="section-3" class="slide level2">
-<h2></h2>
+<img data-src="InClassStatic/nbaShooting.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://algorithmicathlete.com/blog/is-mid-range-dead">algorithmicathlete.com</a></p></section>
+<section id="how-data-helps-making-patterns-clearer-3" class="slide level2">
+<h2>How data helps: making patterns clearer</h2>
 
-<img data-src="InClassStatic/Climate_Change_carbon_v_vulnerability.png" class="r-stretch quarto-figure-center"><p class="caption">Milken Institute School of Public Health&nbsp;at the George Washington University (https://onlinepublichealth.gwu.edu/resources/climate-change-emissions-data/)</p></section>
-<section id="section-4" class="slide level2">
-<h2></h2>
+<img data-src="InClassStatic/MITnewsChinaEmissions.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://news.mit.edu/2017/tackling-air-pollution-in-china-0517">https://news.mit.edu</a></p></section>
+<section id="how-data-helps-making-patterns-clearer-4" class="slide level2">
+<h2>How data helps: making patterns clearer</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">City</th>
+<th style="text-align: left;">Country</th>
+<th style="text-align: right;">Walking</th>
+<th style="text-align: right;">Cycling</th>
+<th style="text-align: right;">Bus</th>
+<th style="text-align: right;">Car</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Beijing</td>
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">0.210000</td>
+<td style="text-align: right;">0.320000</td>
+<td style="text-align: right;">0.260000</td>
+<td style="text-align: right;">0.210000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Changwon</td>
+<td style="text-align: left;">South Korea</td>
+<td style="text-align: right;">0.113767</td>
+<td style="text-align: right;">0.095602</td>
+<td style="text-align: right;">0.302100</td>
+<td style="text-align: right;">0.488530</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Daejeon</td>
+<td style="text-align: left;">South Korea</td>
+<td style="text-align: right;">0.260000</td>
+<td style="text-align: right;">0.020000</td>
+<td style="text-align: right;">0.280000</td>
+<td style="text-align: right;">0.440000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hong Kong</td>
+<td style="text-align: left;">Hong Kong</td>
+<td style="text-align: right;">0.109453</td>
+<td style="text-align: right;">0.004975</td>
+<td style="text-align: right;">0.766169</td>
+<td style="text-align: right;">0.119403</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kaohsiung</td>
+<td style="text-align: left;">Taiwan</td>
+<td style="text-align: right;">0.049505</td>
+<td style="text-align: right;">0.049505</td>
+<td style="text-align: right;">0.069310</td>
+<td style="text-align: right;">0.831680</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kuala Lumpur</td>
+<td style="text-align: left;">Malaysia</td>
+<td style="text-align: right;">0.071274</td>
+<td style="text-align: right;">0.009719</td>
+<td style="text-align: right;">0.397408</td>
+<td style="text-align: right;">0.521598</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Manila</td>
+<td style="text-align: left;">Philippines</td>
+<td style="text-align: right;">0.090000</td>
+<td style="text-align: right;">0.020000</td>
+<td style="text-align: right;">0.440000</td>
+<td style="text-align: right;">0.450000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Osaka</td>
+<td style="text-align: left;">Japan</td>
+<td style="text-align: right;">0.070000</td>
+<td style="text-align: right;">0.190000</td>
+<td style="text-align: right;">0.610000</td>
+<td style="text-align: right;">0.130000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Seoul</td>
+<td style="text-align: left;">South Korea</td>
+<td style="text-align: right;">0.070000</td>
+<td style="text-align: right;">0.040000</td>
+<td style="text-align: right;">0.660000</td>
+<td style="text-align: right;">0.230000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Shanghai</td>
+<td style="text-align: left;">China</td>
+<td style="text-align: right;">0.270000</td>
+<td style="text-align: right;">0.200000</td>
+<td style="text-align: right;">0.330000</td>
+<td style="text-align: right;">0.200000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="how-data-helps-making-patterns-clearer-5" class="slide level2">
+<h2>How data helps: making patterns clearer</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/eastAsiaTransport.png" style="width:70.0%"></p>
+<figcaption><a href="https://citiesmoving.com/">citiesmoving.com</a></figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="InClassStatic/northAmericaTransport.png" class="quarto-figure quarto-figure-left" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="how-data-helps-making-stories-more-impactful" class="slide level2">
+<h2>How data helps: making stories more impactful</h2>
 
-<img data-src="InClassStatic/BostonNeighborhoods.JPG" class="r-stretch quarto-figure-center"><p class="caption">Crowdsourced neighborhood boundaries (https://bostonography.com/2017/official-unofficial-neighborhoods-2017/)</p></section>
+<img data-src="InClassStatic/globalTemps.jpg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.columbia.edu/~mhs119/">Updating the Climate Science</a></p></section>
+<section id="how-data-helps-making-stories-more-impactful-1" class="slide level2">
+<h2>How data helps: making stories more impactful</h2>
+<div class="columns">
+<div class="column" style="width:15%;">
+
+</div><div class="column" style="width:85%;">
+<p><video id="video_shortcode_videojs_video1" width="850" height="575" class="video-js vjs-default-skin vjs-big-play-centered " controls="" preload="auto" data-setup="{}" title=""><source src="https://svs.gsfc.nasa.gov/vis/a000000/a005100/a005191/GISTEMP_Curves_English_degC_2160p60.mp4"></video><br>
+<a href="https://svs.gsfc.nasa.gov/5191/">NASA Scientific Visualization Studio</a></p>
+</div></div>
+</section>
+<section id="how-data-helps-making-better-informed-decisions" class="slide level2">
+<h2>How data helps: making better informed decisions</h2>
+
+<img data-src="InClassStatic/future-yields-climate-distribution.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://ourworldindata.org/will-climate-change-affect-crop-yields-future">Our World In Data</a></p></section>
+<section id="how-data-helps-making-better-informed-decisions-1" class="slide level2">
+<h2>How data helps: making better informed decisions</h2>
+
+<img data-src="InClassStatic/future-yields-climate.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://ourworldindata.org/will-climate-change-affect-crop-yields-future">Our World In Data</a></p></section>
 <section id="how-we-get-there" class="slide level2">
+<h2>How we get there</h2>
+
+<img data-src="InClassStatic/dataSciencePipeline.png" class="r-stretch quarto-figure-center"><p class="caption">Hadley Wickham/R For Data Science</p></section>
+<section id="how-we-get-there-1" class="slide level2">
 <h2>How we get there</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -295,33 +538,107 @@ NASA Scientific Visualization Studio (https://svs.gsfc.nasa.gov/5137/)</p>
 </div>
 </div></div>
 </section>
-<section id="how-we-get-there-1" class="slide level2">
+<section id="how-we-get-there-2" class="slide level2">
 <h2>How we get there</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-2"><a href=""></a>sepal.labels <span class="ot">&lt;-</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal Length (cm)"</span>, <span class="at">y =</span> <span class="st">"Sepal Width (cm)"</span>,</span>
-<span id="cb1-3"><a href=""></a>    <span class="at">title =</span> <span class="st">"Relationship between Sepal Length and Width"</span>, <span class="at">caption =</span> <span class="st">"data from Anderson (1935)"</span>)</span>
-<span id="cb1-4"><a href=""></a>my.theme <span class="ot">&lt;-</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="fl">0.75</span>)</span>
-<span id="cb1-5"><a href=""></a>all.sepals <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width))</span>
-<span id="cb1-6"><a href=""></a>all.sepals <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species, <span class="at">shape =</span> Species),</span>
-<span id="cb1-7"><a href=""></a>    <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span> sepal.labels <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"All species"</span>) <span class="sc">+</span></span>
-<span id="cb1-8"><a href=""></a>    my.theme</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: right;">ID</th>
+<th style="text-align: left;">Species</th>
+<th style="text-align: right;">Sepal.Length</th>
+<th style="text-align: right;">Sepal.Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">versicolor</td>
+<td style="text-align: right;">6.3</td>
+<td style="text-align: right;">3.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">setosa</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">virginica</td>
+<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">versicolor</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">versicolor</td>
+<td style="text-align: right;">6.1</td>
+<td style="text-align: right;">2.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">versicolor</td>
+<td style="text-align: right;">6.2</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">versicolor</td>
+<td style="text-align: right;">6.3</td>
+<td style="text-align: right;">2.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">setosa</td>
+<td style="text-align: right;">4.8</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">versicolor</td>
+<td style="text-align: right;">6.8</td>
+<td style="text-align: right;">2.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">setosa</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">3.6</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </section>
-<section id="section-5" class="slide level2">
+<section id="how-we-get-there-3" class="slide level2">
+<h2>How we get there</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Sepal.Length, <span class="at">y =</span> Sepal.Width, <span class="at">color =</span> Species,</span>
+<span id="cb1-3"><a href=""></a>    <span class="at">shape =</span> Species)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Sepal Length (cm)"</span>,</span>
+<span id="cb1-4"><a href=""></a>    <span class="at">y =</span> <span class="st">"Sepal Width (cm)"</span>, <span class="at">title =</span> <span class="st">"Relationship between Sepal Length and Width"</span>) <span class="sc">+</span></span>
+<span id="cb1-5"><a href=""></a>    <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section" class="slide level2">
 <h2></h2>
 
-<img data-src="Lecture01_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<img data-src="Lecture01_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
 <section id="why-use-r" class="slide level2">
 <h2>Why use R?</h2>
-<div>
 <ul>
 <li class="fragment"><p>R is a versatile software platform focused on data and visualization</p></li>
 <li class="fragment"><p>R is free to use</p></li>
 <li class="fragment"><p>R code and data can be easily shared, modified, and reused</p></li>
 <li class="fragment"><p><strong>R has a large and active user base</strong></p></li>
 </ul>
-</div>
 </section>
 <section id="learning-how-to-ask-questions" class="slide level2">
 <h2>Learning how to ask questions</h2>
@@ -333,107 +650,29 @@ NASA Scientific Visualization Studio (https://svs.gsfc.nasa.gov/5137/)</p>
 <p><img data-src="InClassStatic/worksDoesntWork.jpg" style="width:85.0%"></p>
 </div></div>
 </section>
-<section id="course-assessment-for-env-170" class="slide level2">
-<h2>Course assessment for ENV 170</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Assessment</th>
-<th>Weight</th>
-<th>Due Dates</th>
-<th>Week Number</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Lab exercises</td>
-<td>25%</td>
-<td>Weekly</td>
-<td>Weeks 1 - 6</td>
-</tr>
-<tr class="even">
-<td>Coding assignments</td>
-<td>30%</td>
-<td>Weekly</td>
-<td>Weeks 3, 4, 5</td>
-</tr>
-<tr class="odd">
-<td>Visualization critique</td>
-<td>10%</td>
-<td>Varies</td>
-<td>Starting Week 2</td>
-</tr>
-<tr class="even">
-<td>Project proposal</td>
-<td>5%</td>
-<td>Fri July 11<sup>th</sup></td>
-<td>Week 2</td>
-</tr>
-<tr class="odd">
-<td>Project notebook</td>
-<td>15%</td>
-<td>Wed Aug 6<sup>th</sup></td>
-<td>Week 6</td>
-</tr>
-<tr class="even">
-<td>Project poster</td>
-<td>15%</td>
-<td>Wed Aug 6<sup>th</sup></td>
-<td>Week 6</td>
-</tr>
-</tbody>
-</table>
+<section id="course-structure" class="slide level2">
+<h2>Course structure</h2>
+<p>Each session, we will begin with a short lecture on a given topic related to environmental data analysis and visualization. These will usually be accompanied by an in-class exercise or discussion.</p>
+<p>Following this, you will have time to work through a lab that wil Labs will be punctuated with periodic demonstrations. You can work through the lab at your own pace.</p>
 </section>
-<section id="course-assessment-for-env-195" class="slide level2">
-<h2>Course assessment for ENV 195</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Assessment</th>
-<th>Weight</th>
-<th>Due Dates</th>
-<th>Week Number</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Lab exercises</td>
-<td>30%</td>
-<td>Weekly</td>
-<td>Weeks 1 - 6</td>
-</tr>
-<tr class="even">
-<td>Coding assignments</td>
-<td>40%</td>
-<td>Weekly</td>
-<td>Weeks 3, 4, 5</td>
-</tr>
-<tr class="odd">
-<td>Visualization critique</td>
-<td>10%</td>
-<td>Varies</td>
-<td>Starting Week 2</td>
-</tr>
-<tr class="even">
-<td>Data stakeholder pitch</td>
-<td>20%</td>
-<td>Wed Aug 6<sup>th</sup></td>
-<td>Week 6</td>
-</tr>
-</tbody>
-</table>
+<section id="assessments" class="slide level2">
+<h2>Assessments</h2>
+<p><strong>Lab exercises</strong></p>
+<p>Lab exercises follow daily labs, reviewing data analysis and visualization concepts and illustrating these using worked examples.</p>
+<p><strong>Coding assignments</strong></p>
+<p>Weekly assignments designed to reinforce learning from lectures and encourage creativity and independent problem-solving.</p>
+<p><strong>Visualization critiques</strong></p>
+<p>Students find published visualizations, write short critiques of their effectiveness, and discuss its strengths and weaknesses in discussion with the class.</p>
 </section>
 <section id="what-i-need-from-you" class="slide level2">
 <h2>What I need from you</h2>
-<div>
 <ul>
 <li class="fragment"><p>Be respectful</p></li>
-<li class="fragment"><p>Attend lectures and recitations</p></li>
+<li class="fragment"><p>Attend lectures and labs</p></li>
 <li class="fragment"><p>Submit assignments on time</p></li>
 <li class="fragment"><p>If there is something you don’t understand or want to know more about, say so</p></li>
 <li class="fragment"><p>If you hear something you disagree with, say so</p></li>
 </ul>
-</div>
 </section>
 <section id="helpful-resources" class="slide level2">
 <h2>Helpful resources</h2>
@@ -476,7 +715,7 @@ NASA Scientific Visualization Studio (https://svs.gsfc.nasa.gov/5137/)</p>
 <section id="helpful-resources-2" class="slide level2">
 <h2>Helpful resources</h2>
 
-<img data-src="https://sites.tufts.edu/datalab/files/2020/01/Carolyn-helping-Maddy.jpg" class="r-stretch quarto-figure-center"><p class="caption">Data Lab at Tufts (https://sites.tufts.edu/datalab/services-support/student-lab-assistants/)</p></section>
+<img data-src="https://sites.tufts.edu/datalab/files/2020/01/Carolyn-helping-Maddy.jpg" width="600" class="r-stretch quarto-figure-center"><p class="caption">Data Lab at Tufts</p></section>
 <section id="questions" class="slide level2">
 <h2>Questions?</h2>
 
@@ -670,7 +909,7 @@ NASA Scientific Visualization Studio (https://svs.gsfc.nasa.gov/5137/)</p>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -773,190 +1012,173 @@ NASA Scientific Visualization Studio (https://svs.gsfc.nasa.gov/5137/)</p>
     
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
           }
+          return false;
         }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
           }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
           for (const childEl of codeEl.children) {
             if (isCodeAnnotation(childEl)) {
               childEl.remove();
             }
           }
           return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
             }
           }
-        }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
           }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
           }
-        } else {
-          return undefined;
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
         }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
-              }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     <script>videojs(video_shortcode_videojs_video1);</script>
     
 
