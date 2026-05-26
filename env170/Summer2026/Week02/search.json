@@ -1,0 +1,102 @@
+[
+  {
+    "objectID": "02_ImportData.html",
+    "href": "02_ImportData.html",
+    "title": "2  Importing data",
+    "section": "",
+    "text": "Vectors, dataframes, and tibbles\nIn the first week we entered data by hand into vectors, and then combined these vectors into matrices and dataframes. However, if we’re going to be making use of larger datasets, we would probably prefer to get the data from a source and have R read the data for us. This section will take you through the basics, starting with an introduction to a new way to store datasets: tibbles.\nSo far, we’ve seen data in a couple of different forms. The primary way R handles data are as vectors, which are collections of values. We saw how we can read in a sequence of values from a text file using the scan function:\ntemp_f&lt;-scan(\"Data/avtemp.txt\")\nRead 365 items\nprecip_in&lt;-scan(\"Data/precip.txt\")\nRead 365 items\nWe’ve also seen how we can combine two or more of these into a table called a dataframe using the data.frame function:\nweatherData&lt;-data.frame(temp_f,precip_in)\nAll of these operations are taking place using Base R, which is all of the functions that come with R when you first download it. However, one of the strengths of R is that it is extensible by using libraries, also called packages. These usually contain functions that are built around specific tasks, like dealing with Munsell soil colors (munsell), or doing spherical trigonometry (geosphere), or conducting spatial point pattern analysis (spatstat).\nIn this course we will be making extensive use of packages that are in a family of packages called the tidyverse. These are built around a concept of tidy data and how it can ease the process of data analysis and visualization. This is something we’ll learn more about in the coming weeks.\nIn order to use the tidyverse packages, we first need to make sure we have them downloaded and installed on our computer. You can do this from the command line with the install.packages function:\ninstall.packages(\"tidyverse\")\nNote the quotes here, which means that this takes an argument that is a character value.\nIf you don’t have tidyverse installed, or if it needs updating, then a series of fast operations will happen in the console window. This is going through the process of downloading the necessary files on the machine and putting them in the right directories. R my ask to restart as you do this, and it’s OK to agree.\nAfter installation, you need to load the package (or packages, in this case). To do this, you use the library function:\nlibrary(tidyverse)\nSince it is an installed package, this doesn’t need quotation marks around the name. Doing this will bring up some text in the console that looks like this:\nThis is showing that tidyverse is adding a number of packages, such as ggplot2 and dplyr, that are useful for cleaning, tidying, and visualizing data. We will hear a lot more about these later. For now, the one we are interested in is tibble, which is used for dealing with table data. We can create a tibble1 much like we create a dataframe:\nweatherData2&lt;-tibble(temp_f,precip_in)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Importing data</span>"
+    ]
+  },
+  {
+    "objectID": "02_ImportData.html#footnotes",
+    "href": "02_ImportData.html#footnotes",
+    "title": "2  Importing data",
+    "section": "",
+    "text": "The term “tibble” refers to the data class tbl_df↩︎\nThese reasons are enumerated here: https://adv-r.hadley.nz/vectors-chap.html#tibble↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Importing data</span>"
+    ]
+  },
+  {
+    "objectID": "01_FileSystems.html",
+    "href": "01_FileSystems.html",
+    "title": "1  File systems in R",
+    "section": "",
+    "text": "R projects and the working directory\nIn the lecture, we discussed some strategies for keeping files organized. Today’s lab will assume that you are using a hierarchical file structure that you are comfortable with.\nR projects are a useful way to keep track of all the files (scripts, data, and outputs) associated with a specific activity. Open the File drop-down menu and select New Project. You should see the following window:\nSelect New Directory. That will bring up this window:\nThis window gives you quite a few options for different project types. We’ll learn more about some of these, particularly Quarto documents, later in the course. These give us ways to combine code and text (and more) into a single, shareable document. The lecture slides and lab sheets are all generated as Quarto documents.\nFor now, let’s just select New Project. That brings up this window:\nAt this point, we are creating the working directory. The working directory is the current folder that R is using to read and write files.\nYou have two tasks here: the first is to figure out the folder where you want to put the working directory, and then to give the working directory its own a folder name. To figure out where to put the working directory, you can use the Browse button to navigate to the folder you want to use. We discussed hierarchical folder structures earlier this week, and I suggest keeping this in mind as you select a folder to store this project. As you can see in the image, I’m keeping things in Box, in a folder structure that goes\nBox/ENV170/Week2\nYou may have a different structure that works for you. Whatever you do, don’t select a folder on a lab computer hard drive! These are wiped clean each night, which will erase any work you’ve done.\nNow it’s time to name the working directory. I’m going to call this directory Lab02, and I suggest you do the same as it will help the rest of the lab make sense. In practice you can call this directory anything you like, but it’s worth keeping in mind some of the file naming conventions we discussed earlier. Once you’re done here, you can click Create Project.\nNow RStudio should be open, with the R opening text in the console, and the Files tab open in the Output pane. It should look something like this:\nThis is showing the contents of the Lab02 folder, which is our working directory. The only item inside should be the project (.Rproj) file, which tells R about the working directory and file environment when you open the project later.\nThe important thing to remember now is that this directory is where R is working from. This means that R will assume that files you want to import will come from here, and any files it generates will be saved here by default.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>File systems in R</span>"
+    ]
+  },
+  {
+    "objectID": "01_FileSystems.html#footnotes",
+    "href": "01_FileSystems.html#footnotes",
+    "title": "1  File systems in R",
+    "section": "",
+    "text": "Keep in mind that if you didn’t add the ../, then R would assume you want to edit a file with that same name but in the working directory, and since one doesn’t exist, it will create a blank one there.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>File systems in R</span>"
+    ]
+  },
+  {
+    "objectID": "03_WorkingWithData.html",
+    "href": "03_WorkingWithData.html",
+    "title": "3  Working with data",
+    "section": "",
+    "text": "Changing the raw data\nIn this section we’ll look at ways to modify data stored in a table. This will give us the foundation to start dealing with cleaning, tidying, and transforming data.\nAs we move on through this lab, we’re going to be making changes to the original dataset. Whenever we’re going to be changing the original data, it is often a good idea to work a copy so we don’t mangle it and not have a way to return to it without starting over.\nLuckily, this is a pretty painless process. To make a copy of a dataset in R, all we do is assign the same dataset to a new variable name, like so:\nraro2022mod&lt;-raro2022\nNow we can feel free to make changes to the Rarotonga weather data stored in raro2022mod, knowing that if we needed to reference the original data it is still stored in raro2022.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "03_WorkingWithData.html#footnotes",
+    "href": "03_WorkingWithData.html#footnotes",
+    "title": "3  Working with data",
+    "section": "",
+    "text": "You may remember that you can also use the square brackets to access the column values in a dataframe (e.g., raro21_22[,4] to get the 4th column). However, if you do this with a tibble, it will return a 1-column tibble just as it did above. This would need to be handled differently than the vector generated using the $ operator.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Working with data</span>"
+    ]
+  },
+  {
+    "objectID": "04_ExportingData.html",
+    "href": "04_ExportingData.html",
+    "title": "4  Exporting data",
+    "section": "",
+    "text": "As a final step, we’ll take our tibble data and export it back to a .csv file. The write_csv function will get us there:\nwrite_csv(raro21_22,\"Data/raroWeather2Year.csv\")\nThis is taking two arguments: the first is the tibble where our data is stored, and the second is a path where we want to save it as a .csv file. In this case, we’ve added the Data folder to the path so, rather than just having the file end up in the working directory, it will go the correct folder, which you can see by clicking on the Data folder in the File tab:\n\nBy this point, you should be able to see this file in your directory and know how to read it back in if you wanted to. If you’re not sure, go ahead and try it, and go back through the lab if you need a reminder.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Exporting data</span>"
+    ]
+  },
+  {
+    "objectID": "05_WrappingUp.html",
+    "href": "05_WrappingUp.html",
+    "title": "5  Wrapping up",
+    "section": "",
+    "text": "Learning to code happens slowly at first, but it’s worth taking a moment to enumerate what we’ve learned to keep those steps in perspective. So far, we’ve covered:\n\nhow to navigate R and RStudio\nhow R handles different kinds of data\nhow to work with R at the command line\nhow to assign values to variables\nhow to use functions and supplying arguments to them\nhow to make histograms and scatterplots\nhow to create, run, and share scripts in RStudio\nhow to use best practices in file system management\nhow to work with file systems from inside and outside RStudio\nhow to import and export table data\nhow to access and change columns, rows, and values in a tibble\n\nAnd it’s only our second class! As you progress, some of the steps you’ve learned now will make more complex activities in R more intuitive, and you’ll be able to pick up new skills faster. This week’s lab exercise will build on what we’ve done both last week and this week, using this kind of weather data to do a bit of analysis. When you’re ready, you can move on to the lab exercise on Canvas.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Wrapping up</span>"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Working with Data and File Systems",
+    "section": "",
+    "text": "Introduction\nBefore we can begin to do any visualization or analysis, we need to be able to get data obtained from a data source into R. Doing this requires that we know how files are organized in the file system, and how the data behaves once it is imported. This lab is aimed at building upon the concepts discussed in the first session by exploring ways to access and manipulate data in R. In this session you will learn about:",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "Working with Data and File Systems",
+    "section": "",
+    "text": "dealing with files, folder structures, and working directories in R\nimporting and exporting data files as tibbles\nmodifying and appending datasets",
+    "crumbs": [
+      "Introduction"
+    ]
+  }
+]
