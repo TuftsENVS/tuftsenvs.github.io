@@ -461,12 +461,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Note the graph looks different, but adding the logarithm scale doesn’t change the actual values of the data, only how they are displayed along the x-position. There is a corresponding <code>scale_y_log10</code> function as well if we wanted to modify the y-axis, but in this case we shouldn’t need to. We’ll deal more with scales in a later section, particularly colors and logarithms, but keep these in mind as you look at graphics going forward.</p>
 <section id="modifying-labels" class="level3">
 <h3 class="anchored" data-anchor-id="modifying-labels">Modifying labels</h3>
-<p>Finally, if we wanted to modify, we can add these as additional layers, using terms we remember from Base R:</p>
+<p>Finally, if we wanted to modify labels, we can add these as additional layers, using terms we remember from Base R:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap,<span class="at">y=</span>lifeExp,<span class="at">color=</span>continent,<span class="at">size=</span>pop))<span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"firebrick2"</span>,<span class="st">"dodgerblue4"</span>,<span class="st">"chartreuse3"</span>,<span class="st">"mediumpurple"</span>,<span class="st">"goldenrod"</span>))<span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Life Expectancy in Years"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Per Capita GDP"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -474,19 +476,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Life Expectancy in Years"</span>) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"Per Capita GDP"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>NULL</code></pre>
-</div>
 </div>
 <p>Or you can access all of them in a single go using the <code>lab</code> function. I prefer this method since it corresponds to the aesthetic mapping nicely:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap,<span class="at">y=</span>lifeExp,<span class="at">color=</span>continent,<span class="at">size=</span>pop))<span class="sc">+</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"firebrick2"</span>,<span class="st">"dodgerblue4"</span>,<span class="st">"chartreuse3"</span>,<span class="st">"mediumpurple"</span>,<span class="st">"goldenrod"</span>))<span class="sc">+</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Life Expectancy in Years"</span>, <span class="at">y=</span><span class="st">"Per Capita GDP"</span>,<span class="at">color=</span><span class="st">"Continent"</span>,<span class="at">size=</span><span class="st">"Population"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>gm2007,<span class="fu">aes</span>(<span class="at">x=</span>gdpPercap,<span class="at">y=</span>lifeExp,<span class="at">color=</span>continent,<span class="at">size=</span>pop))<span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"firebrick2"</span>,<span class="st">"dodgerblue4"</span>,<span class="st">"chartreuse3"</span>,<span class="st">"mediumpurple"</span>,<span class="st">"goldenrod"</span>))<span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Life Expectancy in Years"</span>, <span class="at">y=</span><span class="st">"Per Capita GDP"</span>,<span class="at">color=</span><span class="st">"Continent"</span>,<span class="at">size=</span><span class="st">"Population"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">

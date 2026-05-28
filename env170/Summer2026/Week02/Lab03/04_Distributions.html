@@ -510,7 +510,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Note the error here: there are two instances where data for at least one of these variables are not available (<code>NA</code>), and R is letting you know it can’t plot these.</p>
-<p>Like we’ve seen before, we can modify the color or Let’s go with a Halloween theme for fun.</p>
+<p>Like we’ve seen before, we can modify the color or fill. Let’s go with a Halloween theme for fun.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguinData,<span class="fu">aes</span>(<span class="at">x=</span>species, <span class="at">y=</span>flipper_len)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">"darkorange"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -555,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>Make a histogram of geyser waiting times</p></li>
 <li><p>Make a boxplot of life expectancy by continent</p></li>
-<li><p>Make histograms of penguin bill lengths faceted on</p></li>
+<li><p>Make histograms of penguin bill lengths faceted on species</p></li>
 </ul>
 <p>Try modifying colors, linewidths, linetypes, etc. to get a sense of how these changes</p>
 </div>
