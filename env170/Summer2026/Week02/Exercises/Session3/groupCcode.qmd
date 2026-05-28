@@ -1,0 +1,18 @@
+---
+title: "groupCcode"
+format: html
+---
+
+What can be done to improve this code?
+
+`#create a vector of the numbers 1 through 25`{style="color: green"}
+
+`a<-c(1,25)`
+
+`#create another vector from the same data but multiplied by 7`{style="color: green"}
+
+`a * 7`
+
+`#add the 8th and 16th item in the vector`{style="color: green"}
+
+`b(8) + b(16)`

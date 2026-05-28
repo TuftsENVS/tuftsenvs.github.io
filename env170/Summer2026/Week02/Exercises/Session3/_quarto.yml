@@ -1,0 +1,26 @@
+project:
+  type: website
+  render:
+    - index.qmd
+    - groupAcode.qmd
+    - groupBcode.qmd
+    - groupCcode.qmd
+    - erase.qmd
+
+website:
+  title: "Session3"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+editor: visual
+
