@@ -494,7 +494,7 @@ dbl (4): Age, Height, Weight, Year
 </div>
 </div>
 </div>
-<p>Now the medals are re-ordered based on their frequency, but this order doesn’t make sense with respect to the Gold &gt; Silver &gt; Bronze ordering inherent in Olympic medals. To deal with this, we can use the <code>fct_relevel</code> function.</p>
+<p>Now the medals are re-ordered based on their frequency, but this order doesn’t make sense with respect to the Gold &gt; Silver &gt; Bronze ordering inherent in Olympic medals (unless you’re thinking about <a href="https://www.olympics.com/ioc/news/the-olympic-podium-is-born">medal podium ordering</a>). To deal with this, we can use the <code>fct_relevel</code> function.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympicsDEN,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fct_relevel</span>(Medal,<span class="st">"Gold"</span>,<span class="st">"Silver"</span>,<span class="st">"Bronze"</span>))) <span class="sc">+</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -507,7 +507,7 @@ dbl (4): Age, Height, Weight, Year
 </div>
 </div>
 <p>Here, the function takes as an argument the variable name, followed by the list of values in the correct order. Unlike <code>fct_infreq</code>, which reorders based on frequency of occurrence, or <code>fct_reorder</code>, which reorders on another variable, <code>fct_relevel</code> reorders based on a known, inherent order in the data, which in R we call a factor’s <em>levels</em>.</p>
-<p>Now our medals are listed in the correct order, but of course this has messed with our x-axis label. Using proper labelsisn’t necessary when you’re just looking at data by yourself as long as you know what the variables are, but is important when you’re using graphics to communicate with someone else. If we wanted to change the labels, we can add a <code>labs</code> layer:</p>
+<p>Now our medals are listed in the correct order, but of course this has messed with our x-axis label. Using proper labels isn’t necessary when you’re just looking at data by yourself as long as you know what the variables are, but is important when you’re using graphics to communicate with someone else. If we wanted to change the labels, we can add a <code>labs</code> layer:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympicsDEN,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">fct_relevel</span>(Medal,<span class="st">"Gold"</span>,<span class="st">"Silver"</span>,<span class="st">"Bronze"</span>))) <span class="sc">+</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
@@ -520,7 +520,7 @@ dbl (4): Age, Height, Weight, Year
 </div>
 </div>
 </div>
-<p>Beyond visualization, there are certain statistical tests designed for dealing with categorical and ranked data. We’ll touch on these in a later lecture.</p>
+<p>Beyond visualization, there are certain statistical tests designed for dealing with categorical and ranked data that can help us discern whether. We’ll touch on these in a later lecture.</p>
 </section>
 <section id="interval-and-ratio" class="level4">
 <h4 class="anchored" data-anchor-id="interval-and-ratio">Interval and Ratio</h4>
@@ -563,7 +563,7 @@ dbl (3): Times_Hosted, Latitude, Longitude
 <li><p>Weight</p></li>
 <li><p>Age</p></li>
 </ul>
-<p>Interestingly, these are given as integer values, which are discrete. However, any of these could have given as continuous values, such as 175.34 cm. But it is often convention, particularly with age, to use integer values.</p>
+<p>Interestingly, these are given as integer values, which are discrete. However, any of these <em>could</em> have been given as continuous values, such as 175.34 cm. But it is often convention, particularly with age, to use integer values.</p>
 <p>When we’re looking at interval and ratio data, the most common way to represent this kind of data visually is a histogram.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympics,<span class="fu">aes</span>(<span class="at">x=</span>Weight)) <span class="sc">+</span></span>

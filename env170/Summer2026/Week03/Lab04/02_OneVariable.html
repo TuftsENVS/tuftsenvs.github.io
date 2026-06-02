@@ -494,7 +494,7 @@ window.Quarto = {
 <pre><code>[1] 178</code></pre>
 </div>
 </div>
-<p>If we haven’t talked about it yet, the argument <code>na.rm</code> removes any NA values before running this function. This doesn’t actually delete them, but it just means that the function will skip over them. Some functions won’t work, or will produce unexpected results, if there are NA values present. Add this to the plot call above will remove the warning we’ve been getting:</p>
+<p>If we haven’t talked about it yet, the argument <code>na.rm</code> removes any NA values before running this function. This doesn’t actually delete them, but it just means that the function will skip over them. Some functions won’t work, or will produce unexpected results, if there are NA values present. Adding this to the <code>geom_histogram</code> function in plot we made above will remove the warning we’ve been getting:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympics,<span class="fu">aes</span>(<span class="at">x=</span>Weight)) <span class="sc">+</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -506,24 +506,36 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p><strong>Spread</strong></p>
-<p>A common measure of spread is variance, which is the average of the squared differences for each value from the mean value. Imagine if we only had</p>
-<p>To calulate variance, we use the <code>var</code> function:</p>
+<p>We can get the same effect globally by using the <code>drop_na</code> function at the start of the <code>ggplot</code> call. As written here, this will exclude all rows in the dataset where weight is NA :</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(olympics<span class="sc">$</span>Weight,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">drop_na</span>(olympics,Weight),<span class="fu">aes</span>(<span class="at">x=</span>Weight)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_OneVariable_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Spread</strong></p>
+<p>A common measure of spread is <strong>variance</strong>. Imagine if we were looking at the ages of children celebrating birthdays at a local bowling alley. During our survey, we observe three separate birthdays, and the cakes have 5, 8 and 9 candles, respectively. Our mean value would be 7.33333. Taking the difference between each of these might produce negative numbers (e.g., 7.33333 - 9); to get around this, we square each value. We then sum these values (8.66667), divide by the population size <em>n</em> (or, <a href="https://medium.com/data-science/bessels-correction-why-do-we-divide-by-n-1-instead-of-n-in-sample-variance-30b074503bd9">since it’s a sample</a>, n-1, which is 2), and just like that: we have the variance for ages of birthday celebrants at this bowling alley: 4.33333.</p>
+<p>To calculate variance, we use the <code>var</code> function. Let’s do this for athlete weights:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(olympics<span class="sc">$</span>Weight,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 225.481</code></pre>
 </div>
 </div>
-<p>Variance is a relatively straightforward calculation to make, While this gives us a sense of how the values are spread, it is given in units different from the kilograms we were working in (here, it’s kg2, which is nonsensical). Variance is easy c</p>
-<p>Another metric most used when we want to understand spread in the same units is the standard deviation, which is just the square root of the variance. As seen in the darkest shaded area in the diagram above labeled <em>The standard normal distribution</em>, when we include the values up to 1 standard deviation above and below the mean, this works out to be the central most 68.2% of all values in the distribution.</p>
+<p>Variance is a reasonably straightforward calculation to make, and it has some particular virtues that make it useful for statistical testing. But while it gives us a sense of how the values are spread, it is given in units different from the kilograms we were working in (here, it’s squared kilograms). As such, it can sometime be hard to interpret intuitively.</p>
+<p>Another metric most used when we want to understand spread in the same units is the <strong>standard deviation</strong>, which is just the square root of the variance. As seen in the darkest shaded area in the diagram above labeled <em>The standard normal distribution</em>, when we include the values up to 1 standard deviation above and below the mean, this works out to be the central most 68.2% of all values in the distribution.</p>
 <p>We can access this value using the <code>sd</code> function, most often done in tandem with the mean:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 177.5542</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10.89372</code></pre>
 </div>
@@ -538,18 +550,18 @@ window.Quarto = {
 <li><p>a dashed line at the upper standard deviation (mean + standard deviation)</p></li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>meanHeight<span class="ot">&lt;-</span><span class="fu">mean</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sdHeight<span class="ot">&lt;-</span><span class="fu">sd</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympics,<span class="fu">aes</span>(<span class="at">x=</span>Height)) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>meanHeight) <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>meanHeight<span class="sc">-</span>sdHeight,<span class="at">linetype=</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>meanHeight<span class="sc">+</span>sdHeight,<span class="at">linetype=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>meanHeight<span class="ot">&lt;-</span><span class="fu">mean</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sdHeight<span class="ot">&lt;-</span><span class="fu">sd</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympics,<span class="fu">aes</span>(<span class="at">x=</span>Height)) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>meanHeight) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>meanHeight<span class="sc">-</span>sdHeight,<span class="at">linetype=</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>meanHeight<span class="sc">+</span>sdHeight,<span class="at">linetype=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_OneVariable_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_OneVariable_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -573,14 +585,14 @@ Can you modify the code above to add blue dashed lines at two standard deviation
 <p>Another way to look at spread is the interquartile range, or IQR for short. This is the range covered by the half of the data closest to the median; in other words, the middle 50%. You’ve seen this visualized in a boxplot: the IQR is the distance between the uppermost and lowermost edges of the box part of the plot.</p>
 <p>The <code>IQR</code> function gives this distance:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">IQR</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 15</code></pre>
 </div>
 </div>
 <p>This tells us that there is a difference of 15 centimeters among the middle 50% of olympic medalists in this table. However, if you wanted to get values at 0, 25, 50, 75, and 100%, you can use the <code>quantile</code> function:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(olympics<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  0%  25%  50%  75% 100% 
  136  170  178  185  223 </code></pre>
@@ -613,22 +625,10 @@ Can you modify the code above to add blue dashed lines at two standard deviation
 <p><strong>Skew</strong></p>
 <p>Skew indicates whether the data are evenly spread around the center or have values that are notably larger (positive skew) or smaller (negative skew). For example, if we look at heights among male Olympians:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>olympicsM<span class="ot">&lt;-</span>olympics[olympics<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">"M"</span>,]</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympicsM,<span class="fu">aes</span>(<span class="at">x=</span>Height)) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="02_OneVariable_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>We can see these are pretty evenly distributed around an average height value. If we look at weight, on the other hand:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympicsM,<span class="fu">aes</span>(<span class="at">x=</span>Weight)) <span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>olympicsM<span class="ot">&lt;-</span>olympics[olympics<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">"M"</span>,]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympicsM,<span class="fu">aes</span>(<span class="at">x=</span>Height)) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -637,18 +637,30 @@ Can you modify the code above to add blue dashed lines at two standard deviation
 </div>
 </div>
 </div>
-<p>We see slightly positive skew in these values, indicated by the x-axis carrying on to the right. This skew can be further illustrated by plotting the mean and median on this plot. In a normal distribution, these two measures will be the same; however, the more skewed a distribution is, the greater the separation between them.</p>
+<p>We can see these are pretty evenly distributed around an average height value. If we look at weight, on the other hand:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>meanWeight<span class="ot">&lt;-</span><span class="fu">mean</span>(olympicsM<span class="sc">$</span>Weight,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>medianWeight<span class="ot">&lt;-</span><span class="fu">median</span>(olympicsM<span class="sc">$</span>Weight,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympicsM,<span class="fu">aes</span>(<span class="at">x=</span>Weight)) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>meanWeight,<span class="at">color=</span><span class="st">"blue"</span>)<span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>medianWeight,<span class="at">color=</span><span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympicsM,<span class="fu">aes</span>(<span class="at">x=</span>Weight)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="02_OneVariable_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We see slightly positive skew in these values, indicated by the x-axis carrying on to the right. This skew can be further illustrated by plotting the mean and median on this plot. In a normal distribution, these two measures will be the same; however, the more skewed a distribution is, the greater the separation between them.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>meanWeight<span class="ot">&lt;-</span><span class="fu">mean</span>(olympicsM<span class="sc">$</span>Weight,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>medianWeight<span class="ot">&lt;-</span><span class="fu">median</span>(olympicsM<span class="sc">$</span>Weight,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(olympicsM,<span class="fu">aes</span>(<span class="at">x=</span>Weight)) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>meanWeight,<span class="at">color=</span><span class="st">"blue"</span>)<span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept=</span>medianWeight,<span class="at">color=</span><span class="st">"red"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_OneVariable_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -659,16 +671,16 @@ Can you modify the code above to add blue dashed lines at two standard deviation
 <p>One goal of an exploratory data analysis is to find patterns that might inform on a question , or prompt new questions. Let’s</p>
 <p>This time, we’ll examine the data for female Olympic athletes:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>olympicsF<span class="ot">&lt;-</span>olympics[olympics<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">"F"</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>olympicsF<span class="ot">&lt;-</span>olympics[olympics<span class="sc">$</span>Sex<span class="sc">==</span><span class="st">"F"</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Height can be an <a href="https://en.wikipedia.org/wiki/Height_in_sports">important factor in sports performance</a>. Olympic gymnasts, for example, are often noted for their short stature; shorter athletes have a lower center of gravity, which can help when performing acrobatic elements. Are Olympic gymnasts shorter on average? We can answer this with by subsetting our data to just female gymnasts and taking a quick look at the descriptive statistics:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>olympicsFGym<span class="ot">&lt;-</span>olympicsF[olympicsF<span class="sc">$</span>Sport<span class="sc">==</span><span class="st">"Gymnastics"</span>,]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(olympicsFGym<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>olympicsFGym<span class="ot">&lt;-</span>olympicsF[olympicsF<span class="sc">$</span>Sport<span class="sc">==</span><span class="st">"Gymnastics"</span>,]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(olympicsFGym<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 155.0744</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(olympicsFGym<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(olympicsFGym<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7.093379</code></pre>
 </div>
@@ -676,31 +688,31 @@ Can you modify the code above to add blue dashed lines at two standard deviation
 <p>This mean value is below the global average (~161.5 cm), suggesting that, overall, female Olympic gymnasts are generally shorter than the wider population. We also see that the standard deviation here is 7 cms, suggesting that 68.3% fall within a range roughly between 148 and 162 cm.</p>
 <p>How does this compare to other sports? For basketball, elite athletes tend to be taller than average. Does this bear out in the data?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>olympicsFBball<span class="ot">&lt;-</span>olympicsF[olympicsF<span class="sc">$</span>Sport<span class="sc">==</span><span class="st">"Basketball"</span>,]</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(olympicsFBball<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>olympicsFBball<span class="ot">&lt;-</span>olympicsF[olympicsF<span class="sc">$</span>Sport<span class="sc">==</span><span class="st">"Basketball"</span>,]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(olympicsFBball<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 183.0102</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(olympicsFBball<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(olympicsFBball<span class="sc">$</span>Height,<span class="at">na.rm=</span><span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9.677136</code></pre>
 </div>
 </div>
-<p>As we would expect, most Olympic basketball players are taller on average. However, the distribution of heights among basketball players covers a wider range than that of gymnasts, suggesting that, at least in our sample, there is a wider range of heights among them.</p>
-<p>To compare the two sports, since we’ve already created two subsets, we can</p>
+<p>As we would expect, most Olympic basketball players are taller on average. However, the distribution of heights among basketball players covers a wider range than that of gymnasts.</p>
+<p>To compare the two sports visually, since we’ve already created two subsets, we can plot these as individual histogram geoms within a <code>ggplot</code> call:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">data=</span>olympicsFGym,<span class="fu">aes</span>(<span class="at">x=</span>Height),<span class="at">na.rm=</span><span class="cn">TRUE</span>,<span class="at">fill=</span><span class="st">"magenta"</span>,<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">binwidth=</span><span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">data=</span>olympicsFBball,<span class="fu">aes</span>(<span class="at">x=</span>Height),<span class="at">na.rm=</span><span class="cn">TRUE</span>,<span class="at">fill=</span><span class="st">"darkgreen"</span>,<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">binwidth=</span><span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">data=</span>olympicsFGym,<span class="fu">aes</span>(<span class="at">x=</span>Height),<span class="at">na.rm=</span><span class="cn">TRUE</span>,<span class="at">fill=</span><span class="st">"magenta"</span>,<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">binwidth=</span><span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">data=</span>olympicsFBball,<span class="fu">aes</span>(<span class="at">x=</span>Height),<span class="at">na.rm=</span><span class="cn">TRUE</span>,<span class="at">fill=</span><span class="st">"darkgreen"</span>,<span class="at">alpha=</span><span class="fl">0.5</span>,<span class="at">binwidth=</span><span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_OneVariable_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02_OneVariable_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>This might be explained by differences in the range of heights among participating nations, or that being close to a specific height is not as</p>
+<p>Here, we’ve used the alpha argument to make the bars semi transparent. We can see in the histograms that basketball players are both taller overall and have a wider range of heights than gymnasts.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
