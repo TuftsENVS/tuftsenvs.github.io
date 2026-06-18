@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="Lecture09_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Lecture09_files/libs/quarto-html/tabby.min.js"></script>
+<script src="Lecture09_files/libs/quarto-html/popper.min.js"></script>
+<script src="Lecture09_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="Lecture09_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Lecture09_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="Lecture09_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
+
+  <meta name="author" content="The Data Goes On and On (and On and On)…">
+  <title>Environmental Data Analysis and Visualization</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="Lecture09_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="Lecture09_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="Lecture09_files/libs/revealjs/dist/theme/quarto-2740581606dc327e82f18f789b69d8a0.css">
+  <link href="Lecture09_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="Lecture09_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="Lecture09_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="Lecture09_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <link href="Lecture09_files/libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+
+  <script src="Lecture09_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+  <script src="Lecture09_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+  <link href="Lecture09_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+
+  <script src="Lecture09_files/libs/leaflet-1.3.1/leaflet.js"></script>
+
+  <link href="Lecture09_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+
+  <script src="Lecture09_files/libs/proj4-2.6.2/proj4.min.js"></script>
+
+  <script src="Lecture09_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+
+  <link href="Lecture09_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+
+  <script src="Lecture09_files/libs/leaflet-binding-2.2.3/leaflet.js"></script>
+
+  <script src="Lecture09_files/libs/leaflet-providers-3.0.0/leaflet-providers.js"></script>
+
+  <script src="Lecture09_files/libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
+
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Environmental Data Analysis and Visualization</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+The Data Goes On and On (and On and On)… 
+</div>
+</div>
+</div>
+
+</section>
+<section id="warm-up-exercise" class="slide level2">
+<h2>Warm-up exercise</h2>
+<ul>
+<li><p>Download the <em>denverData.zip</em> file and extract the files into your working directory.</p></li>
+<li><p>Load in the <em>denverGrocery</em> and <em>statistical_neighborhoods</em> shapefile as <code>sf</code> objects</p></li>
+<li><p>Plot these using <code>geom_sf</code> and color the stores according to type</p></li>
+</ul>
+</section>
+<section id="warm-up-exercise-1" class="slide level2">
+<h2>Warm-up exercise</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href=""></a>grocStores<span class="ot">&lt;-</span><span class="fu">st_read</span>(<span class="st">"data/denverGrocery.shp"</span>,<span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href=""></a>neighborhoods<span class="ot">&lt;-</span><span class="fu">st_read</span>(<span class="st">"data/statistical_neighborhoods.shp"</span>,<span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href=""></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb1-6"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>neighborhoods) <span class="sc">+</span></span>
+<span id="cb1-7"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>grocStores,<span class="fu">aes</span>(<span class="at">color=</span>STORE_TYPE)) <span class="sc">+</span></span>
+<span id="cb1-8"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb1-9"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Longitude"</span>,<span class="at">y=</span><span class="st">"Latitude"</span>,<span class="at">color=</span><span class="st">"Store Type"</span>,<span class="at">title=</span><span class="st">"Food Stores in Denver"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="warm-up-exercise-2" class="slide level2">
+<h2>Warm-up exercise</h2>
+
+<img data-src="Lecture09_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section id="dataset-of-the-day" class="slide level2">
+<h2>Dataset of the day</h2>
+<p>Massachusetts Community Health Data</p>
+
+<img data-src="InClassStatic/MAhealth.png" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://www.mass.gov/info-details/community-health-data-tool">Mass.gov</a></p></section>
+<section id="visualization-critique" class="slide level2">
+<h2>Visualization critique</h2>
+
+<img data-src="InClassStatic/emmaCritique.png" class="r-stretch quarto-figure-left"><p class="caption">NY Times</p></section>
+<section id="visualization-critique-1" class="slide level2">
+<h2>Visualization critique</h2>
+
+<img data-src="InClassStatic/williamCritique.png" class="r-stretch quarto-figure-center"><p class="caption">Our World In Data</p></section>
+<section id="visualization-critique-2" class="slide level2">
+<h2>Visualization critique</h2>
+
+<img data-src="InClassStatic/williamCritiqueFull.png" class="r-stretch quarto-figure-center"><p class="caption">Our World In Data</p></section>
+<section id="visualization-critique-3" class="slide level2">
+<h2>Visualization critique</h2>
+
+<img data-src="InClassStatic/SebbarVizCrit.jpg" class="r-stretch quarto-figure-center"><p class="caption">NY Times</p></section>
+<section id="raster-data" class="slide level2">
+<h2>Raster data</h2>
+<p>Rasters are used to represent spatial information that has a continuous distribution.</p>
+
+<img data-src="InClassStatic/raster_concept.png" class="r-stretch quarto-figure-center"><p class="caption">datacarpentry.org</p></section>
+<section id="what-kind-of-data-comes-as-a-raster" class="slide level2">
+<h2>What kind of data comes as a raster?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/rasterData.png" class="quarto-figure quarto-figure-center" width="355"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Satellite imagery</p></li>
+<li><p>Climate model outputs</p></li>
+<li><p>Oceanographic data</p></li>
+<li><p>Elevation models</p></li>
+</ul>
+</div></div>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
+
+<img data-src="InClassStatic/UHI_DC.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="raster-algebra" class="slide level2">
+<h2>Raster algebra</h2>
+<p>Raster cells contain values that can be combined with cell values of other rasters at the same locations to produce a new raster</p>
+
+<img data-src="InClassStatic/rasterAlgebra.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+
+<img data-src="InClassStatic/habitatSuitabilityGoshawk.jpg" class="r-stretch quarto-figure-center"><p class="caption"><a href="https://earthzine.org/forecasting-northern-goshawk-nesting-sites-one-model-at-a-time/">earthzine.org</a></p></section>
+<section id="raster-data-in-r" class="slide level2">
+<h2>Raster data in R</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="InClassStatic/terraLogo.png" class="quarto-figure quarto-figure-center" width="249"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p>Faster and easier than earlier <strong>raster</strong> package</p></li>
+<li><p>Extends to <strong>ggplot2</strong> and <strong>dplyr</strong> with the <strong>tidyterra</strong> package</p></li>
+</ul>
+</div></div>
+</section>
+<section id="raster-data-with-terra" class="slide level2">
+<h2>Raster data with <code>terra</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(terra)</span>
+<span id="cb2-2"><a href=""></a><span class="fu">library</span>(tidyterra)</span>
+<span id="cb2-3"><a href=""></a>turkana<span class="ot">&lt;-</span><span class="fu">rast</span>(<span class="st">"data/turkanaDEM.tif"</span>)</span>
+<span id="cb2-4"><a href=""></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb2-5"><a href=""></a>  <span class="fu">geom_spatraster</span>(<span class="at">data=</span>turkana)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="Lecture09_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section id="raster-data-with-terra-1" class="slide level2">
+<h2>Raster data with <code>terra</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">library</span>(scales)</span>
+<span id="cb3-2"><a href=""></a>rescaledElev<span class="ot">&lt;-</span><span class="fu">rescale</span>(<span class="fu">c</span>(<span class="fu">min</span>(<span class="fu">values</span>(turkana)),<span class="dv">360</span>,<span class="dv">361</span>,<span class="fu">max</span>(<span class="fu">values</span>(turkana))),<span class="at">to=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb3-3"><a href=""></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb3-4"><a href=""></a>  <span class="fu">geom_spatraster</span>(<span class="at">data=</span>turkana) <span class="sc">+</span></span>
+<span id="cb3-5"><a href=""></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colors=</span><span class="fu">c</span>(<span class="st">"cadetblue"</span>,<span class="st">"skyblue"</span>,<span class="st">"beige"</span>,<span class="st">"tan"</span>,<span class="st">"tan4"</span>),<span class="at">values=</span>rescaledElev)<span class="sc">+</span></span>
+<span id="cb3-6"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href=""></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"Elevation (m)"</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href=""></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">36</span>, <span class="at">y =</span> <span class="fl">3.75</span>, <span class="at">label =</span> <span class="st">"Lake</span><span class="sc">\n</span><span class="st">Turkana"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="raster-data-with-terra-2" class="slide level2">
+<h2>Raster data with <code>terra</code></h2>
+
+<img data-src="Lecture09_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section id="basemaps" class="slide level2">
+<h2>Basemaps</h2>
+
+<img data-src="InClassStatic/chickenFarmer.png" class="r-stretch quarto-figure-center"><p class="caption">Google Maps</p></section>
+<section id="basemaps-1" class="slide level2">
+<h2>Basemaps</h2>
+
+<img data-src="InClassStatic/tileBased.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="basemaps-with-maptiles" class="slide level2">
+<h2>Basemaps with <code>maptiles</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">library</span>(terra)</span>
+<span id="cb4-2"><a href=""></a><span class="fu">library</span>(tidyterra)</span>
+<span id="cb4-3"><a href=""></a><span class="fu">library</span>(maptiles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="basemaps-with-maptiles-1" class="slide level2">
+<h2>Basemaps with <code>maptiles</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>eatSpat<span class="ot">&lt;-</span><span class="fu">st_read</span>(<span class="st">"data/where2eat.shp"</span>,<span class="at">quiet=</span><span class="cn">TRUE</span>)</span>
+<span id="cb5-2"><a href=""></a>base<span class="ot">&lt;-</span><span class="fu">get_tiles</span>(eatSpat)</span>
+<span id="cb5-3"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-4"><a href=""></a>    <span class="fu">geom_spatraster_rgb</span>(<span class="at">data=</span>base)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="Lecture09_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section id="basemaps-with-maptiles-2" class="slide level2">
+<h2>Basemaps with <code>maptiles</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>base<span class="ot">&lt;-</span><span class="fu">get_tiles</span>(eatSpat,<span class="at">provider=</span><span class="st">"CartoDB.Positron"</span>)</span>
+<span id="cb6-2"><a href=""></a></span>
+<span id="cb6-3"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-4"><a href=""></a>    <span class="fu">geom_spatraster_rgb</span>(<span class="at">data=</span>base)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="Lecture09_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<section id="basemaps-with-maptiles-3" class="slide level2">
+<h2>Basemaps with <strong><code>maptiles</code></strong></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-2"><a href=""></a>    <span class="fu">geom_spatraster_rgb</span>(<span class="at">data=</span>base) <span class="sc">+</span></span>
+<span id="cb7-3"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>eatSpat,<span class="fu">aes</span>(<span class="at">color=</span><span class="fu">as_factor</span>(Rating))) <span class="sc">+</span></span>
+<span id="cb7-4"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Tufts Student </span><span class="sc">\n</span><span class="st">Restaurant Ratings"</span>,<span class="at">color=</span><span class="st">"Rating"</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href=""></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb7-6"><a href=""></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">"RdYlGn"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+
+<img data-src="Lecture09_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<section id="more-spatial-visualization-packages" class="slide level2">
+<h2>More spatial visualization packages</h2>
+<ul>
+<li><p>Binned plots</p></li>
+<li><p>Leaflet</p></li>
+<li><p>Rayshader</p></li>
+</ul>
+</section>
+<section id="binned-plots-with-statebins" class="slide level2">
+<h2>Binned plots with <code>statebins</code></h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 5
+   State        Operational `Under construction` Announced `Total Data Centers`
+   &lt;chr&gt;              &lt;dbl&gt;                &lt;dbl&gt;     &lt;dbl&gt;                &lt;dbl&gt;
+ 1 Texas                212                  140       610                  962
+ 2 Virginia             320                  136       498                  954
+ 3 Georgia               62                   56       340                  458
+ 4 Pennsylvania          37                   11       209                  257
+ 5 Arizona               83                   35       136                  254
+ 6 Ohio                 101                   51        98                  250
+ 7 Illinois              78                   19       153                  250
+ 8 California           166                    6        40                  212
+ 9 Utah                  29                   10       117                  156
+10 Oregon                97                   14        33                  144
+# ℹ 40 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="binned-plots-with-statebins-1" class="slide level2">
+<h2>Binned plots with <code>statebins</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">ggplot</span>(dc, <span class="fu">aes</span>(<span class="at">state=</span>State, <span class="at">fill=</span><span class="st">`</span><span class="at">Total Data Centers</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href=""></a>  <span class="fu">geom_statebins</span>() <span class="sc">+</span></span>
+<span id="cb9-3"><a href=""></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb9-4"><a href=""></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"Number of Data Centers"</span>,<span class="at">fill=</span><span class="st">"# of</span><span class="sc">\n</span><span class="st">Centers"</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href=""></a>  <span class="fu">theme_statebins</span>(<span class="st">"right"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+
+<img data-src="Lecture09_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<section id="interactive-maps-with-leaflet" class="slide level2">
+<h2>Interactive maps with <code>Leaflet</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb10-2"><a href=""></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href=""></a>  <span class="fu">setView</span>(<span class="at">lng =</span> <span class="sc">-</span><span class="fl">71.11345</span>, <span class="at">lat =</span> <span class="fl">42.38945</span>, <span class="at">zoom =</span> <span class="dv">12</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href=""></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.Positron)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-42a0f75d8d817b618c61" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-42a0f75d8d817b618c61">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"setView":[[42.38945,-71.11345],12,[]],"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}]},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="interactive-maps-with-leaflet-1" class="slide level2">
+<h2>Interactive maps with <code>Leaflet</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">leaflet</span>(eatSpat) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href=""></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.Positron) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href=""></a>  <span class="fu">addCircleMarkers</span>(<span class="at">radius=</span><span class="dv">2</span>,<span class="at">color=</span><span class="st">"blue"</span>,<span class="at">label=</span><span class="sc">~</span>Name)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-72bb45c40715895efd2e" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-72bb45c40715895efd2e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[42.404766,42.42210386,42.412557,42.38254979,42.39744454,42.3952735,42.39616615,42.39615201,42.39343533,42.39402733,42.38962759,42.39302271,42.41698019,42.40076257,42.4038425,42.40394736,42.39945479,42.41881463,42.40548926,42.34577,42.37355867,42.37978122,42.34251663,42.34959817,42.36257121,42.34722962,42.36302409,42.38336102,42.38806202,42.38820069,42.38962662,42.38988149,42.39356087,42.39604007,42.40013667,42.40094902],[-71.141261,-71.13370863,-71.1329683,-71.13138492,-71.12310235,-71.12232437999999,-71.12205373,-71.1220154,-71.12043087000001,-71.12036227,-71.11989601000001,-71.11922876,-71.11844454,-71.11750616,-71.1144865,-71.11447771,-71.11168883000001,-71.10987863,-71.10825654999999,-71.10691,-71.09809712000001,-71.09701343,-71.09641378000001,-71.06934602,-71.05999948,-71.08189127999999,-71.05535565,-71.11989547,-71.14229254,-71.14229254,-71.11991279,-71.11938052000001,-71.12002009,-71.12206222,-71.11249208,-71.11745080999999],2,null,null,{"interactive":true,"className":"","stroke":true,"color":"blue","weight":5,"opacity":0.5,"fill":true,"fillColor":"blue","fillOpacity":0.2},null,null,null,null,["Sugo Cucina Italiana","Magnificent Muffin","Helmand","Hi-Rise Bread Company","Waikiki","Redbones",null,"Genki Ya","DakZen","Dakzen","Sugar &amp; Spice Thai Restaurant","Sugar &amp; Spice","Goldilox Bagels","Noor","Semolina Kitchen and Bar","Semolina","Kelly's Diner","Nijiya Sushi","Oasis Brazilian","Giggling Rice","All Star Sandwich Bar","Juliet","Thaitation","Citrus and Salt","Pho Pasteur","Earls Kitchen + Bar","Mother Anna's","Barcelona Wine Bar","Ma Magoos","Ma Magoos (corrected)","Sugar and Spice","Soup Shack","Dakzen","Diesel","True Grounds","Tu y Yo"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[42.34251663,42.42210386],"lng":[-71.14229254,-71.05535565]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="d-renderings-with-rayshader" class="slide level2">
+<h2>3D renderings with <code>rayshader</code></h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>turkanaMat<span class="ot">&lt;-</span><span class="fu">raster_to_matrix</span>(turkana,<span class="at">verbose=</span><span class="cn">FALSE</span>)</span>
+<span id="cb12-2"><a href=""></a>turkanaMat <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href=""></a>  <span class="fu">sphere_shade</span>(<span class="at">texture =</span> <span class="st">"desert"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href=""></a>  <span class="fu">add_water</span>(<span class="fu">detect_water</span>(turkanaMat), <span class="at">color =</span> <span class="st">"desert"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href=""></a>  <span class="fu">add_shadow</span>(<span class="fu">ray_shade</span>(turkanaMat, <span class="at">zscale =</span> <span class="dv">100</span>), <span class="fl">0.5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href=""></a>  <span class="fu">add_shadow</span>(<span class="fu">ambient_shade</span>(turkanaMat), <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href=""></a>  <span class="fu">plot_3d</span>(turkanaMat, <span class="at">zscale =</span> <span class="dv">100</span>, <span class="at">fov =</span> <span class="dv">0</span>, <span class="at">theta =</span> <span class="dv">135</span>, <span class="at">zoom =</span> <span class="fl">0.75</span>, <span class="at">phi =</span> <span class="dv">45</span>, <span class="at">windowsize =</span> <span class="fu">c</span>(<span class="dv">1000</span>, <span class="dv">800</span>))</span>
+<span id="cb12-8"><a href=""></a><span class="fu">Sys.sleep</span>(<span class="fl">0.2</span>)</span>
+<span id="cb12-9"><a href=""></a><span class="fu">render_snapshot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="d-renderings-with-rayshader-1" class="slide level2">
+<h2>3D renderings with <code>rayshader</code></h2>
+
+<img data-src="Lecture09_files/figure-revealjs/unnamed-chunk-18-1.png" width="960" class="r-stretch"></section>
+<section id="thursday-night" class="slide level2">
+<h2>ThuRsday night!</h2>
+<ul>
+<li><p>It never ends! Raster data in R</p></li>
+<li><p>Even more color gradients</p></li>
+<li><p>Mixing and matching spatial data</p></li>
+</ul>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="Lecture09_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="Lecture09_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="Lecture09_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="Lecture09_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="Lecture09_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="Lecture09_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="Lecture09_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="Lecture09_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="Lecture09_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="Lecture09_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
