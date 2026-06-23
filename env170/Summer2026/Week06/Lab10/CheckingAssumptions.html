@@ -380,6 +380,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p>set.seed(456)</p>
 <p>Linear modeling, like hypothesis testing, comes with some assumptions about the condition of the underlying data. Correct use of linear regression assumes that:</p>
 <ul>
 <li><p>the observations are independent</p></li>
@@ -651,11 +652,12 @@ W = 0.96742, p-value = 0.1813</code></pre>
 <p>This plot is showing how the distribution of (standardized) residuals compares to a theoretical one we might get from “perfectly normal” data. The dotted line is where the residuals would be expected to fall if they were perfectly normal, while the points show where the residuals for our data actually fall.</p>
 <p>Here, we’ll modify the errors on the response variable to follow a <a href="https://statisticsbyjim.com/probability/beta-distribution/">beta distributon</a> with a right skew:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fakeData3<span class="ot">&lt;-</span>fakeData <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">error=</span><span class="fu">rbeta</span>(<span class="fu">n</span>(),<span class="dv">1</span>,<span class="dv">10</span>)<span class="sc">-</span><span class="fl">0.25</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">response=</span>predictor<span class="sc">+</span>error)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>fakeMod3<span class="ot">&lt;-</span><span class="fu">lm</span>(response<span class="sc">~</span>predictor,<span class="at">data=</span>fakeData3)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fakeMod3,<span class="at">which=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>) <span class="co">#holding random number generator for repeatable example</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>fakeData3<span class="ot">&lt;-</span>fakeData <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">error=</span><span class="fu">rbeta</span>(<span class="fu">n</span>(),<span class="dv">1</span>,<span class="dv">10</span>)<span class="sc">-</span><span class="fl">0.25</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">response=</span>predictor<span class="sc">+</span>error)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>fakeMod3<span class="ot">&lt;-</span><span class="fu">lm</span>(response<span class="sc">~</span>predictor,<span class="at">data=</span>fakeData3)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fakeMod3,<span class="at">which=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -669,10 +671,10 @@ W = 0.96742, p-value = 0.1813</code></pre>
     Shapiro-Wilk normality test
 
 data:  fakeMod3$residuals
-W = 0.89949, p-value = 0.0004623</code></pre>
+W = 0.89096, p-value = 0.0002449</code></pre>
 </div>
 </div>
-<p>One of the things you’ll notice (you may have to look closely) is that the center of the distribution passes below the dotted line. This suggests that the residuals are not adhering to the normal distribution. Being able to visualize the data this way gives us a sense not only of whether the residuals are normally distributed, but where the deviation takes place. Oftentimes, these plots will start to deviate around the margins of the distribution as values become fewer, so it’s not surprising to see some outlying points at these ends. However, as long as the majority of points fall close to the line, particularly around the center, we’re in good shape.</p>
+<p>One of the things you’ll notice (you may have to look closely) is that the center of the distribution passes below the dotted line. This, along with the number of deviations at the margins, suggests that the residuals are not adhering to the normal distribution. Being able to visualize the data this way gives us a sense not only of whether the residuals are normally distributed, but where the deviation takes place. Oftentimes, these plots will start to deviate around the margins of the distribution as values become fewer, so it’s not surprising to see some outlying points at these ends. However, as long as the majority of points fall close to the line, particularly around the center, we’re in good shape.</p>
 <p>We can run the same thing with our tree DBH model:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(treeMod_dbh,<span class="at">which=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
