@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "",
+    "text": "Students taking part in the Tufts Climate Resilience Institute summer program collected data on 27 July 2026 to evaluate relationships between surface temperatures, surface permeability, shade, and tree density on the Tufts Medford Campus.\n\n\n\nCRI 2026 students collecting data (Credit: K Davies)\n\n\n\n\nDuring the exercise, walked transects across the campus, stopping at intervals of 30 paces. At each observation point, the following data were recorded:\n\nSurface temperature in degrees Celsius (taken using an infrared thermometer)\nSurface type: impervious (dark/light) vs permeable (vegetated/unvegetated)\nShade level: complete, partial, or no shade\nTree density: number of trees in a 10 foot (3m) radius\n\n\n\n\nCRI 2026 students collecting data (Credit: K Davies)\n\n\n\n\n\nData collection commenced at approximately 11AM EST in full sun conditions. students were positioned facing north or south at points along Professors’ Row, either side of Latin Way. The observations listed above, along with time and location, were collected using the ESRI Survey123 mobile application. The original data can be found, explored, and downloaded here.\n\n\n\nCRI 2026 students collecting data (Credit: K Davies)\n\n\nA total of 306 observations were made during the exercise:"
+  },
+  {
+    "objectID": "index.html#data-collection-points",
+    "href": "index.html#data-collection-points",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Data collection points",
+    "text": "Data collection points\nThe map below shows all 306 points collected by students"
+  },
+  {
+    "objectID": "index.html#temperatures-by-surface-type",
+    "href": "index.html#temperatures-by-surface-type",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Temperatures by surface type",
+    "text": "Temperatures by surface type\nImpervious surfaces store heat more effectively than permeable surfaces, and may continue radiating heat long after sundown. The boxplot below shows temperature ranges for data recorded on campus from different surfaces.\n\nggplot(dataClean,aes(x=`Surface type`,y=`Surface temperature`,fill=`Surface type`)) +\n  geom_boxplot() +\n  theme_classic() +\n  labs(y=\"Surface temperature (°C)\") +\n  scale_fill_manual(values=c(\"darkred\",\"indianred\",\"beige\",\"lightblue\")) +\n  theme(legend.position = \"none\")"
+  },
+  {
+    "objectID": "index.html#temperature-by-shade",
+    "href": "index.html#temperature-by-shade",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Temperature by shade",
+    "text": "Temperature by shade\n\nggplot(dataClean,aes(x=Shade,y=`Surface temperature`,`fill`=Shade)) +\n  geom_boxplot() +\n  theme_classic() +\n   scale_fill_manual(values=c(\"darkred\",\"beige\",\"lightblue\")) +\n  labs(y=\"Surface temperature (°C)\")"
+  },
+  {
+    "objectID": "index.html#temperature-by-surface-type-and-shade",
+    "href": "index.html#temperature-by-surface-type-and-shade",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Temperature by surface type and shade",
+    "text": "Temperature by surface type and shade\nThis graph combines the three variables above (surface temperature, type, and shade). While the trends above still hold true, it demonstrates a more complex interplay between these factors. The cooling influence of surface permeability, for example, appears more significant in unshaded areas. The variation in temperatures is generally greater in areas of partial shade across all permeability categories. Temperatures are lower and much less variable in areas of complete shade. A few notable outliers of high temperature were recorded among the vegetated surfaces.\n\nggplot(dataClean,aes(x=`Surface type`,y=`Surface temperature`,fill=Shade)) +\n  geom_boxplot() +\n  theme_classic() +\n  scale_fill_manual(values=c(\"darkred\",\"beige\",\"lightblue\")) +\n  labs(y=\"Surface temperature (°C)\")"
+  },
+  {
+    "objectID": "index.html#temperature-by-tree-density",
+    "href": "index.html#temperature-by-tree-density",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Temperature by tree density",
+    "text": "Temperature by tree density\n\nggplot(dataClean,aes(x=`Tree density`,y=`Surface temperature`)) +\n  geom_point() +\n  geom_smooth(method=\"lm\",se=FALSE)\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nThis graph shows\n\ndataClean2&lt;-dataClean %&gt;%\n  filter(`Tree density` != 1.5)\nggplot(dataClean2,aes(x=factor(`Tree density`),y=`Surface temperature`)) +\n  geom_jitter(width = 0.25) +\n  geom_smooth(method=lm,se=FALSE) +\n  labs(x=\"Trees in 3m radius\", y=\"Surface temperature (°C)\")\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\nThis is a Quarto website, developed using Posit RStudio, Quarto, and the R Statistical Computing platform. To learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html#mapping-surface-temperatures-surface-type-and-shade",
+    "href": "index.html#mapping-surface-temperatures-surface-type-and-shade",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Mapping surface temperatures, surface type, and shade",
+    "text": "Mapping surface temperatures, surface type, and shade\nThe map below shows all 306 points collected by students."
+  },
+  {
+    "objectID": "index.html#mapping-the-data",
+    "href": "index.html#mapping-the-data",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Mapping the data",
+    "text": "Mapping the data\nThe following maps show the spatial distribution of values for surface temperature, surface type, shade, and tree density.\n\nSurface temperature\n\n\n\n\n\n\n\n\n\n\n\nSurface type\n\n\n\n\n\n\n\n\n\n\n\nShade\n\n\n\n\n\n\n\n\n\n\n\nTree density"
+  },
+  {
+    "objectID": "index.html#about-the-exercise",
+    "href": "index.html#about-the-exercise",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "",
+    "text": "Students taking part in the Tufts Climate Resilience Institute summer program collected data on 27 July 2026 to evaluate relationships between surface temperatures, surface permeability, shade, and tree density on the Tufts Medford Campus.\n\n\n\nCRI 2026 students collecting data (Credit: K Davies)\n\n\n\n\nDuring the exercise, walked transects across the campus, stopping at intervals of 30 paces. At each observation point, the following data were recorded:\n\nSurface temperature in degrees Celsius (taken using an infrared thermometer)\nSurface type: impervious (dark/light) vs permeable (vegetated/unvegetated)\nShade level: complete, partial, or no shade\nTree density: number of trees in a 10 foot (3m) radius\n\n\n\n\nCRI 2026 students collecting data (Credit: K Davies)\n\n\n\n\n\nData collection commenced at approximately 11AM EST in full sun conditions. students were positioned facing north or south at points along Professors’ Row, either side of Latin Way. The observations listed above, along with time and location, were collected using the ESRI Survey123 mobile application. The original data can be found, explored, and downloaded here.\n\n\n\nCRI 2026 students collecting data (Credit: K Davies)\n\n\nA total of 306 observations were made during the exercise:"
+  },
+  {
+    "objectID": "index.html#data-visualizations",
+    "href": "index.html#data-visualizations",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Data visualizations",
+    "text": "Data visualizations\n\nTemperatures by surface type\nImpervious surfaces store heat more effectively than permeable surfaces, and may continue radiating heat long after sundown. The boxplot below shows temperature ranges for data recorded on campus from different surfaces.\n\n\n\n\n\n\n\n\n\n\n\nTemperature by shade\nTrees intercept solar radiation that contributes to surface heating. The boxplot below shows temperature ranges for data recorded on campus from different shade categories.\n\n\n\n\n\n\n\n\n\n\n\nTemperature by surface type and shade\nThis graph combines the three variables above (surface temperature, type, and shade). While the trends above still hold true, it demonstrates a more complex interplay between these factors. The cooling influence of surface permeability, for example, appears more significant in unshaded areas. The variation in temperatures is generally greater in areas of partial shade across all permeability categories. Temperatures are lower and much less variable in areas of complete shade. A few notable outliers of high temperature were recorded among the vegetated surfaces.\n\n\n\n\n\n\n\n\n\n\n\nTemperature by tree density\nFinally, we can examine how temepratures vary with respect to local tree density (expressed as number of trees within a 10 ft/3 m radius). This demonstrates a trend of cooler surface temperatures with greater tree density, though there is substantial variability across these values."
+  },
+  {
+    "objectID": "index.html#notes",
+    "href": "index.html#notes",
+    "title": "Evaluating Urban Heat @ Tufts",
+    "section": "Notes",
+    "text": "Notes\nThis is a Quarto website, developed using Posit RStudio, Quarto, and the R Statistical Computing platform. To learn more about Quarto websites visit https://quarto.org/docs/websites. Code used to create maps and visualizations can be found in the Code tab."
+  },
+  {
+    "objectID": "Code.html",
+    "href": "Code.html",
+    "title": "Code",
+    "section": "",
+    "text": "R code to generate the visualizations in this website can be found below."
+  },
+  {
+    "objectID": "Code.html#loading-packages-data-and-data-cleaning",
+    "href": "Code.html#loading-packages-data-and-data-cleaning",
+    "title": "Code",
+    "section": "Loading packages, data, and data cleaning",
+    "text": "Loading packages, data, and data cleaning\n\nlibrary(tidyverse)\nlibrary(terra)\nlibrary(tidyterra)\nlibrary(maptiles)\nlibrary(sf)\nlibrary(leaflet)\n\n#read data\ndata&lt;-read_csv(\"survey_0.csv\")\n\n#change default grass/bare earth labels to permeable (veg)/permeable (unveg), turn surface type and shade into factors \ndataClean&lt;- data %&gt;% \n mutate(`Surface type`=replace_values(\n   `Surface type`,\n    \"Turf grass\"~\"Permeable (vegetated)\",\n    \"Bare earth\"~\"Permeable (unvegetated)\")) %&gt;%\n  mutate(`Surface type`=factor(`Surface type`,levels=c(\"Impervious (dark-colored)\",\"Impervious (light-colored)\",\"Permeable (unvegetated)\",\"Permeable (vegetated)\"))) %&gt;%\n  mutate(Shade=factor(Shade,levels=c(\"No shade\",\"Partial shade\",\"Complete shade\")))"
+  },
+  {
+    "objectID": "Code.html#zoomable-map",
+    "href": "Code.html#zoomable-map",
+    "title": "Code",
+    "section": "Zoomable map",
+    "text": "Zoomable map\n\n#convert data to spatial form\ndataSpat&lt;-dataClean %&gt;%\n  st_as_sf(coords=c(\"x\",\"y\"),crs=4326)\n\n#make zoomable map with leaflet\nleaflet(dataSpat) %&gt;% \n  addProviderTiles(providers$CartoDB) %&gt;%\n  addCircleMarkers(radius=0.5,color=\"black\")"
+  },
+  {
+    "objectID": "Code.html#mapping-the-data",
+    "href": "Code.html#mapping-the-data",
+    "title": "Code",
+    "section": "Mapping the data",
+    "text": "Mapping the data\n\nSurface temperature\n\n#get basemap\nbase&lt;-get_tiles(dataSpat,provider=\"CartoDB.Positron\")\n\n#map surface temp\nggplot(dataSpat,aes(color=`Surface temperature`)) +\n  geom_spatraster_rgb(data=base) +\n  geom_sf() +\n  scale_color_continuous(palette = c(\"lightblue\", \"#FC9272\", \"darkred\")) +\n  theme_minimal() +\n  labs(color=\"Surface temperature (°C)\")\n\n\n\n\n\n\n\n\n\n\nSurface type\n\n#map surface type\nggplot(dataSpat,aes(color=`Surface type`)) +\n  geom_spatraster_rgb(data=base) +\n  geom_sf() +\n  scale_color_manual(values=c(\"darkgrey\",\"beige\",\"tan\",\"lightgreen\")) +\n  theme_minimal() \n\n\n\n\n\n\n\n\n\n\nShade\n\n#map shade\nggplot(dataSpat,aes(color=`Shade`)) +\n  geom_spatraster_rgb(data=base) +\n  geom_sf(alpha=0.5) +\n  scale_color_manual(values=c(\"lightblue\",\"blue\",\"darkblue\")) +\n  theme_minimal() \n\n\n\n\n\n\n\n\n\n\nTree density\n\n#create categorical value from tree density\ndataSpat2&lt;-dataSpat %&gt;%\n  mutate(densityCat=case_when(\n    `Tree density`== 0 ~\"No trees\",\n    `Tree density` %in% c(1.0,1.5,2.0) ~ \"Low Density (1-2)\",\n    `Tree density` &gt; 2 ~ \"High Density (&gt;2)\"\n  )) %&gt;%\n  mutate(densityCat,factor(densityCat,levels=c(\"No trees\",\"Low Density (1-2)\",\"High Density (&gt;2)\")))\n\n#map tree density\nbase&lt;-get_tiles(dataSpat,provider=\"CartoDB.Positron\")\nggplot(dataSpat2,aes(color=densityCat)) +\n  geom_spatraster_rgb(data=base) +\n  geom_sf() +\n  scale_color_manual(values = c(\"darkseagreen4\", \"darkseagreen2\",\"wheat1\" )) +\n  theme_minimal() +\n  labs(color=\"Trees in 3m \\nradius\")"
+  },
+  {
+    "objectID": "Code.html#data-visualizations",
+    "href": "Code.html#data-visualizations",
+    "title": "Code",
+    "section": "Data visualizations",
+    "text": "Data visualizations\n\nTemperatures by surface type\nImpervious surfaces store heat more effectively than permeable surfaces, and may continue radiating heat long after sundown. The boxplot below shows temperature ranges for data recorded on campus from different surfaces.\n\n#boxplot surface temp vs type\nggplot(dataClean,aes(x=`Surface type`,y=`Surface temperature`,fill=`Surface type`)) +\n  geom_boxplot() +\n  theme_classic() +\n  labs(y=\"Surface temperature (°C)\") +\n  scale_fill_manual(values=c(\"darkred\",\"indianred\",\"beige\",\"lightblue\")) +\n  theme(legend.position = \"none\")\n\n\n\n\n\n\n\n\n\n\nTemperature by shade\nTrees intercept solar radiation that contributes to surface heating. The boxplot below shows temperature ranges for data recorded on campus from different shade categories.\n\n#boxplot surface temp vs shade\nggplot(dataClean,aes(x=Shade,y=`Surface temperature`,`fill`=Shade)) +\n  geom_boxplot() +\n  theme_classic() +\n   scale_fill_manual(values=c(\"darkred\",\"beige\",\"lightblue\")) +\n  labs(y=\"Surface temperature (°C)\")\n\n\n\n\n\n\n\n\n\n\nTemperature by surface type and shade\n\n#multiboxplot surface temp vs type/shade\nggplot(dataClean,aes(x=`Surface type`,y=`Surface temperature`,fill=Shade)) +\n  geom_boxplot() +\n  theme_classic() +\n  scale_fill_manual(values=c(\"darkred\",\"beige\",\"lightblue\")) +\n  labs(y=\"Surface temperature (°C)\")\n\n\n\n\n\n\n\n\n\n\nTemperature by tree density\n\n#remove single value of 1.5\ndataClean2&lt;-dataClean %&gt;%\n  filter(`Tree density` != 1.5)\n#jitter plot temp by tree density\nggplot(dataClean2,aes(x=factor(`Tree density`),y=`Surface temperature`)) +\n  geom_jitter(width = 0.25) +\n  geom_smooth(method=lm,se=FALSE) +\n  labs(x=\"Trees in 3m radius\", y=\"Surface temperature (°C)\")"
+  },
+  {
+    "objectID": "Code.html#notes",
+    "href": "Code.html#notes",
+    "title": "Code",
+    "section": "Notes",
+    "text": "Notes\nThis is a Quarto website, developed using Posit RStudio, Quarto, and the R Statistical Computing platform. To learn more about Quarto websites visit https://quarto.org/docs/websites."
+  }
+]

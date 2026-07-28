@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Code – Evaluating Heat @ Tufts</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-b5cdc83d754cd650109f5c2e0467249f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+
+<script src="site_libs/leaflet-binding-2.2.3/leaflet.js"></script>
+
+<script src="site_libs/leaflet-providers-3.0.0/leaflet-providers.js"></script>
+
+<script src="site_libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
+
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Evaluating Heat @ Tufts</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./Code.html" aria-current="page"> 
+<span class="menu-text">Code</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#loading-packages-data-and-data-cleaning" id="toc-loading-packages-data-and-data-cleaning" class="nav-link active" data-scroll-target="#loading-packages-data-and-data-cleaning">Loading packages, data, and data cleaning</a></li>
+  <li><a href="#zoomable-map" id="toc-zoomable-map" class="nav-link" data-scroll-target="#zoomable-map">Zoomable map</a></li>
+  <li><a href="#mapping-the-data" id="toc-mapping-the-data" class="nav-link" data-scroll-target="#mapping-the-data">Mapping the data</a>
+  <ul class="collapse">
+  <li><a href="#surface-temperature" id="toc-surface-temperature" class="nav-link" data-scroll-target="#surface-temperature">Surface temperature</a></li>
+  <li><a href="#surface-type" id="toc-surface-type" class="nav-link" data-scroll-target="#surface-type">Surface type</a></li>
+  <li><a href="#shade" id="toc-shade" class="nav-link" data-scroll-target="#shade">Shade</a></li>
+  <li><a href="#tree-density" id="toc-tree-density" class="nav-link" data-scroll-target="#tree-density">Tree density</a></li>
+  </ul></li>
+  <li><a href="#data-visualizations" id="toc-data-visualizations" class="nav-link" data-scroll-target="#data-visualizations">Data visualizations</a>
+  <ul class="collapse">
+  <li><a href="#temperatures-by-surface-type" id="toc-temperatures-by-surface-type" class="nav-link" data-scroll-target="#temperatures-by-surface-type">Temperatures by surface type</a></li>
+  <li><a href="#temperature-by-shade" id="toc-temperature-by-shade" class="nav-link" data-scroll-target="#temperature-by-shade">Temperature by shade</a></li>
+  <li><a href="#temperature-by-surface-type-and-shade" id="toc-temperature-by-surface-type-and-shade" class="nav-link" data-scroll-target="#temperature-by-surface-type-and-shade">Temperature by surface type and shade</a></li>
+  <li><a href="#temperature-by-tree-density" id="toc-temperature-by-tree-density" class="nav-link" data-scroll-target="#temperature-by-tree-density">Temperature by tree density</a></li>
+  </ul></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Code</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>R code to generate the visualizations in this website can be found below.</p>
+<section id="loading-packages-data-and-data-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="loading-packages-data-and-data-cleaning">Loading packages, data, and data cleaning</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyterra)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maptiles)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#read data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">read_csv</span>(<span class="st">"survey_0.csv"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#change default grass/bare earth labels to permeable (veg)/permeable (unveg), turn surface type and shade into factors </span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dataClean<span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a> <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Surface type</span><span class="st">`</span><span class="ot">=</span><span class="fu">replace_values</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>   <span class="st">`</span><span class="at">Surface type</span><span class="st">`</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Turf grass"</span><span class="sc">~</span><span class="st">"Permeable (vegetated)"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bare earth"</span><span class="sc">~</span><span class="st">"Permeable (unvegetated)"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Surface type</span><span class="st">`</span><span class="ot">=</span><span class="fu">factor</span>(<span class="st">`</span><span class="at">Surface type</span><span class="st">`</span>,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">"Impervious (dark-colored)"</span>,<span class="st">"Impervious (light-colored)"</span>,<span class="st">"Permeable (unvegetated)"</span>,<span class="st">"Permeable (vegetated)"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Shade=</span><span class="fu">factor</span>(Shade,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">"No shade"</span>,<span class="st">"Partial shade"</span>,<span class="st">"Complete shade"</span>))) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="zoomable-map" class="level2">
+<h2 class="anchored" data-anchor-id="zoomable-map">Zoomable map</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert data to spatial form</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dataSpat<span class="ot">&lt;-</span>dataClean <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">coords=</span><span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>),<span class="at">crs=</span><span class="dv">4326</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#make zoomable map with leaflet</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(dataSpat) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addCircleMarkers</span>(<span class="at">radius=</span><span class="fl">0.5</span>,<span class="at">color=</span><span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-06d16fcc46032c063830" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-06d16fcc46032c063830">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[42.405269,42.40634633,42.40555148,42.40568552,42.40387044,42.40827337,42.40633435,42.40582385,42.40698812,42.40771011,42.40842089,42.40856755,42.40753249,42.40766367,42.40701909,42.40776161,42.40552125,42.40833886,42.40615728,42.40746355,42.40625494,42.40538846,42.40817213,42.4078863,42.40446742,42.40765312,42.40821765,42.40519083,42.40786928,42.40848102,42.40751422,42.404623,42.4079381,42.40815733,42.40791647,42.40801584,42.4077231,42.4075217,42.40433675,42.40781214,42.40775278,42.40489887,42.40806034,42.40811377,42.40697395,42.40786223,42.40377175,42.40762705,42.40504561,42.40831286,42.40807292,42.40421886,42.40479727,42.40768462,42.40636587,42.40648529,42.40424432,42.40716653,42.40410927,42.40542941,42.40655076,42.40488435,42.40818687,42.40394999,42.40786417,42.40798453,42.40606472,42.40783218,42.40414326,42.40621716,42.40522346,42.40441972,42.40662297,42.40521833,42.40747653,42.40484547,42.40473127,42.40472084,42.40507989,42.40790172,42.40654242,42.40651097,42.40656597,42.40487656,42.40786747,42.40442509,42.40769563,42.40646924,42.40780294,42.4060217,42.40668121,42.40782186,42.40573244,42.40642581,42.40690232,42.40857374,42.40646953,42.40635881,42.40656553,42.4056605,42.40839407,42.40581861,42.40611651,42.40785635,42.40569366,42.40669931,42.405433,42.40682408,42.40631063,42.40816721,42.40567718,42.40840565,42.40552461,42.40469974,42.40756788,42.40830205,42.40605518,42.40708756,42.4068749,42.40795605,42.404826,42.40492178,42.40664004,42.403672,42.40673435,42.40606782,42.40675265,42.40430958,42.40620931,42.40701137,42.4046485,42.40496373,42.40638253,42.40646992,42.40634008,42.40800532,42.40608076,42.40654246,42.40713967,42.40597748,42.4059596,42.40631161,42.40585393,42.40393949,42.40600829,42.40737481,42.405787,42.40599726,42.40800804,42.40448871,42.40513606,42.40505076,42.40621178,42.40671638,42.4077858,42.40538606,42.40666882,42.40608595,42.40651919,42.40690708,42.4069639,42.40679613,42.40720947,42.40633791,42.40643604,42.40622072,42.40619554,42.40778276,42.405967,42.40731378,42.40765796,42.40749843,42.40758871,42.40481723,42.40669553,42.40703221,42.40654247,42.40721585,42.40740375,42.40673764,42.40379787,42.40797889,42.40640721,42.40632831,42.4076452,42.40741743,42.40699708,42.40722788,42.40498181,42.40802472,42.40396926,42.40451121,42.40600281,42.40651713,42.40685618,42.40683722,42.40601831,42.40731233,42.40401384,42.40855584,42.40641593,42.40733918,42.4073925,42.40455449,42.40804476,42.40708611,42.40721214,42.40651244,42.40729031,42.405219,42.40650458,42.40697649,42.40531331,42.40853448,42.40689621,42.40531794,42.40607351,42.40723058,42.40715291,42.40645792,42.40639202,42.407604,42.40687264,42.40705838,42.40729509,42.40696375,42.40682798,42.40585724,42.40733109,42.40711769,42.40599139,42.40424855,42.40706797,42.40519199,42.40817854,42.4067168,42.40656192,42.40575896,42.406024,42.40718523,42.40686339,42.40637587,42.40540658,42.40723592,42.40436469,42.4057981,42.40690977,42.4069136,42.4065826,42.404623,42.40627028,42.40663871,42.40644248,42.40683539,42.40432219,42.40690383,42.40725801,42.40528946,42.40690343,42.4073447,42.40686389,42.40622101,42.40632487,42.40669719,42.40431264,42.40667364,42.40718468,42.40702209,42.40474977,42.40699978,42.40798473,42.40425829,42.4063427,42.40680034,42.4060424,42.40745342,42.40734821,42.40653166,42.40717512,42.40654256,42.40619752,42.40753698,42.4071323,42.40767542,42.40710386,42.40732017,42.40725661,42.40794896,42.40398476,42.40756427,42.40754347,42.40438848,42.40799089,42.40721132,42.404941,42.40651293,42.40386715,42.40782838,42.40743466,42.40719754,42.4040974,42.40804079,42.40734805,42.40739607,42.40724582,42.40739187],[-71.12094399999999,-71.12062286,-71.1209439,-71.12084005,-71.12194675000001,-71.11925767,-71.11998991999999,-71.12073367000001,-71.11926991,-71.11944839,-71.11904844999999,-71.1189116,-71.11996627000001,-71.11834713,-71.11915767000001,-71.11832966,-71.12091882999999,-71.11938028,-71.12012847,-71.11869775,-71.11992032000001,-71.1209587,-71.11932505999999,-71.11848418,-71.12145799,-71.11938542,-71.11940420000001,-71.12109551,-71.11902372999999,-71.11917355999999,-71.11873602,-71.12146,-71.11907386,-71.11867664,-71.11905857000001,-71.11892032999999,-71.11910893,-71.11869874,-71.12161894,-71.11875618000001,-71.11922297,-71.12131044,-71.11946971,-71.11847865999999,-71.11930941999999,-71.11864878,-71.12184288,-71.11898302,-71.12106043,-71.1192271,-71.11892011,-71.12176447,-71.12121632,-71.11908046000001,-71.12067724000001,-71.11944413000001,-71.12145965000001,-71.11907521000001,-71.12188604000001,-71.12071997,-71.11939652,-71.12128941,-71.11864504,-71.12201195,-71.11858770000001,-71.11856957000001,-71.12020892,-71.11846077,-71.12173849,-71.12053222,-71.12105778,-71.12125709,-71.11949002,-71.12106036,-71.11985089,-71.12094012,-71.12138369,-71.12140407,-71.12116884,-71.11854336,-71.1196235,-71.11952582000001,-71.11959061,-71.12135132,-71.11928516,-71.12164180000001,-71.11849960000001,-71.12010530000001,-71.11847517,-71.12026548999999,-71.11941255000001,-71.11958919999999,-71.12085343,-71.11980344,-71.11897292,-71.1188954,-71.11948176999999,-71.11978790000001,-71.1194588,-71.12053109,-71.11910945,-71.1206105,-71.12041983,-71.11961939,-71.12074131999999,-71.11936919999999,-71.120925,-71.12006022,-71.12056303,-71.11839268,-71.12053872,-71.11928524,-71.1208221,-71.12110248,-71.11877422000001,-71.11918070999999,-71.12029282,-71.12001706,-71.12035241,-71.11967931,-71.121185,-71.12106935,-71.12004852,-71.121758,-71.11924763,-71.11993750000001,-71.11952577,-71.12156168,-71.12029447,-71.11910036,-71.12135625000001,-71.12109065,-71.12021849999999,-71.11982406,-71.12018307,-71.11899497,-71.11997873,-71.12028763000001,-71.1191073,-71.12057769,-71.1205866,-71.11998662000001,-71.12071776000001,-71.12202241,-71.11978662999999,-71.11886542000001,-71.12043920000001,-71.12024379,-71.11906705,-71.12159007,-71.12087449000001,-71.12117438999999,-71.12030484,-71.12025391,-71.11957889,-71.12100138,-71.12012454000001,-71.11989573,-71.1205887,-71.11874147,-71.11908142999999,-71.11925193,-71.11914459,-71.12049107,-71.11984001,-71.11972484,-71.11976398,-71.11981407,-71.12030917,-71.11852044,-71.11976894,-71.11870838,-71.11935386,-71.12139317,-71.12015814999999,-71.12022774,-71.12027834,-71.11924703,-71.11900984,-71.12059908000001,-71.12182398,-71.11946021999999,-71.12038407999999,-71.11960644,-71.11912786000001,-71.11950308,-71.11983117,-71.11907395,-71.12091893,-71.11959473,-71.12188885,-71.12149408000001,-71.11980901,-71.12027182999999,-71.12026217,-71.11945206999999,-71.11979017,-71.11956021,-71.12192879,-71.11893517,-71.12040684999999,-71.11989551000001,-71.11917579,-71.12151916000001,-71.11890446,-71.12018303000001,-71.11901182,-71.120572,-71.11956331,-71.121045,-71.12049997,-71.11924814,-71.12074789,-71.1188262,-71.11893014,-71.12082563,-71.11997919,-71.12012439999999,-71.11894323999999,-71.12054354999999,-71.12039745,-71.11916757,-71.12001825,-71.11988221,-71.1199424,-71.11981491,-71.11928111,-71.12068379,-71.12020525,-71.11906260000001,-71.12020343,-71.12176276,-71.11946153,-71.12099981,-71.11948535000001,-71.11975363000001,-71.12037054,-71.12045768999999,-71.120373,-71.11996847,-71.11926733,-71.11960799000001,-71.12103952,-71.11904939999999,-71.12164344,-71.12038784000001,-71.11963227,-71.11933259,-71.11951740000001,-71.12146,-71.11962022,-71.11934454,-71.12047964,-71.11937456,-71.12169307000001,-71.11999177,-71.11966695,-71.12078545,-71.12012756999999,-71.11976042000001,-71.11942771,-71.11979578,-71.11961251,-71.12049915,-71.12167296,-71.12037050000001,-71.11995401,-71.12011888000001,-71.12141305,-71.11992447,-71.11897582,-71.12164868000001,-71.12041354,-71.1199477,-71.11984914999999,-71.11957703,-71.1189674,-71.12070296,-71.11992166,-71.12063528,-71.11965585999999,-71.11974042,-71.11897111,-71.11983612,-71.11969190000001,-71.12017821000001,-71.11972287,-71.11943218,-71.12204603000001,-71.11975021000001,-71.11960737,-71.12131707,-71.11874652,-71.11913821,-71.121134,-71.12070217999999,-71.12176908000001,-71.11930495,-71.11913216000001,-71.11890445,-71.12163142,-71.11889724,-71.11883718,-71.11884027000001,-71.11897562,-71.11889252],0.5,null,null,{"interactive":true,"className":"","stroke":true,"color":"black","weight":5,"opacity":0.5,"fill":true,"fillColor":"black","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[42.403672,42.40857374],"lng":[-71.12204603000001,-71.11832966]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="mapping-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-the-data">Mapping the data</h2>
+<section id="surface-temperature" class="level3">
+<h3 class="anchored" data-anchor-id="surface-temperature">Surface temperature</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#get basemap</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>base<span class="ot">&lt;-</span><span class="fu">get_tiles</span>(dataSpat,<span class="at">provider=</span><span class="st">"CartoDB.Positron"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#map surface temp</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataSpat,<span class="fu">aes</span>(<span class="at">color=</span><span class="st">`</span><span class="at">Surface temperature</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster_rgb</span>(<span class="at">data=</span>base) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_continuous</span>(<span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"#FC9272"</span>, <span class="st">"darkred"</span>)) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Surface temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Code_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="surface-type" class="level3">
+<h3 class="anchored" data-anchor-id="surface-type">Surface type</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#map surface type</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataSpat,<span class="fu">aes</span>(<span class="at">color=</span><span class="st">`</span><span class="at">Surface type</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster_rgb</span>(<span class="at">data=</span>base) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"darkgrey"</span>,<span class="st">"beige"</span>,<span class="st">"tan"</span>,<span class="st">"lightgreen"</span>)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Code_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="shade" class="level3">
+<h3 class="anchored" data-anchor-id="shade">Shade</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#map shade</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataSpat,<span class="fu">aes</span>(<span class="at">color=</span><span class="st">`</span><span class="at">Shade</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster_rgb</span>(<span class="at">data=</span>base) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"lightblue"</span>,<span class="st">"blue"</span>,<span class="st">"darkblue"</span>)) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Code_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tree-density" class="level3">
+<h3 class="anchored" data-anchor-id="tree-density">Tree density</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create categorical value from tree density</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dataSpat2<span class="ot">&lt;-</span>dataSpat <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">densityCat=</span><span class="fu">case_when</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Tree density</span><span class="st">`</span><span class="sc">==</span> <span class="dv">0</span> <span class="sc">~</span><span class="st">"No trees"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Tree density</span><span class="st">`</span> <span class="sc">%in%</span> <span class="fu">c</span>(<span class="fl">1.0</span>,<span class="fl">1.5</span>,<span class="fl">2.0</span>) <span class="sc">~</span> <span class="st">"Low Density (1-2)"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Tree density</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"High Density (&gt;2)"</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(densityCat,<span class="fu">factor</span>(densityCat,<span class="at">levels=</span><span class="fu">c</span>(<span class="st">"No trees"</span>,<span class="st">"Low Density (1-2)"</span>,<span class="st">"High Density (&gt;2)"</span>)))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">#map tree density</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>base<span class="ot">&lt;-</span><span class="fu">get_tiles</span>(dataSpat,<span class="at">provider=</span><span class="st">"CartoDB.Positron"</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataSpat2,<span class="fu">aes</span>(<span class="at">color=</span>densityCat)) <span class="sc">+</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster_rgb</span>(<span class="at">data=</span>base) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>() <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"darkseagreen4"</span>, <span class="st">"darkseagreen2"</span>,<span class="st">"wheat1"</span> )) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">color=</span><span class="st">"Trees in 3m </span><span class="sc">\n</span><span class="st">radius"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Code_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="data-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="data-visualizations">Data visualizations</h2>
+<section id="temperatures-by-surface-type" class="level3">
+<h3 class="anchored" data-anchor-id="temperatures-by-surface-type">Temperatures by surface type</h3>
+<p>Impervious surfaces store heat more effectively than permeable surfaces, and may continue radiating heat long after sundown. The boxplot below shows temperature ranges for data recorded on campus from different surfaces.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#boxplot surface temp vs type</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataClean,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Surface type</span><span class="st">`</span>,<span class="at">y=</span><span class="st">`</span><span class="at">Surface temperature</span><span class="st">`</span>,<span class="at">fill=</span><span class="st">`</span><span class="at">Surface type</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Surface temperature (°C)"</span>) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"darkred"</span>,<span class="st">"indianred"</span>,<span class="st">"beige"</span>,<span class="st">"lightblue"</span>)) <span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Code_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="temperature-by-shade" class="level3">
+<h3 class="anchored" data-anchor-id="temperature-by-shade">Temperature by shade</h3>
+<p>Trees intercept solar radiation that contributes to surface heating. The boxplot below shows temperature ranges for data recorded on campus from different shade categories.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#boxplot surface temp vs shade</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataClean,<span class="fu">aes</span>(<span class="at">x=</span>Shade,<span class="at">y=</span><span class="st">`</span><span class="at">Surface temperature</span><span class="st">`</span>,<span class="st">`</span><span class="at">fill</span><span class="st">`</span><span class="ot">=</span>Shade)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>   <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"darkred"</span>,<span class="st">"beige"</span>,<span class="st">"lightblue"</span>)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Surface temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Code_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="temperature-by-surface-type-and-shade" class="level3">
+<h3 class="anchored" data-anchor-id="temperature-by-surface-type-and-shade">Temperature by surface type and shade</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#multiboxplot surface temp vs type/shade</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataClean,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Surface type</span><span class="st">`</span>,<span class="at">y=</span><span class="st">`</span><span class="at">Surface temperature</span><span class="st">`</span>,<span class="at">fill=</span>Shade)) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">"darkred"</span>,<span class="st">"beige"</span>,<span class="st">"lightblue"</span>)) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"Surface temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Code_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="temperature-by-tree-density" class="level3">
+<h3 class="anchored" data-anchor-id="temperature-by-tree-density">Temperature by tree density</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#remove single value of 1.5</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>dataClean2<span class="ot">&lt;-</span>dataClean <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Tree density</span><span class="st">`</span> <span class="sc">!=</span> <span class="fl">1.5</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#jitter plot temp by tree density</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dataClean2,<span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">`</span><span class="at">Tree density</span><span class="st">`</span>),<span class="at">y=</span><span class="st">`</span><span class="at">Surface temperature</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span>lm,<span class="at">se=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Trees in 3m radius"</span>, <span class="at">y=</span><span class="st">"Surface temperature (°C)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Code_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<p>This is a Quarto website, developed using Posit RStudio, Quarto, and the <a href="https://www.r-project.org/">R Statistical Computing platform</a>. To learn more about Quarto websites visit <a href="https://quarto.org/docs/websites" class="uri">https://quarto.org/docs/websites</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
