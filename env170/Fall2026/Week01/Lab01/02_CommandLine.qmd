@@ -1,0 +1,157 @@
+## Working with R at the command line {#RCommandLine}
+
+Let's do some more with the command line. First, well start off with a simple expression:
+
+`8 + 2`{style="color: blue"}
+
+Once you've entered this (by pressing Enter or Return), R should immediately return the following:
+
+`[1] 10`
+
+Leaving aside the `[1]` for the moment, you can see from this interaction R can identify these as numbers, as well as the operator `+` for addition, so it will perform the addition operation on the two numbers. R uses a number of standard operators for basic math operations, such as:
+
+| Operation      | Example                      |
+|----------------|------------------------------|
+| Addition       | `8 + 2`{style="color: blue"} |
+| Subtraction    | `8 - 2`{style="color: blue"} |
+| Multiplication | `8 * 2`{style="color: blue"} |
+| Division       | `8 / 2`{style="color: blue"} |
+| Exponent       | `8 ^ 2`{style="color: blue"} |
+
+: Some math operators in R
+
+But these sorts of things are about the limits of what R knows by itself. For example, we could throw R for a loop by asking it to add the letter *a* to the number 2:
+
+`a + 2`{style="color: blue"}
+
+This should produce an error that looks something like this:
+
+`Error: object 'a' not found`
+
+You and I know that you can't just add the letter *a* to the number 2. But R doesnt know why this is the case. R doesn't even know what the letter *a* is. All R knows is that we've asked it to add 2 to something unfamiliar labeled *a*.
+
+### Assigning values to objects
+
+Imagine for a moment that this were an algebra problem, and *a* stood for something that can be added to 2. In algebra, this is known as a *variable*. In order for the computer to know what the variable *a* is, we have to define it as a named *object* in the computer's memory. To define an object in R, we use the **assignment operator**, which is composed of the 'less than' symbol and a hyphen, which taken together resemble an arrow like so:
+
+`<-`{style="color: blue"}
+
+For example, if we wanted to define *a* as having a value of 8, we can do it this way:
+
+`a<-8`{style="color: blue"}
+
+R will read this command as "Let *a* have a value of 8". Now if we ask the computer to tell us what *a* is:
+
+`a`{style="color: blue"}
+
+It should respond like this:
+
+`[1] 8`
+
+R now interprets the letter a as being equivalent to the number 8. If we go back to our original expression of a + 2
+
+`a + 2`{style="color: blue"}
+
+we will get the same answer as 8 + 2:
+
+`[1] 10`
+
+Again, don't worry too much about the number 1 in square brackets, we'll get to that soon.
+
+::: callout-tip
+##### Try it yourself!
+
+- Try adding, subtracting, multiplying *a* by other values. What about stringing together multiple math operators?
+
+- What do you think will happen if you multiply *a* by *a*?
+
+- The assignment operator (`<-`) can work in the other direction (`->`) as well! Try assigning 6 to the variable *b* with `->`, keeping in mind what sides 6 and *b* should be on.
+:::
+
+### Updating a value
+
+At the moment, R recognizes the letter *a* as standing for the number 8 (or something else if you did the Try It Yourself above). We can change this value simply by reassigning a new value to *a*:
+
+`a<-9`{style="color: blue"}
+
+Now *a* is 9. And when we add 2...
+
+`a + 2`{style="color: blue"}
+
+...we get a new value:
+
+`[1] 11`
+
+Great! Because R currently reads *a* as a number (9), we can also assign a new value to the object *a* using it inside an expression, like this:
+
+`a<-a + 1`{style="color: blue"}
+
+R interprets this as something like "Let *a* have a value of *a* plus 1". Since *a* was equal to 9, this new assignment gives it that value plus 1. So if we look at the value of *a*...
+
+`a`{style="color: blue"}
+
+...we should see it updated from 9 to 10:
+
+`[1] 10`
+
+By using the assignment operator before the expression, our value for *a* is now the result of that expression. At the moment, this may not seem very impressive, but updating values of stored objects is one of the keys of computer programming.
+
+::: callout-tip
+#### Try it yourself!
+
+Try guessing what the final value of *a* would be if you entered the following commands in order:
+
+1.  `a+8`
+
+2.  `a-5`
+
+3.  `a<-a+2`
+
+4.  `a<-16`
+
+5.  `a<-a/2`
+:::
+
+### Functions
+
+Beyond strictly doing mathematical operations on objects, we can also perform a number of built-in *functions*, which is code that will perform some set of actions on an object or objects based on a set of given inputs. Functions work typically by stating the function name in R, followed by a set of input values, called *arguments*, that are contained in parentheses `()`. For example, let's set to *a* value of 5:
+
+`a<-5`{style="color: blue"}
+
+Now if we wanted to find the square root of the current value of *a*, we could use the `sqrt` function like so:
+
+`sqrt(a)`{style="color: blue"}
+
+...we should get the following:
+
+`[1] 2.236068`
+
+Here, function is `sqrt`**.** This function only needs one argument, which is the number we want the square root taken from. Here, we gave it an object a, which is storing the value of 5. The function then takes the square root of 5 and returns the value 2.236068 (R has rounded this to 6 digits for display's sake).
+
+Other functions may take more than one argument. For example, let's say a situation comes up where you want to repeat the value of *a* 10 times (we'll actually need to do something like this shortly). To do this, you can use the `rep` function:
+
+`rep(a,10)`{style="color: blue"}
+
+This gives us the following:
+
+`[1] 5 5 5 5 5 5 5 5 5 5`
+
+The `rep` function accepts two arguments: the object to be repeated (*a*), and the number of times it is to be repeated (10). These two items are separated by a comma. The function produces ten instances of the value of *a*, which is ten 5s. Different functions will accept different arguments and produce different types of objects, and this information is given in the Help documentation.
+
+The 10 instances of the number of 5 you see above is called a *vector*: a type of data object in R that is a ordered collection of values of a given type (in this case, numbers). We'll hear more about these in the next section.
+
+So what's the deal with `[1]` appearing next to each answer so far? The `[1]` indicates the position of the value immediately following it in a vector. This is particularly useful when you're looking at very long vectors. For example, try using `rep` to create 100 instances of *a*:
+
+`rep(a,100)`{style="color: blue"}
+
+The result should look something like this (your position numbers may be slightly different than those here):
+
+`[1] 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5`
+
+`[37] 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5`
+
+`[73] 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5`
+
+Here, the first line starts contains elements 1 to 36 of the vector. The second line starts at element 37, indicated by the number in square brackets, and contains elements 37 to 72. The last line contains elements 73 to 100.
+
+Most of R's functions are *vectorized*, which means that they work simultaneously across all elements in a vector. We'll learn more about this later on, but just keep in mind that these numbers in square brackets are just marking position in a vector.

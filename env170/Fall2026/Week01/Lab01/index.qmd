@@ -1,0 +1,13 @@
+# Introduction {.unnumbered}
+
+This week's lab is aimed at familiarizing you with R and RStudio. R is a "[free software environment for statistical computing and graphics](http://r-project.org "R-project.org")." While R was built primarily for statistical work, it serves many functions that extend well beyond statistics. R works as both a scripting environment (where programs are written and then run) and a command line interface (where commands are entered and return values immediately). R and its packages are freely available and are supported by a large user base.
+
+Before we can get to working with data, it is important to understand some fundamental concepts in computing and how they work in R, specifically. In this section you will learn how to:
+
+- navigate the RStudio interface
+
+- use basic commands in R
+
+- differentiate between object types in R
+
+- visualize data in R
