@@ -4,7 +4,7 @@
     "href": "groupBcode.html",
     "title": "groupBcode",
     "section": "",
-    "text": "#create an object storing a vector repeating the character term \"Ipomoea\" 4 times\ngenus&lt;-rep(4, \"Ipomoea\")\n#create another vector object with the following character objects:\n#tricolor\n#alba\n#indica\n#batatas\nc(tricolor, alba, indica, batatas)\n#create a vector object that concatenates the text from the first object with that of the second object (so that each term has a genus and a species\nfullName&lt;-genus + species"
+    "text": "#create an object storing a vector repeating the character term \"Ipomoea\" 4 times\ngenus&lt;-rep(4, \"Ipomoea\")\n#create another vector object with the following character objects: tricolor, alba, indica and batatas\nc(tricolor, alba, indica, batatas)\n#create a vector object that concatenates the text from the first object with that of the second object (so that each term has a genus and a species)\nfullName&lt;-genus + species"
   },
   {
     "objectID": "groupAcode.html",
@@ -39,7 +39,7 @@
     "href": "groupBcode.html#what-can-be-done-to-improve-this-code",
     "title": "groupBcode",
     "section": "",
-    "text": "#create an object storing a vector repeating the character term \"Ipomoea\" 4 times\ngenus&lt;-rep(4, \"Ipomoea\")\n#create another vector object with the following character objects:\n#tricolor\n#alba\n#indica\n#batatas\nc(tricolor, alba, indica, batatas)\n#create a vector object that concatenates the text from the first object with that of the second object (so that each term has a genus and a species\nfullName&lt;-genus + species"
+    "text": "#create an object storing a vector repeating the character term \"Ipomoea\" 4 times\ngenus&lt;-rep(4, \"Ipomoea\")\n#create another vector object with the following character objects: tricolor, alba, indica and batatas\nc(tricolor, alba, indica, batatas)\n#create a vector object that concatenates the text from the first object with that of the second object (so that each term has a genus and a species)\nfullName&lt;-genus + species"
   },
   {
     "objectID": "index.html",
