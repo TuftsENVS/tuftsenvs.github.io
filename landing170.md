@@ -20,3 +20,6 @@ tags: teaching
 [Week 3](https://tuftsenvs.github.io/env170/Fall2026/Week03/Lab03)
 [Week 4](https://tuftsenvs.github.io/env170/Fall2026/Week04/Lab04)
 [Week 5](https://tuftsenvs.github.io/env170/Fall2026/Week05/Lab05)
+
+## Exercises
+[Week 3](https://tuftsenvs.github.io/env170/Fall2026/Week03/Exercises/FixThisCode/groupAcode.html)
