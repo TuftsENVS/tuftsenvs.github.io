@@ -1,0 +1,275 @@
+card,m,y,catchname,catch,locality,time,org,map,east,north,altitude,penet,fishmeth,effort,pass,spcode,abund,number,minl,maxl,nzreach
+1871,1,2001,Waikato R,434.001,Lake Rotoroa,1300,niwa,s14,2710300,6376000,35,123,fyn,20,,gobcot,a,74,,,3018032
+8750,2,2001,Waikato R,434.61,Lake Taupo tributary,night,bior,t19,2751000,6243200,350,381,gmt,1,,gobcot,,30,20,80,3048453
+8831,2,2001,Waikato R,434.61,Lake Taupo tributary,night,bior,t19,2750700,6243400,350,380,gmt,2,,gobcot,,12,20,80,3048453
+9320,1,2001,Waikato R,434.002,Lake Maraetai,,niwa,t16,2753500,6310900,190,221,gmt,40,,gobcot,,1265,22,88,3032654
+9321,1,2001,Waikato R,434.002,Lake Maraetai,,niwa,t16,2754100,6310900,190,222,gmt,16,,gobcot,,681,22,88,3032654
+9322,1,2001,Waikato R,434.002,Lake Maraetai,,niwa,t16,2754100,6311900,190,222,gmt,6,,gobcot,,75,22,88,3032654
+9323,1,2001,Waikato R,434.002,Lake Maraetai,,niwa,t16,2752900,6312500,190,220,gmt,6,,gobcot,,135,22,88,3032654
+9324,1,2001,Waikato R,434.34,Waipapa River,,niwa,t16,2744200,6318700,130,209,gmt,12,,gobcot,,21,26,87,3030697
+9325,1,2001,Waikato R,434.002,Lake Waipapa,,niwa,t16,2744700,6319500,130,208,gmt,24,,gobcot,,420,26,87,3030430
+9326,1,2001,Waikato R,434.002,Lake Waipapa,,niwa,t16,2745700,6317800,130,210,gmt,29,,gobcot,,871,26,87,3030430
+9327,2,2001,Waikato R,434.01,Maraetai Stream,day,niwa,r13,2663500,6421600,2,4,efm,,3,gobcot,,100,31,105,3009581
+9328,2,2001,Waikato R,434.01,Maraetai Stream,day,niwa,r13,2663600,6421500,2,4,efm,,3,gobcot,,22,42,108,3009581
+9403,5,2001,Waikato R,434.002,Lake Maraetai,,niwa,t16,2753500,6310900,190,221,gmt,40,,gobcot,,1515,24,88,3032654
+9404,5,2001,Waikato R,434.002,Lake Maraetai,,niwa,t16,2754100,6310900,190,222,gmt,16,,gobcot,,625,24,88,3032654
+9405,5,2001,Waikato R,434.002,Lake Maraetai,,niwa,t16,2754100,6311900,190,222,gmt,6,,gobcot,,93,24,88,3032654
+9406,5,2001,Waikato R,434.002,Lake Maraetai,,niwa,t16,2752900,6312500,190,220,gmt,6,,gobcot,,275,24,88,3032654
+9407,5,2001,Waikato R,434.002,Waikato River,,niwa,t17,2754400,6306400,195,228,gmt,20,,gobcot,,317,,,3035011
+9408,4,2001,Waikato R,434.34,Waipapa River,,niwa,t16,2744200,6318700,130,209,gmt,12,,gobcot,,18,26,94,3030697
+9409,4,2001,Waikato R,434.002,Lake Waipapa,,niwa,t16,2744700,6319500,130,208,gmt,24,,gobcot,,960,26,94,3030430
+9410,4,2001,Waikato R,434.002,Lake Waipapa,,niwa,t16,2745700,6317800,130,210,gmt,29,,gobcot,,946,26,94,3030430
+9411,4,2001,Waikato R,434.002,Waikato River,,niwa,t16,2749400,6313600,135,216,gmt,20,,gobcot,,311,,,3032433
+12207,4,2002,Waikato R,434.002,Lake Waipapa,,niwa,t16,2744700,6319500,130,208,gmt,30,,gobcot,,365,25,67,3030430
+12208,4,2002,Waikato R,434.002,Lake Waipapa,,niwa,t16,2745700,6317800,130,210,gmt,50,,gobcot,,489,31,70,3030430
+12209,5,2002,Waikato R,434.002,Lake Maraetai,,niwa,t16,2753500,6310900,190,221,gmt,40,,gobcot,,734,22,78,3032654
+12210,5,2002,Waikato R,434.002,Lake Maraetai,,niwa,t16,2754100,6310800,190,222,gmt,10,,gobcot,,120,30,75,3032654
+12211,5,2002,Waikato R,434.002,Lake Maraetai,,niwa,t16,2754200,6311600,190,222,gmt,10,,gobcot,,253,41,71,3032654
+12212,5,2002,Waikato R,434.002,Lake Maraetai,,niwa,t16,2753800,6311800,190,221,gmt,10,,gobcot,,94,39,72,3032654
+12213,5,2002,Waikato R,434.002,Lake Maraetai,,niwa,t16,2753000,6312300,190,220,gmt,10,,gobcot,,133,23,59,3032654
+12280,12,2001,Waikato R,434.61,Lake Taupo,,doct,t18,2764300,6278200,357,361,ntc,22,,gobcot,a,,,,3043722
+12281,12,2001,Waikato R,434.002,Lake Aratiatia,,doct,u17,2782900,6282600,330,324,ntc,20,,gobcot,a,,,,3042266
+12285,12,2001,Waikato R,434.002,Hardcastle Lagoon,,doct,u17,2799900,6294300,290,294,ntc,9,,gobcot,a,,,,3038976
+12869,3,2002,Waikato R,434.002,Hardcastle Lagoon,,doct,u17,2800000,6294000,290,294,ntc,11,,gobcot,c,,,,3038976
+12870,3,2002,Waikato R,434.002,Unnamed lagoon,,doct,u17,2798200,6291000,290,298,ntc,9,,gobcot,o,,,,3039866
+12874,3,2002,Waikato R,434.002,Lake Whakamaru,,docw,t17,2756000,6304500,220,230,ntc,16,,gobcot,a,,,,3035301
+12875,3,2002,Waikato R,434.002,Lake Atiamuri,,docw,u17,2774500,6308400,250,252,ntc,8,,gobcot,a,,,,3034481
+12877,3,2002,Waikato R,434.54,Torepatutahi Stream,,docw,u17,2798600,6296500,290,291,ntc,6,,gobcot,o,,,,3038300
+12878,3,2002,Waikato R,434.53,Waiotapu Stream,,docw,u17,2797400,6296800,290,289,ntc,7,,gobcot,a,,,,3038171
+15270,10,2002,Waikato R,434.002,Waikato River,1330,uow,u17,2779500,6280700,335,328,fyn,9,,gobcot,,2,,,3042691
+15271,10,2002,Waikato R,434.002,Lake Aratiatia,1355,uow,u17,2781700,6282000,330,326,fyn,9,,gobcot,,3,80,110,3042266
+15275,10,2002,Waikato R,434.001,Waikato River,1430,uow,s14,2707000,6383600,15,109,fyn,9,,gobcot,r,5,93,,3016533
+15323,1,2003,Waikato R,434.15,Lake Whangape tributary,day,gel,s13,2690300,6402400,45,82,han,,,gobcot,,2,,,3013117
+17389,4,2003,Waikato R,434.211,Lake B,night,docw,s14,2708400,6389000,30,101,ntc,14,,gobcot,,19,15,60,3015340
+17390,4,2003,Waikato R,434.211,Lake D,night,docw,s14,2707300,6389500,30,99,ntc,14,,gobcot,,117,20,60,9
+17392,4,2003,Waikato R,434,Lake Pikopiko,night,docw,s14,2703600,6391100,30,95,ntc,8,,gobcot,,186,25,75,3014933
+17393,4,2003,Waikato R,434.211,Lake A,night,docw,s14,2709400,6387900,30,102,ntc,8,,gobcot,,24,25,60,3015552
+19523,3,2004,Waikato R,434.222,Mangapiko Stream,1000,niwa,t15,2732600,6351300,250,210,efp,90,2,gobcot,c,14,38,65,3022924
+20627,10,2004,Waikato R,434.211,Lake B,1200,docw,s14,2708185,6388740,30,101,gmt,20,,gobcot,,84,,,3015340
+20653,12,2004,Waikato R,434,Whauwhautahi Stream,,niwa,r13,2671565,6429705,3,15,gmt,10,,gobcot,,17,55,101,3007911
+20676,2,2005,Waikato R,434,Waikato River tributary,900,niwa,s14,2700839,6394686,18,93,efp,64,2,gobcot,,5,72,114,3014437
+20682,2,2005,Waikato R,434,Waikato River tributary,930,niwa,s14,2700018,6394054,18,94,efp,42,2,gobcot,,4,45,98,3014624
+20683,2,2005,Waikato R,434,Waikato River tributary,1100,niwa,s14,2699896,6394061,19,94,efp,32,2,gobcot,,4,42,104,3014570
+20684,2,2005,Waikato R,434,Waikato River tributary,1430,niwa,s14,2699726,6394108,20,94,efp,61,2,gobcot,,6,45,102,3014570
+20699,3,2004,Waikato R,434.001,Waikato River tributary,day,kal,s14,2706700,6384400,18,108,efp,,3,gobcot,,1,31,,3016396
+20700,3,2004,Waikato R,434.001,Waikato River tributary,day,kal,s14,2707900,6383500,25,110,efp,,3,gobcot,,1,58,,3016589
+21653,10,2002,Waikato R,434,Waikato River,1215,uow,s13,2700700,6400300,10,84,fyn,9,,gobcot,,4,,,3013465
+21654,9,2002,Waikato R,434,Waikato River,1240,uow,s13,2700800,6406000,10,79,fyn,11,,gobcot,c,8,90,115,3012542
+21787,6,2000,Waikato R,434.24,Lake Rotomanuka,night,wrc,s15,2713800,6361600,55,140,fyn,7,,gobcot,o,,42,57,3020958
+21788,6,2000,Waikato R,434.24,Lake Rotomanuka,night,wrc,s15,2713800,6361600,55,140,sen,,,gobcot,o,,42,57,3020958
+21789,6,2000,Waikato R,434.24,Lake Rotomanuka,night,wrc,s15,2713800,6361600,55,140,gmt,22,,gobcot,o,,,,3020958
+21792,5,2001,Waikato R,434.24,Unnamed lake,night,wrc,s15,2714000,6359700,55,144,gmt,12,,gobcot,o,7,48,64,3021391
+21793,5,2001,Waikato R,434.24,Unnamed lake,night,wrc,s15,2714000,6359700,55,144,sen,,,gobcot,c,9,19,48,3021391
+21815,1,2006,Waikato R,434.25,Mangaonua Stream tributary,1100,uow,s14,2715690,6375746,25,127,gmt,,,gobcot,,,,,3017909
+21819,1,2006,Waikato R,434.25,Mangaonua Stream tributary,1040,uow,s14,2715690,6375739,25,127,gmt,,,gobcot,,,,,3017909
+21822,2,2006,Waikato R,434.001,Waikato River tributary,1550,uow,s14,2711696,6376986,20,118,gmt,,,gobcot,,,,,3017743
+21911,1,2003,Waikato R,434.221,Firewood Creek,1130,wrc,s14,2697800,6388700,20,101,efm,100,2,gobcot,,1,61,,3015528
+21913,1,2003,Waikato R,434.21,Komakorau Stream,1337,wrc,s14,2713700,6386900,30,111,efm,50,2,gobcot,,2,52,56,3015875
+21914,1,2003,Waikato R,434.221,Firewood Creek tributary,830,wrc,s14,2697600,6388800,20,101,efm,100,3,gobcot,,4,60,79,3015543
+21921,1,2003,Waikato R,434.001,Waikato River tributary,1345,wrc,s14,2708200,6377200,35,119,efm,30,1,gobcot,,3,61,84,3017660
+21924,1,2003,Waikato R,434.001,Mangakotukutuku Stream,day,wrc,s14,2712700,6374200,20,121,efm,90,2,gobcot,,1,75,,3018237
+22101,1,2006,Waikato R,434.001,Waikato River tributary,1550,uow,s14,2706727,6384425,15,108,gmt,,,gobcot,,,,,3016396
+22650,4,2005,Waikato R,434.222,Mangapiko Stream,955,bior,s15,2713730,6352960,40,177,nte,7,1,gobcot,,3,25,45,3022605
+22886,1,2007,Waikato R,434.001,Waikato River tributary,,uow,s14,2711696,6376986,20,118,gmt,,,gobcot,,,,,3017743
+22914,2,2003,Waikato R,434,Waikato River tributary,900,niwa,s14,2700000,6394300,18,94,efp,35,2,gobcot,,6,45,90,3014593
+22915,2,2003,Waikato R,434,Waikato River tributary,1530,niwa,s14,2699900,6394300,19,94,efp,33,2,gobcot,,2,38,51,3014593
+22916,2,2003,Waikato R,434,Waikato River tributary,1330,niwa,s14,2699800,6394300,20,94,efp,49,2,gobcot,,8,25,82,3014593
+23147,2,2006,Waikato R,434.24,Unnamed lake,night,docw,s15,2713915,6359678,50,144,ntc,8,,gobcot,,53,,,3021391
+23148,2,2006,Waikato R,434.24,Unnamed lake,night,docw,s15,2713868,6358749,50,144,ntc,8,,gobcot,,12,,,3021441
+23149,2,2006,Waikato R,434.24,Unnamed lake,night,docw,s15,2714034,6358741,50,144,ntc,8,,gobcot,,19,,,3021441
+23401,1,2004,Waikato R,434.222,Mangauika Stream,1230,wrc,s15,2703100,6352600,20,160,efm,70,1,gobcot,,2,42,45,3022579
+23402,1,2004,Waikato R,434.224,Ngakoaohia Stream,1015,wrc,s15,2700000,6348200,35,171,efm,100,1,gobcot,,13,20,55,3023515
+23404,9,2001,Waikato R,434.24,Lake Serpentine,,wrc,s15,2713800,6358700,50,144,ncn,,,gobcot,c,,,,3021441
+23406,9,2003,Waikato R,434.24,Lake Serpentine,,wrc,s15,2713800,6358700,50,144,ncn,,,gobcot,c,,,,3021441
+23407,9,2002,Waikato R,434.24,Lake Serpentine,,wrc,s15,2713800,6358700,50,144,ncn,,,gobcot,c,,,,3021441
+23426,5,2005,Waikato R,434.222,Ohote Stream,2100,wrc,s14,2705200,6375400,30,134,spo,,,gobcot,o,,,,3018071
+23503,1,2003,Waikato R,434.151,Naike Stream,1005,wrc,r13,2678800,6405800,30,97,efm,,2,gobcot,,18,29,62,3012520
+23520,1,2004,Waikato R,434.224,Ngakoaohia Stream tributary,815,wrc,s15,2696700,6347600,140,176,ef,160,1,gobcot,,1,35,,3023760
+23521,1,2004,Waikato R,434.224,Ngakoaohia Stream,1530,wrc,s15,2700500,6348000,35,170,ef,100,1,gobcot,,5,,,3023527
+24028,11,2003,Waikato R,434.01,Maraetai Stream,night,niwa,r13,2663600,6421500,5,4,gmt,17,,gobcot,,55,43,120,3009581
+24029,11,2003,Waikato R,434,Whauwhautahi Stream,night,niwa,r13,2671900,6429500,5,16,gmt,25,,gobcot,,92,41,95,3007980
+24030,12,2003,Waikato R,434,Whauwhautahi Stream,day,niwa,r13,2671900,6429500,5,16,efp,43,1,gobcot,,14,53,82,3007980
+24036,3,2004,Waikato R,434.01,Maraetai Stream,night,niwa,r13,2663600,6421500,5,4,gmt,19,,gobcot,,48,43,101,3009581
+24037,3,2004,Waikato R,434,Whauwhautahi Stream,night,niwa,r13,2671900,6429500,5,16,gmt,25,,gobcot,,108,37,97,3007980
+24048,1,2007,Waikato R,434.001,Waikato River tributary,1100,niwa,s14,2715275,6371665,40,126,efp,27,3,gobcot,,2,88,89,0
+25836,2,2005,Waikato R,434.001,Waikato River,,uow,t15,2731873,6363065,35,150,efb,420,1,gobcot,,,,,3020656
+25841,2,2005,Waikato R,434.001,Waikato River,,uow,s14,2714446,6374592,18,123,efb,606,1,gobcot,,7,,,3018242
+25842,2,2005,Waikato R,434.001,Waikato River,,uow,s14,2713751,6374939,18,122,efb,434,1,gobcot,,,,,3018187
+25844,2,2005,Waikato R,434.001,Waikato River,,uow,s14,2705727,6386093,15,106,efb,823,1,gobcot,,,,,3016064
+25845,2,2005,Waikato R,434.001,Waikato River,,uow,s14,2705759,6385721,15,106,efb,565,1,gobcot,,,,,3016064
+25846,2,2005,Waikato R,434.001,Waikato River,,uow,s14,2704371,6387357,15,104,efb,606,1,gobcot,,,,,3015814
+25847,2,2005,Waikato R,434.001,Waikato River,,uow,s14,2703827,6387422,15,103,efb,1309,1,gobcot,,,,,3015715
+25848,2,2005,Waikato R,434.001,Waikato River,,uow,s14,2702209,6388936,15,101,efb,520,1,gobcot,,,,,3015510
+25850,2,2005,Waikato R,434.2,Mangawara Stream,,uow,s14,2703408,6396822,12,89,efb,888,1,gobcot,,,,,3014132
+25851,2,2005,Waikato R,434,Waikato River,,uow,s14,2701167,6398165,12,87,efb,296,1,gobcot,,1,,,3013847
+25852,2,2005,Waikato R,434,Waikato River,,uow,s13,2700786,6406013,10,79,efb,1177,1,gobcot,,,,,3012542
+25853,2,2005,Waikato R,434,Waikato River,,uow,s13,2700724,6405709,10,79,efb,1241,1,gobcot,,9,,,3012542
+25854,2,2005,Waikato R,434,Waikato River,,uow,s13,2700875,6405387,10,79,efb,744,1,gobcot,,,,,3012542
+25856,2,2005,Waikato R,434.15,Whangape Stream,,uow,s13,2694189,6417199,8,62,efb,2091,1,gobcot,,,,,3010383
+25857,2,2005,Waikato R,434.14,Opuatia Stream,,uow,s13,2692456,6419294,8,60,efb,1177,1,gobcot,,2,,,3009640
+25858,2,2005,Waikato R,434,Waikato River,,uow,s12,2693170,6430663,5,46,efb,1804,1,gobcot,,,,,3007650
+25859,2,2005,Waikato R,434,Waikato River,,uow,s12,2693198,6430000,5,47,efb,657,1,gobcot,,,,,3007882
+28093,11,2009,Waikato R,434.53,Hakereteke Stream tributary,1000,jk,u16,2805056,6315036,405,318,gmt,3,,gobcot,,8,,,3031768
+28094,11,2009,Waikato R,434.53,Waiotapu Stream,1100,jk,u16,2805247,6315654,410,318,gmt,7,,gobcot,,26,,,3031768
+28095,11,2009,Waikato R,434.53,Waiotapu Stream,1200,jk,u16,2805235,6315791,410,319,gmt,1,,gobcot,,8,,,3031768
+28305,4,2007,Waikato R,434.11,Whakapipi Stream,day,niwa,r12,2681048,6436448,10,32,efp,,1,gobcot,,9,30,55,3006346
+28341,5,2007,Waikato R,434.223,Mangatutu Stream,day,kal,s16,2722300,6336600,60,204,efm,,2,gobcot,,4,25,55,3025840
+28342,5,2007,Waikato R,434.223,Mangatutu Stream,day,kal,s16,2725300,6331500,90,212,efm,,2,gobcot,,5,29,55,3027420
+28343,5,2007,Waikato R,434.22,Waipa River,day,kal,s16,2715000,6317200,100,225,efm,,2,gobcot,,6,,30,3031404
+28344,5,2007,Waikato R,434.22,Waipa River,day,kal,s16,2713600,6326000,65,210,efm,,2,gobcot,,9,25,56,3028447
+29323,4,2008,Waikato R,434.12,Mangatawhiri River,2300,arc,s12,2703949,6458732,220,81,spo,,,gobcot,c,,,,3003360
+29722,8,2007,Waikato R,434.13,Whangamarino River,night,docw,s13,2697784,6427685,90,52,ntc,,,gobcot,,1,75,,3008250
+29723,8,2007,Waikato R,434.13,Whangamarino River,night,docw,s13,2698786,6427650,90,53,ntc,,,gobcot,,2,49,60,3008313
+29724,8,2007,Waikato R,434.13,Pungarehu Stream,night,docw,s13,2706018,6419506,10,67,ntc,,,gobcot,,2054,30,75,3010100
+29725,8,2007,Waikato R,434.131,Maramarua River,night,docw,s12,2696978,6432634,15,51,ntc,,,gobcot,,1,45,,3007139
+29726,8,2007,Waikato R,434.13,Whangamarino Swamp,night,docw,s13,2703715,6425125,15,60,ntc,,,gobcot,,2,45,50,3008641
+29727,8,2007,Waikato R,434.13,Whangamarino Swamp,night,docw,s13,2698490,6426740,15,53,ntc,,,gobcot,,1,50,,3008359
+29728,8,2007,Waikato R,434.13,Pungarehu Stream,night,docw,s13,2703715,6425125,10,60,ntc,,,gobcot,,8,34,55,3008641
+29730,8,2007,Waikato R,434.13,Whangamarino Swamp,night,docw,s12,2694582,6431168,15,46,ntc,,,gobcot,,31,33,96,3007556
+29806,10,2008,Waikato R,434.161,Lake Waikare tributary,day,bml,s13,2701435,6419648,10,72,ntc,10,,gobcot,,1,60,,3010017
+29810,10,2008,Waikato R,434.161,Lake Waikare tributary,day,bml,s13,2700611,6419425,17,73,ntc,10,,gobcot,,1,50,,3009901
+29840,12,2008,Waikato R,434.002,Waiwhakarewaumu Stream Stream,1700,niwa,u17,2790759,6292154,295,281,efp,40,2,gobcot,a,14,35,60,3039348
+29841,12,2008,Waikato R,434.002,Waikato River unnamed tributary,15.14,niwa,u17,2791841,6292447,295,282,efp,26,2,gobcot,o,1,69,,3039538
+29842,12,2008,Waikato R,434.002,Orakonui Stream,1230,niwa,u17,2787016,6293289,295,276,efp,50,2,gobcot,c,6,39,72,3039158
+29845,12,2008,Waikato R,434.002,Mangamingi Stream,1212,niwa,u17,2788125,6292669,300,278,efp,87,2,gobcot,c,6,42,79,3039269
+29934,1,2009,Waikato R,434.002,Lake Aratiatia,night,tso,u17,2782979,6282468,330,324,gin,2,,gobcot,,5,,,3042274
+29936,1,2009,Waikato R,434.002,Lake Aratiatia,night,tso,u17,2782979,6282468,320,324,gmt,5,,gobcot,,8,,,3042274
+29937,1,2009,Waikato R,434.002,Lake Aratiatia,night,tso,u17,2782979,6282468,320,324,fyn,5,,gobcot,,1,,,3042274
+29940,1,2009,Waikato R,434.002,Lake Ohakuri,night,tso,u17,2779860,6305790,290,259,gmt,5,,gobcot,,5,,,3035124
+29947,1,2009,Waikato R,434.002,Lake Atiamuri,night,tso,u17,2774520,6308565,250,252,gmt,5,,gobcot,,71,,,3034122
+29948,2,2009,Waikato R,434.002,Lake Whakamaru,1500,tso,t17,2755865,6304535,230,231,han,,,gobcot,a,,,,3035709
+29955,3,2009,Waikato R,434.682,Lake Rotoaira,night,tso,t19,2747195,6233945,565,405,fyn,6,,gobcot,,4,,,3049292
+29958,3,2009,Waikato R,434.682,Lake Rotoaira,night,tso,t19,2747195,6233945,565,405,gmt,3,,gobcot,,85,,,3049273
+31116,12,2009,Waikato R,434.22,Horseshoe Lake,840,doc,S14,2706207,6379020,37,136,gmt,15,,gobcot,c,21,45,65,3017022
+31142,1,2010,Waikato R,434.221,Waikoha Stream,1000,niwa,s14,2697640,6370012,21,135,efp,,1,gobcot,c,,,,3019205
+31144,1,2010,Waikato R,434.22,Tunaeke Stream,1130,niwa,s14,2693935,6375188,55,127,efp,,1,gobcot,c,,,,3018152
+31145,1,2010,Waikato R,434.221,Mangaotama Stream,1230,niwa,s14,2694095,6378990,35,119,efp,,1,gobcot,c,,,,3017347
+31147,2,2010,Waikato R,434.001,Waikato River tributary,1500,niwa,s14,2704260,6386702,20,104,gmt,20,,gobcot,o,,,,3015914
+31148,2,2010,Waikato R,434.221,Waikoha Stream,1500,niwa,s14,2697640,6370012,20,135,efp,,1,gobcot,c,,,,3019205
+31149,1,2010,Waikato R,434,Whauwhautahi stream,1500,niwa,r13,2671563,6429767,15,15,gmt,20,,gobcot,,8,,,3007911
+31150,2,2010,Waikato R,434,Whauwhautahi stream,1500,niwa,r13,2671563,6429767,15,15,gmt,20,,gobcot,,7,,,3007911
+31151,1,2010,Waikato R,434.22,Te Paki stream,1030,niwa,s14,2696430,6384490,15,107,gmt,20,,gobcot,a,,,,3016339
+31152,2,2010,Waikato R,434.22,Te Paki stream,1030,niwa,s14,2696430,6384490,15,107,gmt,20,,gobcot,c,,,,3016339
+31153,1,2010,Waikato R,434,Waioteatua stream,1000,niwa,s14,2700322,6397728,15,87,gmt,20,,gobcot,c,,,,3013947
+31154,2,2010,Waikato R,434,Waioteatua stream,1000,niwa,s14,2700322,6397728,15,87,gmt,20,,gobcot,,30,,,3013947
+31155,1,2010,Waikato R,434,Waioteatua stream,1500,niwa,s14,2699622,6397695,20,88,efp,200,2,gobcot,c,,,,3013955
+31156,2,2010,Waikato R,434,Waioteatua stream,1500,niwa,s14,2699622,6397695,20,88,efp,200,2,gobcot,a,,,,3013955
+31158,1,2010,Waikato R,434.27,Karapiro Stream,1240,niwa,t15,2733015,6363862,55,153,gmt,20,,gobcot,c,5,35,55,3020352
+31163,1,2009,Waikato R,434.001,Waikato River tributary,day,niwa,s14,2709990,6380685,15,113,efp,,2,gobcot,,2,80,97,3017058
+31246,4,2007,Waikato R,434.001,Puni Wetland,1240,bior,R12,2673454,6433479,14,20,efp,125,1,gobcot,,11,70,90,3007013
+31248,4,2007,Waikato R,434.001,Waikato River tributary,1330,bior,R12,2673557,6433624,10,20,efp,60,1,gobcot,,2,80,80,3007005
+31272,10,2006,Waikato R,434,Puni Wetland,1100,bior,R12,2671890,6432432,6,18,gmt,4,0,gobcot,,1,60,,3007267
+31275,9,2006,Waikato R,434,Puni Wetland,day,bior,R12,2673454,6433479,15,20,nte,8,0,gobcot,,10,50,95,3007013
+31277,9,2006,Waikato R,434,Puni Wetland tributary,1300,bior,R12,2673557,6433624,11,20,gmt,4,0,gobcot,,2,80,80,3007005
+31282,9,2006,Waikato R,434,Puni Wetland,1300,bior,R12,2673342,6433241,9,19,nte,7,0,gobcot,,2,50,75,3007005
+32744,2,2010,Waikato R,434.133,Ruaotehuia Stream tributary,1600,niwa,S12,2704072,6436891,19,63,efp,200,1,gobcot,,17,20,66,3006254
+32745,3,2010,Waikato R,434.133,Ruaotehuia Stream,900,niwa,S12,2704072,6436891,19,63,ntc,9,,gobcot,,17,22,35,3006253
+32749,2,2010,Waikato R,434.131,Ruaotehuia Stream tributary,1400,niwa,S12,2701353,6435779,20,58,ntc,7,,gobcot,,19,32,127,3006501
+32753,3,2010,Waikato R,434.133,Kopuku Stream,1000,niwa,S12,2705117,6435622,20,63,ntc,4,,gobcot,,22,36,72,3006536
+32754,3,2010,Waikato R,434.133,Kopuku Stream,day,niwa,S12,2705180,6435698,20,63,ntc,4,,gobcot,,9,54,80,3006536
+32757,5,2010,Waikato R,434.131,Ruaotehuia Stream,day,niwa,S12,2701614,6436122,20,59,fyn,2,,gobcot,,1,40,,3006209
+32758,5,2010,Waikato R,434.131,Ruaotehuia Stream tributary,day,niwa,S12,2701523,6435995,20,58,fyn,2,,gobcot,,1,52,,3006501
+32761,5,2010,Waikato R,434.131,Ruaotehuia Stream,day,niwa,S12,2701255,6435634,20,58,fyn,2,,gobcot,,3,80,131,3006500
+100040,12,2010,Waikato R,434,Waikato River,,niwa,R13,2692036,6427679,15,49,fys,,,gobcot,,2,,,3008300
+100041,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2691642,6427708,15,49,fys,,,gobcot,,1,,,3008300
+100043,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2691355,6427636,15,49,fys,,,gobcot,,1,,,3008300
+100044,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2690477,6427208,15,50,fys,,,gobcot,,2,,,3008443
+100047,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2691541,6427694,15,49,fys,,,gobcot,,4,,,3008300
+100048,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2691157,6427545,15,49,fys,,,gobcot,,1,,,3008319
+100049,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2690955,6427229,15,50,fys,,,gobcot,,315,,,3008443
+100050,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2690677,6427054,15,50,fys,,,gobcot,,1,,,3008443
+100051,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2690324,6426753,15,50,fys,,,gobcot,,2,,,3008506
+100052,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2690544,6426689,15,50,fys,,,gobcot,,14,,,3008506
+100053,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2690534,6426508,15,51,fys,,,gobcot,,13,,,3008506
+100054,12,2010,Waikato R,434,Waikato River,0,niwa,R13,2690305,6426401,15,50,fys,,,gobcot,,6,,,3008506
+100060,12,2010,Waikato R,434,Waikato River,,niwa,R13,2692318,6428052,15,48,sen,,,gobcot,,21,,,3008212
+100061,12,2010,Waikato R,434,Waikato River,,niwa,R13,2692318,6428052,15,48,sen,,,gobcot,,42,,,3008212
+100062,12,2010,Waikato R,434,Waikato River,,niwa,R13,2692318,6428052,15,48,sen,,,gobcot,,12,,,3008212
+100063,12,2010,Waikato R,434,Waikato River,,niwa,R13,2691798,6427557,15,49,sen,,,gobcot,,6,,,3008300
+100064,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690834,6427259,15,50,sen,,,gobcot,,11,,,3008443
+100066,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690613,6426968,15,50,sen,,,gobcot,,19,,,3008443
+100067,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690613,6426968,15,50,sen,,,gobcot,,17,,,3008443
+100068,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690613,6426968,15,50,sen,,,gobcot,,14,,,3008443
+100069,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690366,6426811,15,50,sen,,,gobcot,,5,,,3008506
+100070,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690190,6426455,15,50,sen,,,gobcot,,8,,,3008506
+100071,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690190,6426455,15,50,sen,,,gobcot,,7,,,3008506
+100072,12,2010,Waikato R,434,Waikato River,,niwa,R13,2691753,6427765,15,50,twb,,,gobcot,,249,,,3008300
+100073,12,2010,Waikato R,434,Waikato River,,niwa,R13,2691753,6427765,15,49,twb,,,gobcot,,51,,,3008300
+100074,12,2010,Waikato R,434,Waikato River,,niwa,R13,2691777,6427528,15,49,twb,,,gobcot,,157,,,3008300
+100076,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690522,6427244,15,49,,,,gobcot,,301,,,3008443
+100077,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690522,6427244,15,50,,,,gobcot,,72,,,3008443
+100078,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690639,6426989,15,50,,,,gobcot,,92,,,3008443
+100079,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690639,6426989,15,50,,,,gobcot,,189,,,3008443
+100141,12,2010,Waikato R,434,Waikato River,,niwa,R13,2691764,6427759,15,49,,,,gobcot,,2,,,3008300
+100143,12,2010,Waikato R,434,Waikato River,,niwa,R13,2690533,6427231,15,50,twb,,,gobcot,,1,,,3008443
+105539,7,2004,Waikato River,434.001,Unnamed lake,1400,uow,S14,2714085,6377079,46,119,efb,3564,,gobcot,,29,,,3017713
+105544,3,2004,Waikato River,434.002,Lake Karapiro,1654,uow,T15,2733625,6360731,60,153,efb,1000,,gobcot,,1,,,3021104
+105574,8,2007,Waikato River,434.001,Lake Rotoroa,1042,uow,S14,2710383,6376231,37,122,efb,4106,,gobcot,,1,,,3018032
+105579,9,2003,Waikato River,434.161,Lake Waikare,1355,uow,S13,2707400,6415865,9,66,efb,4000,,gobcot,,8,,,3010099
+105581,1,2008,Waikato River,434.161,Lake Waikare,1317,uow,S13,2702502,6416917,9,66,efb,903,,gobcot,,1,,,3010099
+105582,1,2008,Waikato River,434.161,Lake Waikare,1350,uow,S13,2704084,6418358,9,66,efb,799,,gobcot,,1,,,3010099
+105583,1,2008,Waikato River,434.161,Lake Waikare,1410,uow,S13,2703883,6418458,9,66,efb,893,,gobcot,,1,,,3010099
+105585,1,2008,Waikato River,434.161,Lake Waikare,1524,uow,S13,2705982,6419388,9,66,efb,298,,gobcot,,20,,,3010099
+105650,2,2005,Waikato River,434.001,Waikato River tributary,1132,uow,S15,2728124,6364527,30,147,efb,420,,gobcot,,1,,,3020197
+105656,2,2005,Waikato River,434.001,Waikato River,1154,uow,S14,2705671,6386435,20,103,efb,434,,gobcot,,1,,,3015836
+105658,2,2005,Waikato River,434.001,Waikato River,1546,uow,S14,2705738,6385834,20,105,efb,823,,gobcot,,11,,,3016037
+105660,2,2005,Waikato River,434.001,Waikato River,1030,uow,S14,2704205,6387420,19,103,efb,606,,gobcot,,4,,,3015814
+105661,2,2005,Waikato River,434.001,Waikato River,1106,uow,S14,2704099,6387340,19,103,efb,1309,,gobcot,,36,,,3015814
+105662,2,2005,Waikato River,434.2,Mangawara Stream,1210,uow,S14,2703330,6396874,35,89,efb,520,,gobcot,,1,,,3014131
+105664,2,2005,Waikato River,434,Waikato River,1430,uow,S14,2701175,6398163,9,86,efb,888,,gobcot,,1,,,3013838
+105666,2,2005,Waikato River,434,Waikato River,1107,uow,S13,2700685,6405731,11,78,efb,1177,,gobcot,,2,,,3012541
+105670,2,2005,Waikato River,434.15,Whangape Stream,1505,uow,S13,2694146,6417319,17,61,efb,2091,,gobcot,,1,,,3010343
+105671,2,2005,Waikato River,434,Waikato River,1128,uow,S12,2693105,6430657,16,45,efb,1804,,gobcot,,7,,,3007368
+105672,2,2005,Waikato River,434,Waikato River,1235,uow,S13,2693097,6429791,16,45,efb,657,,gobcot,,3,,,3007368
+105674,2,2005,Waikato River,434,Waikato River,1115,uow,S13,2700828,6405089,13,78,efb,388,,gobcot,,8,,,3012434
+105676,4,2005,Waikato River,434,Waikato River,1228,uow,S14,2709847,6380859,20,111,efb,5320,,gobcot,,2,,,3017057
+105677,5,2005,Waikato River,434,Waikato River,1123,uow,S13,2701376,6407696,11,75,efb,2464,,gobcot,,8,,,3012253
+105685,9,2005,Waikato River,434,Waikato River,1045,uow,S13,2700894,6403791,13,78,efb,1136,,gobcot,,8,,,3012434
+105717,5,2008,Waikato River,434.001,Waikato River,1212,uow,S14,2711899,6376456,32,118,efb,,,gobcot,,4,,,3017724
+105724,4,2004,Waikato River,434.001,Waikato River,1144,uow,S14,2710785,6378137,30,116,efb,1000,,gobcot,,100,,,3017575
+105731,5,2004,Waikato River,434,Waikato River tributary,1238,uow,S13,2701592,6407636,26,76,efb,4676,,gobcot,,75,,,3012015
+105733,5,2004,Waikato River,434,Waikato River,1226,uow,S13,2700771,6405997,13,78,efb,5088,,gobcot,,12,,,3012434
+105735,5,2004,Waikato River,434,Waikato River,1407,uow,S13,2700859,6404340,13,78,efb,1064,,gobcot,,14,,,3012434
+105750,7,2004,Waikato River,434,Waikato River,1413,uow,S12,2693221,6430246,16,45,efb,2284,,gobcot,,1,,,3007368
+105751,7,2004,Waikato River,434,Waikato River,1455,uow,S12,2693411,6430076,16,45,efb,2496,,gobcot,,2,,,3007368
+105775,8,2007,Waikato River,434.13,Whangamarino River,1056,uow,S12,2694815,6431062,15,46,efb,993,,gobcot,,1,,,3007615
+105781,8,2007,Waikato River,434.131,Maramarua River,1421,uow,S12,2695511,6432209,16,47,efb,457,,gobcot,,1,,,3007477
+105784,8,2007,Waikato River,434.131,Maramarua River,1525,uow,S12,2695745,6433048,16,50,efb,368,,gobcot,,1,,,3007138
+105786,8,2007,Waikato River,434.13,Whangamarino River,1058,uow,S13,2697750,6427742,13,52,efb,265,,gobcot,,1,,,3008250
+105795,8,2007,Waikato River,434.13,Whangamarino River,1006,uow,S13,2703675,6426167,10,59,efb,698,,gobcot,,3,,,3008630
+105797,8,2007,Waikato River,434.13,Whangamarino River,1039,uow,S13,2703321,6426104,10,59,efb,490,,gobcot,,1,,,3008630
+105799,8,2007,Waikato River,434.13,Whangamarino River,1118,uow,S13,2703237,6426248,3,58,efb,494,,gobcot,,14,,,3008593
+105800,8,2007,Waikato River,434.136,Pungarehu Stream,1241,uow,S13,2703258,6426059,7,59,efb,1220,,gobcot,,1,,,3008641
+105803,8,2007,Waikato River,434.136,Pungarehu Stream,1326,uow,S13,2703388,6425810,7,59,efb,1200,,gobcot,,1,,,3008641
+105806,3,2008,Waikato River,434.13,Whangamarino River,1135,uow,S12,2694518,6431228,16,46,efb,304,,gobcot,,1,,,3007565
+105807,3,2008,Waikato River,434.13,Whangamarino River,1308,uow,S12,2693794,6431734,16,44,efb,164,,gobcot,,1,,,3007396
+105809,3,2008,Waikato River,434.13,Whangamarino River,1215,uow,S12,2694009,6431577,16,44,efb,288,,gobcot,,2,,,3007396
+105811,3,2008,Waikato River,434.13,Whangamarino River,1617,uow,S13,2703519,6426079,10,59,efb,472,,gobcot,,3,,,3008630
+105822,3,2008,Waikato River,434.131,Maramarua River,1205,uow,S12,2695475,6432405,16,47,efb,244,,gobcot,,1,,,3007477
+105823,3,2008,Waikato River,434.131,Maramarua River,1105,uow,S12,2695953,6433199,12,50,efb,656,,gobcot,,3,,,3007138
+105824,3,2008,Waikato River,434.131,Maramarua River,1125,uow,S12,2695737,6433041,16,50,efb,496,,gobcot,,5,,,3007138
+111275,1,2008,Waikato River,434.161,Lake Waikare,day,uow,,2705982,6419389,9,66,efb,4694,6,gobcot,,23,,,3010099
+111277,3,2008,Waikato River,434.13,Whangamarino River,day,uow,,2694009,6431578,16,44,efb,1456,5,gobcot,,4,,,3007396
+111278,3,2008,Waikato River,434.13,Whangamarino River,day,uow,,2703244,6426260,3,58,efb,1864,5,gobcot,,3,,,3008593
+111280,3,2008,Waikato River,434.131,Maramarua River,day,uow,,2695738,6433042,16,49,efb,1924,5,gobcot,,9,,,3007196
+111288,5,2008,Waikato River,434.001,Waikato River,day,uow,,2711900,6376456,32,118,efb,,1,gobcot,,4,,,3017724
+111295,9,2008,Waikato River,434.001,Lake Rotoroa,day,uow,,2710501,6376278,,,efb,2388,3,gobcot,,1,,,
+111296,9,2008,Waikato River,434.15,Lake Whangape,day,uow,,2691761,6412801,30,64,efb,3375,3,gobcot,,3,,,3010847
+111298,11,2008,Waikato River,434.22,Waipa River,day,uow,,2696817,6383002,21,109,efb,3081,4,gobcot,,5,,,3016675
+111305,2,2009,Waikato River,434.221,Lake Ngaroto,day,uow,,2711374,6358924,48,163,efb,9793,1,gobcot,,22,,,3021336
+111306,2,2009,Waikato River,434.22,Lake Mangahia,day,uow,,2706228,6366858,37,150,fyn,3673,1,gobcot,,3,,,3019705
+111313,5,2009,Waikato River,434,Lake D,day,uow,,2708283,6388946,,,efb,4070,1,gobcot,,290,,,
+111314,5,2009,Waikato River,434.12,Mangatawhiri River,day,uow,,2690088,6434810,15,40,efb,2408,1,gobcot,,5,,,3006699
+111315,5,2009,Waikato River,434,Waikato River,day,uow,,2689810,6434540,14,40,efb,548,1,gobcot,,2,,,3006805
+111316,5,2009,Waikato River,434,Waikato River,day,uow,,2690332,6434744,11,40,efb,648,1,gobcot,c,,,,3006805
+111317,5,2009,Waikato River,434.18,Lake Kimihia,day,uow,,2703549,6406427,19,78,efb,8863,1,gobcot,,3,,,3012506
+111318,5,2009,Waikato River,434,Lake Ohinewai,day,uow,,2702153,6409545,9,77,efb,4254,1,gobcot,,9,,,3011646
+111321,9,2009,Waikato River,434.001,Lake D,day,uow,,2707106,6388884,,,efb,4800,1,gobcot,,54,,,
+111322,9,2009,Waikato River,434.22,Lake Rotokauri,day,uow,,2703803,6380302,29,129,efb,7336,1,gobcot,,106,,,3017089
+111323,10,2009,Waikato River,434.18,Lake Hakanoa,day,uow,,2701832,6403540,13,80,efb,1106,1,gobcot,,32,,,3012951
+111324,11,2009,Waikato River,434.12,Maungatawhiri Stream,day,uow,,2703206,6438884,21,65,efb,,1,gobcot,,,,,3005763
+111327,11,2009,Waikato River,434.22,Waipa River,day,uow,,2701783,6356453,21,158,efb,,1,gobcot,,,,,3021881
+111328,11,2009,Waikato River,434.001,Waikato River,day,uow,,2711757,6375732,32,118,efb,632,3,gobcot,p,,,,3017724
+111336,2,2010,Waikato River,434.001,Waikato River,day,uow,,2709541,6379875,20,113,efb,1648,8,gobcot,,44,,,3017193
+111337,2,2010,Waikato River,434.001,Waikato River,day,uow,,2709834,6380775,20,111,efb,840,4,gobcot,,3,,,3017057
+111359,11,2010,Waikato River,434,Waikato River,day,uow,,2700789,6403622,11,78,efb,,1,gobcot,,4,,,3012541
