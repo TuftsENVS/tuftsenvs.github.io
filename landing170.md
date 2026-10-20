@@ -12,6 +12,7 @@ tags: teaching
 [Week 4](https://tuftsenvs.github.io/env170/Fall2026/Week04/Lecture04/Lecture04.html)
 [Week 5](https://tuftsenvs.github.io/env170/Fall2026/Week05/Lecture05/Lecture05.html)
 [Week 6](https://tuftsenvs.github.io/env170/Fall2026/Week06/Lecture06/Lecture06.html)
+[Week 7](https://tuftsenvs.github.io/env170/Fall2026/Week07/Lecture07/Lecture07.html)
 
 
 ## Labs
