@@ -68,5 +68,15 @@
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Pipes</span>"
     ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Cleaning, Tidying, and Wrangling Data",
+    "section": "",
+    "text": "Introduction\nDatasets are often assembled in ways that facilitate data collection, with limited consideration given to how they are analyzed. This is especially true when data is being re-used from published sources and the new use is outside of the scope of what the data authors intended. There is a saying, largely anecdotal but probably accurate, that data scientists spend 80% of their time cleaning and organizing data.\nThe combined processes of data cleaning, organizing, and transforming are often subsumed under the term data wrangling. The dictionary definitions of the term “wrangle” are:\n\nhave a long and complicated dispute\nround up, herd, or take charge of (livestock)\n\nBoth of these definitions are strangely appropriate. Working with data can often feel like a discussion, sometimes a heated one, in which you are trying to convince the data to yield to a particular form that allows easier integration into a data workflow. It can also sometimes feel as though you are tending to a herd of animals (cats come to mind), trying to create order from what otherwise seems like a chaotic dataset.\nWe have already done some of this in previous lectures. For example, we have seen how we can add transformed columns to a table using the $ and &lt;- operators; we have seen how we can subset cases using square brackets [] and the subset function, and we have used exploratory data analysis to identify suspect and outlier values. However, because wrangling makes up so much of what we do as data scientists, specialized tools have been developed to deal with them, and these available to us through the tidyverse family of packages. In this lab, you will learn to:\n\nsubset, reorder, and transform data using tools from the dplyr package\ncreate tidy datasets using the pivot functions from the tidyr package\nuse helper functions from packages like tidyselect and stringr\n\nIf you haven’t done so already, I recommend creating a file system, opening a new Quarto document. I’d suggest giving each of the pages in this lab its own heading (see the table of contents). We’ll be using the tree inventory data, which is posted on Canvas. And don’t forget to load the tidyverse package!\n\nlibrary(tidyverse)",
+    "crumbs": [
+      "Introduction"
+    ]
   }
 ]
