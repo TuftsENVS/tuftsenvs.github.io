@@ -1,0 +1,580 @@
+---
+title: "Environmental Data Analysis and Visualization"
+author: "Does Anybody Really Know What Time It Is?"
+format: revealjs
+editor: visual
+---
+
+## Warm-Up Exercise
+
+```{r}
+#| echo: false 
+#| message: false 
+#| warning: false
+library(tidyverse)
+nnodes <- 100
+nnedges <- 200
+
+nodes <- data.frame(id = 1:nnodes)
+edges <- data.frame(from = sample(1:nnodes, nnedges, replace = T),
+                    to = sample(1:nnodes, nnedges, replace = T))
+```
+
+Create a new R project and Quarto document for this lecture. Download the *walkability.csv* dataset. Using pipes (`%>%`), create a dataset with the following variables:
+
+- Core-Based Statistical Area (CBSA) name (excluding the state)
+
+- Population (only above 4 million)
+
+- National Walkability Index score (note: this may not be immediately obvious)
+
+If you still have time, show the distribution of walkability index scores for all CBSAs in this new dataset.
+
+## Warm-Up Exercise
+
+```{r}
+#| echo: TRUE 
+#| output: TRUE
+#| message: FALSE
+walkData<-read_csv("data/walkability.csv")
+walkData %>%   
+  separate(CBSA_Name,into=c("Cities","States"),sep=",",extra="drop") %>% 
+  select(Cities,CBSA_POP,NatWalkInd) %>% 
+  filter(CBSA_POP>4000000) 
+
+```
+
+## Warm-Up Exercise
+
+```{r}
+#| echo: TRUE 
+#| output: FALSE
+#| message: FALSE  
+walkData<-read_csv("data/walkability.csv")
+walkData %>%   
+  separate(CBSA_Name,into=c("Cities","States"),sep=",",extra="drop") %>% 
+  select(Cities,CBSA_POP,NatWalkInd) %>% 
+  filter(CBSA_POP>4000000)  %>%  
+  ggplot(aes(x=reorder(Cities,NatWalkInd,median),y=NatWalkInd)) +     
+  geom_boxplot() +
+  labs(x="CBSA",y="Walkability Index") +
+  coord_flip()
+```
+
+## Warm-up Exercise
+
+```{r}
+#| echo: FALSE
+#| output: TRUE 
+#| message: FALSE 
+walkData<-read_csv("data/walkability.csv")
+walkData %>%   
+  separate(CBSA_Name,into=c("Cities","States"),sep=",",extra="drop") %>% 
+  select(Cities,CBSA_POP,NatWalkInd) %>% 
+  filter(CBSA_POP>4000000)  %>%  
+  ggplot(aes(x=reorder(Cities,NatWalkInd,median),y=NatWalkInd)) +     
+  geom_boxplot() +
+  labs(x="CBSA",y="Walkability Index") +
+  coord_flip()
+```
+
+## Visualization critique
+
+![[Climate.gov](https://www.climate.gov/news-features/understanding-climate/climate-change-global-sea-level)](InClassStatic/annieCritique.png){fig-align="center"}
+
+## Visualization critique
+
+![[Statista](https://www.statista.com/chart/2203/the-worlds-deadliest-animals/)](InClassStatic/haoyueCritique.jpeg)
+
+## Visualization critique
+
+![[Harvard University Joint Center for Housing Studies](https://www.jchs.harvard.edu/state-nations-housing-2026)](InClassStatic/mayaCritique.png)
+
+## Dataset of the day
+
+Stock market data
+
+![[nasdaq.com](https://www.nasdaq.com/market-activity/stocks/xom)](InClassStatic/exxon.jpg){fig-align="center"}
+
+## Dataset of the day
+
+The `quantmod` package
+
+```{r}
+#| echo: TRUE
+#| warning: false
+#| message: false
+
+library(quantmod) #load quantmod package
+getSymbols("XOM") #get data for exxon mobil
+head(XOM) #look at first six lines
+```
+
+## Dates as data
+
+```{r}
+#| echo: true
+#convert to tibble, convert row names to date column
+exxon<-as_tibble(XOM,rownames="Date") %>%
+  mutate(Date=ymd(Date)) #convert to date values
+exxon
+
+```
+
+## Dataset of the day
+
+The `quantmod` package
+
+```{r}
+ggplot(exxon,aes(x=Date,y=XOM.High)) +
+  geom_line(col="darkblue") +
+  theme_bw() +
+  labs(y="Daily High (USD)")
+```
+
+## Time
+
+## Time:
+
+## Time: what is it?
+
+## Time: what is it?
+
+\
+Time as data is a strange beast.
+
+## Time: what is it?
+
+\
+Time as data is a strange beast.\
+
+Time by itself isn't something that varies in a meaningful way.
+
+## Time: what is it?
+
+\
+Time as data is a strange beast.\
+
+Time by itself isn't something that varies in a meaningful way.\
+
+Time has a defined *order*, but you can't always *count* time like a category, nor can you really treat it like a number with magnitude relationships.
+
+## Time: what is it?
+
+R can store time data as character values...
+
+- `"2025-10-21"`
+
+- `"10/21/2025"`
+
+- `"16:43:26"`
+
+## Time: what is it?
+
+...but it can also store some kinds of time data as numbers.
+
+- `2025`
+
+- `10`
+
+- `21`
+
+## Time: what is it?
+
+R can also store time as particular objects like **date** and **date-time** objects. For example:
+
+```{r}
+#| echo: true
+#give today's date as a date object
+today()
+#give the precise time as a date-time object
+now()
+```
+
+## Handling time data
+
+The `lubridate` package lets us convert between other values and time objects. This comes pre-loaded with `tidyverse`.
+
+![](InClassStatic/lubridate.png){fig-align="center"}
+
+## Handling time data
+
+```{r}
+#| echo: true
+#| output: true
+#storing the date as a character value
+todaysDate<-"2025-10-21"
+
+todaysDate
+typeof(todaysDate)
+```
+
+## Handling time data
+
+```{r}
+#| echo: true
+
+# converting the date to a date object
+ymd(todaysDate)
+typeof(ymd(todaysDate))
+```
+
+## Handling time data
+
+::: incremental
+- `ymd` = *year, month, day* e.g., 2025/10/21
+
+- `dmy` = *day, month, year* e.g., 21/10/2025
+
+- `mdy` = *month, day, year* e.g., 10/21/2025
+:::
+
+## Quick activity: Making a date
+
+Try converting the following to dates from characters to date objects using `ymd`, `dmy`, or `mdy`.
+
+- "29 February 2000"
+
+- "07/20/1969"
+
+- "1980-Dec-11"
+
+## Visualizing time data
+
+NASDAQ Composite data
+
+```{r}
+#| echo: true
+#| message: false
+nasdaq<-read_csv("data/nasdaq.csv")
+nasdaq
+```
+
+## Visualizing time data
+
+```{r}
+#| echo: true
+ggplot(nasdaq,aes(x=Date,y=Open)) +
+  geom_line(color="darkblue") +
+  labs(x="Date",y="Points at Closing",title="NASDAQ Composite, May-October 2024") +
+  theme_bw()
+```
+
+## Visualizing time data
+
+```{r}
+#| echo: true
+ggplot(nasdaq,aes(x=mdy(Date),y=Open)) +
+  geom_line(color="darkblue") +
+  labs(x="Date",y="Points at Closing",title="NASDAQ Composite, May-October 2024") +
+  theme_bw()
+```
+
+## Handling time data
+
+`lubridate` also has functions that allow you to extract parts of dates...
+
+```{r}
+#| echo: true
+#| output: true
+year(todaysDate)
+month(todaysDate)
+day(todaysDate)
+```
+
+## Handling time data
+
+...or ways of accessing different expressions of date information (like the day of the week or name of a month).
+
+```{r}
+#| echo: true
+#| output: true
+wday(todaysDate)
+wday(todaysDate,label=TRUE, abbr=FALSE)
+```
+
+## Quick activity: Making a day of it
+
+Pick any day within the last 500 years. It could be your birthday, your sibling or parents birthday, or even some non-birthday date. Store it as a character object.\
+
+Use the appropriate **`lubridate`** function to convert it to a date object (e.g. `ymd`, `mdy`, `dmy`).\
+
+Use the `wday` function to figure out on which day of the week your date fell. You can use the `label` and `abbr` arguments to turn it into a named day of the week.
+
+## Handling time data
+
+These functions can come in handy if you want to evaluate patterns that relate to temporal structure.
+
+```{r}
+#| echo: true
+#| output: false
+#Which month is the most volatile in terms of Exxon daily price range?
+exxon %>%
+  mutate(Price_Range=XOM.High-XOM.Low) %>% #get daily price range
+  mutate(Month=month(Date,label=TRUE)) %>% #get month name
+  select(Month,Price_Range) %>% #subset to month and range
+  ggplot(aes(Month,Price_Range)) +
+  geom_boxplot() 
+ 
+```
+
+## Handling time data
+
+These functions can come in handy if you want to evaluate patterns that relate to temporal structure.
+
+```{r}
+#| echo: false
+#| output: true
+#Which month is the most volatile in terms of Exxon daily price range?
+exxon %>%
+  mutate(Price_Range=XOM.High-XOM.Low) %>% #get daily price range
+  mutate(Month=month(Date,label=TRUE)) %>% #get month name
+  select(Month,Price_Range) %>% #subset to month and range
+  ggplot(aes(Month,Price_Range)) +
+  geom_boxplot() 
+ 
+```
+
+## The wider world of packages
+
+Packages are collections of functions, scripts, and data that can are designed for particular applications.
+
+Most of the packages we've been using so far are either providing us with datasets (e.g., `modeldata`, `quantmod`) or are part of the tidyverse universe (e.g., `dplyr`, `ggplot2, lubridate`)
+
+Next week, we'll be introducing some new packages specifically for dealing with spatial data (e.g., `sf`, `terra`)
+
+## The wider world of packages
+
+In addition, the [CRAN package repository](https://cran.r-project.org/) contains 22,510 contributed packages and counting that provide functions and datasets for a wide range of application areas.
+
+## Extending our capabilities
+
+Statistical comparisons of spatial patterning in tree species
+
+```{r}
+#| warning: false
+#| message: false
+library(tidyverse)
+library(sf)
+library(spatstat)
+
+plot(japanesepines,main="Japanese Pines")
+plot(Kest(japanesepines),main="Japanese Pines")
+plot(redwood,main="California Redwoods")
+plot(Kest(redwood),main="California Redwoods")
+```
+
+## Extending our capabilities
+
+Visualize actors in social networks!
+
+```{r}
+library(visNetwork)
+
+visNetwork(nodes, edges, height = "500px") %>%
+  visIgraphLayout(layout = "layout_in_circle") %>%
+  visNodes(size = 10) %>%
+  visOptions(highlightNearest = list(enabled = T, hover = T), 
+             nodesIdSelection = T)
+```
+
+## Extending our capabilities
+
+Use machine learning techniques to [identify probable Bigfoot habitats](https://rspatial.org/analysis/5-global_regression.html)!
+
+![rspatial.org](sasquatch.png){fig-align="center"}
+
+## Extending our capabilities
+
+Evaluate patterns in wood grain to identify use as chimpanzee pounding tools!
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+library(raster)
+library(imager)
+library(shotGroups)
+convRas<-function(x) { if (x=="#FFFFFF") {1} else{0}}
+fpath <-"woodgrain3.jpg"
+image<- load.image(fpath)
+image<-grayscale(image)
+plot(image)
+```
+
+## Extending our capabilities
+
+Evaluate patterns in wood grain to identify use as chimpanzee pounding tools!
+
+```{r}
+library(imager)
+#get image dimensions (in pixels)
+w<-width(image)
+h<-height(image)
+#canny edges (higher alpha = stricter acceptance threshold)
+edges<-cannyEdges(image,alpha=0.8) 
+plot(edges)
+```
+
+## Extending our capabilities
+
+Evaluate patterns in wood grain to identify use as chimpanzee pounding tools!
+
+![](angleAnalysis.png){fig-align="center"}
+
+## Extending our capabilities
+
+Make interactive dashboards and visualizations of commute times!
+
+![[Commute Explorer](https://nz-stefan.shinyapps.io/commute-explorer-2/)](dashboard.jpg){fig-align="center"}
+
+## Finding packages
+
+If you already know the name of the package you're interested in using, you can type it into the command line.
+
+```{r}
+#| eval: FALSE
+
+install.packages("spatstat")
+```
+
+## Finding packages
+
+You can also add packages from the **Tools** menu
+
+![](InClassStatic/geosphere.png)
+
+## Finding out about packages
+
+R has been applied to a range of topics related to the environment, and there are numerous free tutorials and textbooks that can guide you through specifics in these areas. Some examples include:
+
+- [A Primer of Ecology with R](https://hankstevens.github.io/Primer-of-Ecology/)
+
+- [Using R for Introductory Econometrics](https://www.urfie.net/downloads/PDF/URfIE_web.pdf)
+
+- [Introductory Biostatistics with R](https://tuos-bio-data-skills.github.io/intro-stats-book/)
+
+- [R for Earth System Science](https://pjbartlein.github.io/REarthSysSci/index.html)
+
+- [R for Social Science](https://r4np.com/)
+
+## Finding out about packages
+
+Many packages will come with reference manuals and "vignettes" that walk through the basics of how to use the package. For example:
+
+- [`chirps`](https://cran.r-project.org/web/packages/chirps/vignettes/Overview.html)
+
+- [`patchwork`](https://patchwork.data-imaginist.com/)
+
+- [plotluck](https://cran.r-project.org/web/packages/plotluck/vignettes/plotluck.html)
+
+## Quick Activity: Exploring packages
+
+Search for one of the following packages:
+
+- `adehabitatLT`
+
+- `tidycensus`
+
+- `carbonr`
+
+- `stplanr`
+
+See if you can find a reference manual, vignette, or a tutorial that demonstrates the use of this package.
+
+## Effectively communicating with visuals
+
+::: incremental
+- What's the headline?
+
+- Drawing the eye
+
+- Conveying the mood
+:::
+
+## What's the headline?
+
+![Krzywinski, Martin, and Alberto Cairo. 2013. "Storytelling." Nature Methods 10 (8): 687--687. <https://doi.org/10.1038/nmeth.2571.>](InClassStatic/graphMessage1.png){fig-align="center"}
+
+## What's the headline?
+
+![Krzywinski, Martin, and Alberto Cairo. 2013. "Storytelling." *Nature Methods* 10 (8): 687--687. <https://doi.org/10.1038/nmeth.2571>](InClassStatic/graphMessage2.png){fig-align="center"}
+
+## What's the headline?
+
+![Krzywinski, Martin, and Alberto Cairo. 2013. "Storytelling." *Nature Methods* 10 (8): 687--687. <https://doi.org/10.1038/nmeth.2571>](InClassStatic/graphMessage3.png){fig-align="center"}
+
+## What's the headline?
+
+![Krzywinski, Martin, and Alberto Cairo. 2013. "Storytelling." *Nature Methods* 10 (8): 687--687. <https://doi.org/10.1038/nmeth.2571>](InClassStatic/graphMessage4.png){fig-align="center"}
+
+## What's the headline?
+
+What is the headline for this graph?
+
+[![statista.com](InClassStatic/eScooter.jpeg){fig-align="center" width="80%"}](https://www.statista.com/chart/15786/public-perception-of-electric-scooters/)
+
+## Drawing the eye
+
+It's easy for the headline to get lost in a data graph. It's OK to help the audience find it.
+
+:::::: columns
+::: {.column width="50%"}
+![](InClassStatic/rentals1.png){fig-align="center"}
+:::
+
+:::: {.column width="50%"}
+![](InClassStatic/rentals2.png){fig-align="center"}
+
+::: {style="font-size: 50%;"}
+<https://www.rashdesign.com/blog/2021/9/24/stevewexler>
+:::
+::::
+::::::
+
+## Drawing the eye
+
+![shahriyarshahrabi.medium.com](InClassStatic/everythingIsDifferent.jpg){fig-align="center"}
+
+## Drawing the eye
+
+![shahriyarshahrabi.medium.com](InClassStatic/contrast.jpg){fig-align="center"}
+
+## Drawing the eye to the headline
+
+![Knaflic, Cole Nussbaumer. 2019. *Storytelling with Data*. New York: Wiley.](InClassStatic/eyeCatch2.jpg){fig-align="center"}
+
+## Drawing the eye to the headline
+
+![Knaflic, Cole Nussbaumer. 2019. *Storytelling with Data*. New York: Wiley.](InClassStatic/eyeCatch1.jpg){fig-align="center"}
+
+## Conveying the mood
+
+[![Lisa Collier/Leeds College of Art](InClassStatic/veryCalm.png){fig-align="center"}](https://l-collier1114-dc-y1.blogspot.com/2012/01/lecture-8-history-of-type.html)
+
+## Conveying the mood
+
+![[Fetterman, Adam K., Michael D. Robinson, and Brian P. Meier. "Anger as “seeing red”: Evidence for a perceptual association." *Cognition & emotion* 26, no. 8 (2012): 1445-1458.](https://doi.org/10.1080/02699931.2012.673477)](InClassStatic/colorRecognition.png){fig-align="center"}
+
+## Conveying the mood with color
+
+![[The Art of Pixar](https://www.chroniclebooks.com/collections/artof?srsltid=AfmBOoqx1S2Hn4hhc_bahRLgeL7GXCc4cTSPGy7QZYh-nw73E6oreh25)](InClassStatic/coco.jpg){fig-align="center"}
+
+## When using color and images in graphs
+
+- How might you arrange your graphs/tests in a narrative sequence?
+
+  - If you had to tell your story in three-ish headlines, what would they be?
+
+- Is the interpretation of the graphs obvious? Or are there things you might do to make the important parts stand out?
+
+- Given your data and mappings, are there opportunities to use color to communicate mood in your graphs without sacrificing readability?
+
+## Thursday night!
+
+- Working with time data and `lubridate`
+
+- Visualizing with discrete and continuous color scales in `ggplot`
+
+- Labels, labels, labels!
+
